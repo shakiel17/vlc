@@ -87,7 +87,15 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      
+                      <?php
+                      if($this->session->error){
+                      ?>
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?=$this->session->error;?>
+                      </div>
+                      <?php
+                      }
+                      ?>
                     </div>
                   <!-- </form> -->
                   <?=form_close();?>
