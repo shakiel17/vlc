@@ -7,12 +7,8 @@
             $page = "index";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
                 show_404();
-            }
-            if($this->session->user_login){                
-            }else{
-              redirect(base_url());
-            }                                   
-            $this->load->view('pages/'.$page, $data);            
+            }                                             
+            $this->load->view('pages/'.$page);            
         }
     }
 ?>
