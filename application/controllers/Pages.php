@@ -22,7 +22,8 @@
                     'username' => $username,
                     'fullname' => $authenticate['fullname'],
                     'user_login' => true,
-                    'is_admin' => $authenticate['is_admin']
+                    'is_admin' => $authenticate['is_admin'],
+                    'branch' => $authenticate['branch']
                 );
                 $this->session->set_userdata($user_data);
                 redirect(base_url()."main");
