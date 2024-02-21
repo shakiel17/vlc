@@ -50,12 +50,62 @@
                 $this->session->set_flashdata('error','You are not logged in!');
                 redirect(base_url());
             }
+            $data['title'] = "Dashboard";
             $this->load->view('templates/header');
             $this->load->view('templates/navbar');
             $this->load->view('templates/sidebar');
-            $this->load->view('pages/'.$page);
+            $this->load->view('pages/'.$page,$data);
             $this->load->view('templates/modal');
             $this->load->view('templates/footer');
+        }
+
+        public function manage_branch(){
+            $page = "manage_branch";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Branch Manager";
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_branch(){
+            $save=$this->Payroll_model->save_branch();
+            if($save){
+                $message="Branch successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Branch successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save branch!');
+            }
+            redirect(base_url().'manage_branch');
+        }
+        public function delete_branch($id,$description){
+            $save=$this->Payroll_model->delete_branch($id);
+            if($save){
+                $message="Branch ($description) successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Branch successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete branch!');
+            }
+            redirect(base_url().'manage_branch');
         }
     }
 ?>
