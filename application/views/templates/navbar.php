@@ -4,17 +4,17 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+      <a href="<?=base_url();?>" class="logo d-flex align-items-center">
+        <img src="<?=base_url();?>design/assets/img/vlc.jpg" alt="">
+        <span class="d-none d-lg-block">VLC PAYROLL</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        <!-- <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button> -->
       </form>
     </div><!-- End Search Bar -->
 
@@ -22,19 +22,19 @@
       <ul class="d-flex align-items-center">
 
         <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <!-- <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
-          </a>
+          </a> -->
         </li><!-- End Search Icon-->
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <!-- <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+          </a> -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
               <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -98,16 +98,16 @@
               <a href="#">Show all notifications</a>
             </li>
 
-          </ul><!-- End Notification Dropdown Items -->
+          </ul> -->
 
         </li><!-- End Notification Nav -->
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <!-- <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
             <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
+          </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
@@ -164,21 +164,27 @@
               <a href="#">Show all messages</a>
             </li>
 
-          </ul><!-- End Messages Dropdown Items -->
+          </ul> -->
 
         </li><!-- End Messages Nav -->
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <img src="<?=base_url();?>design/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$this->session->fullname;?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?=$this->session->fullname;?></h6>
+              <span>
+                <?php
+                  if($this->session->is_admin==1){
+                    echo "Administrator";
+                  }
+                ?>
+              </span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -215,7 +221,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>

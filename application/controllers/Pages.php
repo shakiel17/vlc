@@ -7,7 +7,10 @@
             $page = "index";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
                 show_404();
-            }                                             
+            }
+            if($this->session->user_login){
+                redirect(base_url()."main");
+            }
             $this->load->view('pages/'.$page);            
         }
         public function authenticate(){
@@ -27,6 +30,13 @@
                 $this->session->set_flashdata('error','Invalid username or password!');
                 redirect(base_url());
             }
+        }
+        public function logout(){
+            $this->session->unset_userdata('username');
+            $this->session->unset_userdata('fullname');
+            $this->session->unset_userdata('user_login');
+            $this->session->unset_userdata('is_admin');
+            redirect(base_url());
         }
         public function main(){
             $page = "main";

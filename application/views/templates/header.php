@@ -5,13 +5,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>Dashboard - VLC Payroll</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="<?=base_url();?>design/assets/img/favicon.png" rel="icon">
-  <link href="<?=base_url();?>design/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- <link href="<?=base_url();?>design/assets/img/favicon.png" rel="icon">
+  <link href="<?=base_url();?>design/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
   <!-- Vendor CSS Files -->
   <link href="<?=base_url();?>design/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,7 @@
 
   <!-- Template Main CSS File -->
   <link href="<?=base_url();?>design/assets/css/style.css" rel="stylesheet">
+  <link rel="icon" href="<?=base_url();?>design/assets/img/vlc.jpg" type="img/png">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
