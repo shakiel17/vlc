@@ -12,6 +12,10 @@
                 return false;
             }
         }
+        public function userlogs($message,$username,$datearray,$timearray){
+            $result=$this->db->query("INSERT INTO user_logs(`transaction`,loginuser,datearray,timearray) VALUES ('$message','$username','$datearray','$timearray')");
+            return true;
+        }
         public function getAllBranch(){
             $result=$this->db->query("SELECT * FROM branch ORDER BY id ASC");
             return $result->result_array();
@@ -41,10 +45,38 @@
             }else{
                 return false;
             }
+        }       
+
+        public function getAllDesignation(){
+            $result=$this->db->query("SELECT * FROM designation ORDER BY designation ASC");
+            return $result->result_array();
         }
-        public function userlogs($message,$username,$datearray,$timearray){
-            $result=$this->db->query("INSERT INTO user_logs(`transaction`,loginuser,datearray,timearray) VALUES ('$message','$username','$datearray','$timearray')");
-            return true;
+        public function save_designation(){
+            $id=$this->input->post("id");
+            $branch=$this->input->post("designation");
+            $check_exist=$this->db->query("SELECT * FROM designation WHERE `designation`='$branch' AND id <> '$id'");
+            if($check_exist->num_rows() > 0){
+            }else{
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO designation(`designation`) VALUES('$branch')");
+                }else{
+                    $result=$this->db->query("UPDATE designation SET `designation`='$branch' WHERE id='$id'");
+                }
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
         }
+        public function delete_designation($id){
+            $result=$this->db->query("DELETE FROM designation WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+      
     }
 ?>

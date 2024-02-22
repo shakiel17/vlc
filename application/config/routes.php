@@ -50,6 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //========================Branch Module=======================================
+$route['delete_designation/(:any)/(:any)'] = 'pages/delete_designation/$1/$2';
+$route['save_designation'] = 'pages/save_designation';
+$route['manage_designation'] = 'pages/manage_designation';
+//============================================================================
+//========================Branch Module=======================================
 $route['delete_branch/(:any)/(:any)'] = 'pages/delete_branch/$1/$2';
 $route['save_branch'] = 'pages/save_branch';
 $route['manage_branch'] = 'pages/manage_branch';

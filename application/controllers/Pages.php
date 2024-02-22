@@ -107,5 +107,54 @@
             }
             redirect(base_url().'manage_branch');
         }
+
+        public function manage_designation(){
+            $page = "manage_designation";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Designation Manager";
+            $data['branches'] = $this->Payroll_model->getAllDesignation();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_designation(){
+            $save=$this->Payroll_model->save_designation();
+            if($save){
+                $message="Designation successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Designation successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save designation!');
+            }
+            redirect(base_url().'manage_designation');
+        }
+        public function delete_designation($id,$description){
+            $save=$this->Payroll_model->delete_designation($id);
+            if($save){
+                $message="Designation ($description) successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Designation successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete designation!');
+            }
+            redirect(base_url().'manage_designation');
+        }
     }
 ?>

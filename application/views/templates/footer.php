@@ -39,6 +39,16 @@
       document.getElementById('branch_id').value = id[0];
       document.getElementById('branch_name').value = id[1];
     });
+    $('.addDesignation').click(function(){      
+      document.getElementById('designation_id').value = "";
+      document.getElementById('designation_name').value = "";
+    });
+    $('.editDesignation').click(function(){
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('designation_id').value = id[0];
+      document.getElementById('designation_name').value = id[1];
+    });
   </script>
 </body>
 
