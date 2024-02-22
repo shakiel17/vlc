@@ -156,5 +156,60 @@
             }
             redirect(base_url().'manage_designation');
         }
+
+        public function manage_agent(){
+            $page = "manage_agent";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Agent Manager";
+            $data['agents'] = $this->Payroll_model->getAllAgent();
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_agent(){
+            $save=$this->Payroll_model->save_agent();
+            if($save){
+                $message="Agent successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Agent successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save agent!');
+            }
+            redirect(base_url().'manage_agent');
+        }
+        public function delete_agent($id,$description){
+            $save=$this->Payroll_model->delete_agent($id);
+            if($save){
+                $message="Agent ($description) successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Agent successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete agent!');
+            }
+            redirect(base_url().'manage_agent');
+        }
+        public function fetch_single_agent(){
+            $id=$this->input->post('id');
+            $data=$this->Payroll_model->fetch_single_agent($id);
+            echo json_encode($data);
+        }
     }
 ?>

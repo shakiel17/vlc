@@ -32,7 +32,7 @@
     <section class="section dashboard">
       <div class="row">
         <!-- Left side columns -->
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-12 col-sm-12">
           <div class="row">
           <div class="card">          
             <div class="card-body">
@@ -43,41 +43,51 @@
                       <h6>Action</h6>
                     </li>
 
-                    <li><a class="dropdown-item addDesignation" href="#" data-bs-toggle="modal" data-bs-target="#managedesignation">Add Designation</a></li>                    
+                    <li><a class="dropdown-item addAgent" href="#" data-bs-toggle="modal" data-bs-target="#manageagent">Add Agent</a></li>                    
                   </ul>
                 </div>
-              <h5 class="card-title">List of Designation</h5>
+              <h5 class="card-title">List of Agent</h5>
 
               <!-- Default Table -->
-              <table class="table">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Branch</th>                    
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                    if(count($branches)>0){
+                  <?php               
                         $x=1;
-                        foreach($branches as $branch){
+                        foreach($agents as $branch){
+                            $date=date('M d, Y',strtotime($branch['datearray']))." ".date('h:i a',strtotime($branch['timearray']));
+                            $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
+                            $br=$query->row_array();
                             echo "<tr>";
                                 echo "<td>$x.</td>";
-                                echo "<td>$branch[designation]</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editDesignation' data-bs-toggle='modal' data-bs-target='#managedesignation' data-id='$branch[id]_$branch[designation]'>Edit</a>";
+                                echo "<td>$branch[lastname]</td>";
+                                echo "<td>$branch[firstname]</td>";
+                                echo "<td>$branch[username]</td>";
+                                echo "<td>$branch[password]</td>";
+                                echo "<td>$br[description]</td>";
+                                echo "<td>$date</td>";
+                                echo "<td>$branch[status]</td>";
+                                echo "<td><a href='#' class='btn btn-sm btn-warning editAgent' data-bs-toggle='modal' data-bs-target='#manageagent' data-id='$branch[id]'>Edit</a>";
                                 ?>
-                                <a href="<?=base_url();?>delete_designation/<?=$branch['id'];?>/<?=$branch['designation'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
+                                <a href="<?=base_url();?>delete_agent/<?=$branch['id'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";
                             $x++;
                         }
-                    }else{
-                        echo "<tr>";
-                            echo "<td colspan='3' align='center'>No record found!</td>";
-                        echo "</tr>";
-                    }
+                    
                   ?>
                 </tbody>
               </table>

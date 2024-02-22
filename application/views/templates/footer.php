@@ -49,6 +49,47 @@
       document.getElementById('designation_id').value = id[0];
       document.getElementById('designation_name').value = id[1];
     });
+    $('.addAgent').click(function(){            
+      document.getElementById('agent_id').value = "";
+      document.getElementById('agent_lastname').value = "";
+      document.getElementById('agent_firstname').value = "";
+      document.getElementById('agent_username').value = "";
+      document.getElementById('agent_password').value = "";
+    });
+    $('.editAgent').click(function(){            
+      var id=$(this).data('id');
+      $.ajax({
+        url:'<?=base_url();?>index.php/pages/fetch_single_agent',
+        method:"POST",
+        data:{id:id},
+        dataType:'json',
+        success:function(response){
+          if(response.length>0){
+            document.getElementById("agent_id").value=id;
+            document.getElementById("agent_lastname").value=response[0]['lastname'];
+            document.getElementById("agent_firstname").value=response[0]['firstname'];
+            var selectBrand = document.getElementById("agent_branch");
+            var optn = response[0]['description'];
+            var optn1 = response[0]['branch'];
+            var el = document.createElement("option");
+                el.selected = "selected";
+                el.textContent = optn;
+                el.value = optn1;                
+                selectBrand.appendChild(el);
+                
+            var selectClass = document.getElementById("agent_status");
+            var optn = response[0]['status'];
+            var el = document.createElement("option");
+                el.selected = "selected";
+                el.textContent = optn;
+                el.value = optn;                
+                selectClass.appendChild(el);            
+            document.getElementById("agent_username").value=response[0]['username'];
+            document.getElementById("agent_password").value=response[0]['password'];            
+          }
+        }
+      });
+    });
   </script>
 </body>
 

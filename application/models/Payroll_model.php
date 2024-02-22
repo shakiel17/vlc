@@ -39,7 +39,27 @@
             }
         }
         public function delete_branch($id){
-            $result=$this->db->query("DELETE FROM branch WHERE id='$id'");
+            $check=$this->db->query("SELECT * FROM commissioner WHERE branch='$id'");
+            if($check->num_rows() > 0){
+
+            }else{
+                $check=$this->db->query("SELECT * FROM employeedetails WHERE branch='$id'");
+                if($check->num_rows() > 0){
+
+                }else{
+                    $check=$this->db->query("SELECT * FROM customer WHERE branch='$id'");
+                    if($check->num_rows() > 0){
+
+                    }else{
+                        $check=$this->db->query("SELECT * FROM expenses WHERE branch='$id'");
+                        if($check->num_rows() > 0){
+
+                        }else{
+                            $result=$this->db->query("DELETE FROM branch WHERE id='$id'");
+                        }
+                    }
+                }
+            }            
             if($result){
                 return true;
             }else{
@@ -70,13 +90,58 @@
             }
         }
         public function delete_designation($id){
-            $result=$this->db->query("DELETE FROM designation WHERE id='$id'");
+            $check=$this->db->query("SELECT * FROM employeedetails WHERE designation='$id'");
+            if($check->num_rows() > 0){
+
+            }else{
+                $result=$this->db->query("DELETE FROM designation WHERE id='$id'");
+            }
             if($result){
                 return true;
             }else{
                 return false;
             }
         }
-      
+        public function getAllAgent(){
+            $result=$this->db->query("SELECT * FROM commissioner ORDER BY lastname ASC");
+            return $result->result_array();
+        }
+        public function save_agent(){
+            $id=$this->input->post("id");
+            $lastname=$this->input->post("lastname");
+            $firstname=$this->input->post("firstname");
+            $branch=$this->input->post("branch");
+            $username=$this->input->post("username");
+            $password=$this->input->post("password");
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+            $status=$this->input->post('status');
+            $check_exist=$this->db->query("SELECT * FROM commissioner WHERE lastname='$lastname' AND firstname='$firstname' AND id <> '$id'");
+            if($check_exist->num_rows() > 0){
+            }else{
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO commissioner(lastname,firstname,branch,username,`password`,datearray,timearray,`status`) VALUES('$lastname','$firstname','$branch','$username','$password','$datearray','$timearray','$status')");
+                }else{
+                    $result=$this->db->query("UPDATE commissioner SET lastname='$lastname',firstname='$firstname',branch='$branch',username='$username',`password`='$password' WHERE id='$id'");
+                }
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_agent($id){
+            $result=$this->db->query("DELETE FROM commissioner WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function fetch_single_agent($id){
+            $result=$this->db->query("SELECT c.*,b.description FROM commissioner c INNER JOIN branch b ON b.id=c.branch WHERE c.id='$id'");
+            return $result->result_array();
+        }
     }
 ?>
