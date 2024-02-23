@@ -143,5 +143,53 @@
             $result=$this->db->query("SELECT c.*,b.description FROM commissioner c INNER JOIN branch b ON b.id=c.branch WHERE c.id='$id'");
             return $result->result_array();
         }
+        public function getAllEmployee(){
+            $result=$this->db->query("SELECT * FROM employee ORDER BY lastname ASC");
+            return $result->result_array();
+        }
+        public function save_employee(){
+            $id=$this->input->post("id");
+            $empid=$this->input->post("empid");
+            $empidold=$this->input->post("empidold");
+            $lastname=$this->input->post("lastname");
+            $firstname=$this->input->post("firstname");
+            $middlename=$this->input->post("middlename");
+            $suffix=$this->input->post("suffix");
+            $birthdate=$this->input->post("birthdate");
+            $gender=$this->input->post("gender");
+            $designation=$this->input->post("designation");
+            $salary=$this->input->post("salary");
+            $branch=$this->input->post("branch");
+            $is_daily=$this->input->post("is_daily");            
+            $check_exist=$this->db->query("SELECT * FROM employee WHERE lastname='$lastname' AND firstname='$firstname' AND empid <> '$empid'");
+            if($check_exist->num_rows() > 0){
+            }else{
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO employee(empid,lastname,firstname,middlename,suffix,birthdate,gender) VALUES('$empid','$lastname','$firstname','$middlename','$suffix','$birthdate','$gender')");
+                    $result=$this->db->query("INSERT INTO employeedetails(empid,designation,salary,is_daily,branch) VALUES('$empid','$designation','$salary','$is_daily','$branch')");
+                }else{
+                    $result=$this->db->query("UPDATE employee SET empid='$empid',lastname='$lastname',firstname='$firstname',middlename='$middlename',suffix='$suffix',birthdate='$birthdate',gender='$gender' WHERE id='$id'");
+                    $result=$this->db->query("UPDATE employee SET empid='$empid',designation='$designation',salary='$salary',is_daily='$is_daily',branch='$branch' WHERE empid='$empidold'");
+                }
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_employee($id){
+            $result=$this->db->query("DELETE FROM employee WHERE empid='$id'");
+            $result=$this->db->query("DELETE FROM employeedetails WHERE empid='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function fetch_single_employee($id){
+            $result=$this->db->query("SELECT e.*,ed.*,d.*,b.description FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.id='$id'");
+            return $result->result_array();
+        }
     }
 ?>
