@@ -28,6 +28,11 @@
             <a href="<?=base_url();?>manage_expenses">
               <i class="bi bi-circle"></i><span>Expenses</span>
             </a>
+          </li>
+          <li>
+            <a href="<?=base_url();?>manage_advances">
+              <i class="bi bi-circle"></i><span>Advances</span>
+            </a>
           </li>          
         </ul>
       </li><!-- End Components Nav -->

@@ -67,10 +67,14 @@
                 <tbody>
                   <?php               
                         $x=1;
-                        foreach($employee as $branch){
-                            $date=date('M d, Y',strtotime($branch['datearray']))." ".date('h:i a',strtotime($branch['timearray']));
+                        foreach($employee as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
                             $br=$query->row_array();
+                            if($branch['is_daily']==1){
+                              $daily="Daily Rate: $branch[salary]";
+                            }else{
+                              $daily="Per Head";
+                            }
                             echo "<tr>";
                                 echo "<td>$x.</td>";
                                 echo "<td>$branch[empid]</td>";
@@ -80,10 +84,10 @@
                                 echo "<td>$branch[suffix]</td>";
                                 echo "<td>$branch[birthdate]</td>";
                                 echo "<td>$branch[gender]</td>";
-                                echo "<td>$branch[designation]<br>$branch[salary]<br>$branch[is_daily]<br>$branch[description]</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editAgent' data-bs-toggle='modal' data-bs-target='#manageagent' data-id='$branch[id]'>Edit</a>";
+                                echo "<td>$branch[designation]<br>$daily<br>$branch[description]</td>";
+                                echo "<td><a href='#' class='btn btn-sm btn-warning editEmployee' data-bs-toggle='modal' data-bs-target='#manageemployee' data-id='$branch[empid]'>Edit</a>";
                                 ?>
-                                <a href="<?=base_url();?>delete_agent/<?=$branch['id'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
+                                <a href="<?=base_url();?>delete_employee/<?=$branch['empid'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";

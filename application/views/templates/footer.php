@@ -87,9 +87,66 @@
             document.getElementById("agent_username").value=response[0]['username'];
             document.getElementById("agent_password").value=response[0]['password'];            
           }
-        }
+        }        
       });
     });
+    $('.addEmployee').click(function(){            
+        document.getElementById('emp_id').value = "";
+        document.getElementById('emp_idnum').value = "";
+        document.getElementById('emp_lastname').value = "";
+        document.getElementById('emp_firstname').value = "";
+        document.getElementById('emp_middlename').value = "";
+        document.getElementById('emp_suffix').value = "";
+        document.getElementById('emp_birthdate').value = "";          
+        document.getElementById('emp_salary').value = "";
+        document.getElementById('emp_daily_yes').checked = true;                   
+        document.getElementById('emp_daily_no').checked = false;                   
+      });
+
+      $('.editEmployee').click(function(){            
+      var id=$(this).data('id');
+      $.ajax({
+        url:'<?=base_url();?>index.php/pages/fetch_single_employee',
+        method:"POST",
+        data:{id:id},
+        dataType:'json',
+        success:function(response){
+          if(response.length>0){            
+            document.getElementById("emp_idnum").value=id;
+            document.getElementById("emp_idnumold").value=id;
+            document.getElementById("emp_id").value=response[0]['id'];
+            document.getElementById("emp_lastname").value=response[0]['lastname'];
+            document.getElementById("emp_firstname").value=response[0]['firstname'];
+            document.getElementById("emp_middlename").value=response[0]['middlename'];
+            document.getElementById("emp_suffix").value=response[0]['suffix'];
+            document.getElementById("emp_birthdate").value=response[0]['birthdate'];
+            document.getElementById("emp_gender").value=response[0]['gender'];
+            var selectBrand = document.getElementById("emp_branch");
+            var optn = response[0]['description'];
+            var optn1 = response[0]['branch_id'];
+            var el = document.createElement("option");
+                el.selected = "selected";
+                el.textContent = optn;
+                el.value = optn1;                
+                selectBrand.appendChild(el);
+                
+            var selectClass = document.getElementById("emp_designation");
+            var optn = response[0]['designation'];
+            var optn1 = response[0]['designation_id'];
+            var el = document.createElement("option");
+                el.selected = "selected";
+                el.textContent = optn;
+                el.value = optn1;                
+                selectClass.appendChild(el);            
+            document.getElementById("emp_salary").value=response[0]['salary'];
+            if(response['is_daily']=="1")
+              document.getElementById("emp_daily_yes").checked=true;            
+            }else{
+              document.getElementById("emp_daily_no").checked=true;            
+            }            
+          }
+        });        
+      });
   </script>
 </body>
 

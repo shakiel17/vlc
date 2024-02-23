@@ -144,7 +144,7 @@
             return $result->result_array();
         }
         public function getAllEmployee(){
-            $result=$this->db->query("SELECT * FROM employee ORDER BY lastname ASC");
+            $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch ORDER BY e.lastname ASC");
             return $result->result_array();
         }
         public function save_employee(){
@@ -169,7 +169,7 @@
                     $result=$this->db->query("INSERT INTO employeedetails(empid,designation,salary,is_daily,branch) VALUES('$empid','$designation','$salary','$is_daily','$branch')");
                 }else{
                     $result=$this->db->query("UPDATE employee SET empid='$empid',lastname='$lastname',firstname='$firstname',middlename='$middlename',suffix='$suffix',birthdate='$birthdate',gender='$gender' WHERE id='$id'");
-                    $result=$this->db->query("UPDATE employee SET empid='$empid',designation='$designation',salary='$salary',is_daily='$is_daily',branch='$branch' WHERE empid='$empidold'");
+                    $result=$this->db->query("UPDATE employeedetails SET empid='$empid',designation='$designation',salary='$salary',is_daily='$is_daily',branch='$branch' WHERE empid='$empidold'");
                 }
             }            
             if($result){
@@ -188,7 +188,7 @@
             }
         }
         public function fetch_single_employee($id){
-            $result=$this->db->query("SELECT e.*,ed.*,d.*,b.description FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.id='$id'");
+            $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.empid='$id'");
             return $result->result_array();
         }
     }

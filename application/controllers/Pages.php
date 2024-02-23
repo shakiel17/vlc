@@ -226,6 +226,7 @@
             $data['title'] = "Employee Manager";
             $data['employee'] = $this->Payroll_model->getAllEmployee();
             $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['designation'] = $this->Payroll_model->getAllDesignation();
             $this->load->view('templates/header');
             $this->load->view('templates/navbar');
             $this->load->view('templates/sidebar');
