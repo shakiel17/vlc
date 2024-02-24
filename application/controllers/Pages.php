@@ -267,5 +267,62 @@
             $data=$this->Payroll_model->fetch_single_employee($id);
             echo json_encode($data);
         }
+
+        public function manage_trainee(){
+            $page = "manage_trainee";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Trainee Manager";
+            $datenow=date('Y-m-d');
+            $data['trainee'] = $this->Payroll_model->getAllTraineeByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();            
+            $data['agent'] = $this->Payroll_model->getAllAgent();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_trainee(){
+            $save=$this->Payroll_model->save_trainee();
+            if($save){
+                $message="Trainee successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Trainee successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save trainee!');
+            }
+            redirect(base_url().'manage_trainee');
+        }
+        public function delete_trainee($id,$description){
+            $save=$this->Payroll_model->delete_trainee($id);
+            if($save){
+                $message="Trainee ($description) successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Trainee successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete trainee!');
+            }
+            redirect(base_url().'manage_trainee');
+        }
+        public function fetch_single_trainee(){
+            $id=$this->input->post('id');
+            $data=$this->Payroll_model->fetch_single_trainee($id);
+            echo json_encode($data);
+        }
     }
 ?>

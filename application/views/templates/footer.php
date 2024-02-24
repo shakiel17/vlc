@@ -147,6 +147,61 @@
           }
         });        
       });
+      $('.addTrainee').click(function(){            
+        document.getElementById("trainee_id").value="";            
+        document.getElementById("trainee_controlno").value="";
+        document.getElementById("trainee_lastname").value="";
+        document.getElementById("trainee_firstname").value="";
+        document.getElementById("trainee_type").value="";
+        document.getElementById("trainee_code").value="";
+        document.getElementById("trainee_amount").value="";            
+        document.getElementById('trainee_branch').value="";          
+        document.getElementById("trainee_remarks").value="";      
+      });
+      $('.editTrainee').click(function(){            
+      var id=$(this).data('id');
+      $.ajax({
+        url:'<?=base_url();?>index.php/pages/fetch_single_trainee',
+        method:"POST",
+        data:{id:id},
+        dataType:'json',
+        success:function(response){
+          if(response.length>0){            
+            document.getElementById("trainee_id").value=id;            
+            document.getElementById("trainee_controlno").value=response[0]['controlno'];
+            document.getElementById("trainee_lastname").value=response[0]['lastname'];
+            document.getElementById("trainee_firstname").value=response[0]['firstname'];
+            document.getElementById("trainee_type").value=response[0]['type'];
+            document.getElementById("trainee_code").value=response[0]['code'];
+            document.getElementById("trainee_amount").value=response[0]['amount'];            
+            document.getElementById('trainee_branch').value=response[0]['branch'];
+            // var selectBrand = document.getElementById("emp_branch");
+            // var optn = response[0]['description'];
+            // var optn1 = response[0]['branch_id'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn1;                
+            //     selectBrand.appendChild(el);
+             document.getElementById('trainee_commissioner').value=response[0]['comm_id'];            
+            var optn = response[0]['t_status'];
+            if(optn=="NOT PAID"){
+              var optn1="pending";
+            }else{
+              var optn1=optn;
+            }
+            document.getElementById("trainee_status").value=optn1;
+            document.getElementById("trainee_status").text =optn;
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn1;                
+            //     selectClass.appendChild(el);            
+            document.getElementById("trainee_remarks").value=response[0]['remarks'];
+          }
+        }
+        });        
+      });
   </script>
 </body>
 

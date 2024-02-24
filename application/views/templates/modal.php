@@ -199,3 +199,81 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="managetrainee" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Trainee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_trainee");?>
+            <input type="hidden" name="id" id="trainee_id">
+            <input type="hidden" name="controlno" id="trainee_controlno">
+            <div class="modal-body">            
+                <div class="form-group mb-1"> 
+                    <label class="col-sm-2 control-label">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" required id="trainee_lastname">
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">First Name</label>
+                    <input type="text" class="form-control" name="firstname" required id="trainee_firstname">
+                </div>
+                <div class="form-group mb-1">
+                    <label class="col-sm-3 control-label">Type</label>
+                    <select name="type" class="form-select" id="trainee_type">
+                        <option value="PDC">Practical Driving Course</option>
+                        <option value="TDC">Theoretical Driving Course`</option>
+                        <option value="Add Code">Add Code</option>
+                    </select>
+                </div>
+                <div class="form-group mb-1">
+                    <label class="col-sm-2 control-label">Code</label>
+                    <input type="text" class="form-control" name="code" id="trainee_code">
+                </div>
+                <div class="form-group mb-1">
+                    <label class="col-sm-2 control-label">Amount</label>
+                    <input type="text" class="form-control" name="amount" id="trainee_amount">
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Referred by</label>
+                    <select name="commissioner" class="form-select" id="trainee_commissioner" required>
+                        <option value="">Select Referral</option>
+                        <?php
+                            foreach($agent as $branch){
+                                echo "<option value='$branch[id]'>$branch[lastname] $branch[firstname]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="trainee_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>                              
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Status</label>
+                    <select name="status" class="form-select" id="trainee_status">
+                        <option value="PAID">PAID</option>
+                        <option value="pending">NOT PAID</option>
+                    </select>
+                </div>  
+                <div class="form-group mb-1">
+                    <label class="col-sm-2 control-label">Remarks</label>
+                    <textarea name="remarks" rows="3" class="form-control" id="trainee_remarks"></textarea>
+                </div>                                              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>

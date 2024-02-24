@@ -191,5 +191,63 @@
             $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.empid='$id'");
             return $result->result_array();
         }
+
+        public function getAllTraineeByDate($date){
+            $result=$this->db->query("SELECT e.*,e.status as t_status,ed.*,d.lastname as clastname,d.firstname as cfirstname,b.description,b.id as branch_id FROM customer e INNER JOIN commissionerdetails ed ON ed.trainee_id=e.controlno LEFT JOIN commissioner d ON d.id=e.commissioner LEFT JOIN branch b ON b.id=d.branch WHERE e.datearray='$date'");
+            return $result->result_array();
+        }
+        public function save_trainee(){
+            $id=$this->input->post("id");
+            $empid=$this->input->post("controlno");            
+            if($empid==""){
+                $empid=date('YmdHis');
+            }
+            $lastname=$this->input->post("lastname");
+            $firstname=$this->input->post("firstname");
+            $type=$this->input->post("type");
+            $code=$this->input->post("code");
+            $amount=$this->input->post("amount");
+            $commissioner=$this->input->post("commissioner");
+            $branch=$this->input->post("branch");
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+            $status=$this->input->post("status");
+            $remarks=$this->input->post("remarks");
+            $loginuser=$this->session->fullname;
+            $check_exist=$this->db->query("SELECT * FROM customer WHERE lastname='$lastname' AND firstname='$firstname' AND id <> '$id'");
+            if($check_exist->num_rows() > 0){
+            }else{
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO customer(controlno,lastname,firstname,`type`,code,amount,commissioner,`status`,datearray,timearray,login_user,branch,remarks) VALUES('$empid','$lastname','$firstname','$type','$code','$amount','$commissioner','$status','$datearray','$timearray','$loginuser','$branch','$remarks')");
+                    $result=$this->db->query("INSERT INTO commissionerdetails(comm_id,trainee_id,datearray,timearray) VALUES('$commissioner','$empid','$datearray','$timearray')");
+                }else{
+                    $result=$this->db->query("UPDATE customer SET lastname='$lastname',firstname='$firstname',`type`='$type',code='$code',amount='$amount',commissioner='$commissioner',`status`='$status',branch='$branch',remarks='$remarks' WHERE id='$id'");
+                    $result=$this->db->query("UPDATE commissionerdetails SET comm_id='$commissioner' WHERE trainee_id='$empid'");
+                }
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_trainee($id){
+            $check=$this->db->query("SELECT * FROM commissionerdetails WHERE trainee_id='$id' AND `status` = 'released'");
+            if($check->num_rows()>0){
+                
+            }else{
+                $result=$this->db->query("DELETE FROM customer WHERE controlno='$id'");
+                $result=$this->db->query("DELETE FROM commissionerdetails WHERE trainee_id='$id'");
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function fetch_single_trainee($id){
+            $result=$this->db->query("SELECT e.*,e.status as t_status,ed.*,d.lastname as clastname,d.firstname as cfirstname,b.description,b.id as branch_id FROM customer e INNER JOIN commissionerdetails ed ON ed.trainee_id=e.controlno LEFT JOIN commissioner d ON d.id=e.commissioner LEFT JOIN branch b ON b.id=d.branch WHERE e.id='$id'");
+            return $result->result_array();
+        }
     }
 ?>
