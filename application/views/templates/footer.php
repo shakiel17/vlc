@@ -204,6 +204,51 @@
         }
         });        
       });
+
+      $('.addUsers').click(function(){            
+      document.getElementById('user_id').value = "";
+      document.getElementById('user_fullname').value = "";      
+      document.getElementById('user_username').value = "";
+      document.getElementById('user_password').value = "";
+    });
+    $('.editUsers').click(function(){            
+      var id=$(this).data('id');
+      $.ajax({
+        url:'<?=base_url();?>index.php/pages/fetch_single_users',
+        method:"POST",
+        data:{id:id},
+        dataType:'json',
+        success:function(response){
+          if(response.length>0){
+            document.getElementById("user_id").value=id;            
+            document.getElementById("user_fullname").value=response[0]['fullname'];
+            document.getElementById("user_branch").value=response[0]['branch'];
+            // var selectBrand = document.getElementById("agent_branch");
+            // var optn = response[0]['description'];
+            // var optn1 = response[0]['branch'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn1;                
+            //     selectBrand.appendChild(el);            
+            // var selectClass = document.getElementById("agent_status");
+            // var optn = response[0]['status'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn;                
+            //     selectClass.appendChild(el);            
+            document.getElementById("user_username").value=response[0]['username'];
+            document.getElementById("user_password").value=response[0]['password'];            
+            if(response[0]['is_admin']==1){
+              document.getElementById('user_is_admin_yes').checked=true;
+            }else{
+              document.getElementById('user_is_admin_no').checked=true;
+            }
+          }
+        }        
+      });
+    });
   </script>
 </body>
 

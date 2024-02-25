@@ -98,7 +98,7 @@
                 </div>
                 <?php
                     }else{
-                        echo "<input type='text' name='branch' value='".$this->session->branch."'>";
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
                     }
                 ?>
                 <div class="form-group mb-1"> 
@@ -284,6 +284,61 @@
                     <label class="col-sm-2 control-label">Remarks</label>
                     <textarea name="remarks" rows="3" class="form-control" id="trainee_remarks"></textarea>
                 </div>                                              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="manageusers" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Agent</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_users");?>
+            <input type="hidden" name="id" id="user_id">
+            <div class="modal-body">
+                <div class="form-group mb-1"> 
+                    <label class="col-sm-2 control-label">Username</label>
+                    <input type="text" class="form-control" name="username" required id="user_username">
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Password</label>
+                    <input type="password" class="form-control" name="password" required id="user_password">
+                </div>
+                <div class="form-group mb-1"> 
+                    <label class="col-sm-2 control-label">Full Name</label>
+                    <input type="text" class="form-control" name="fullname" required id="user_fullname">
+                </div>   
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">is Admin?</label><br>
+                    <input type="radio" name="is_admin" value="1" id="user_is_admin_yes"> Yes <input type="radio" name="is_admin" value="0" id="user_is_admin_no" checked> No
+                </div>             
+                <?php
+                    if($this->session->is_admin==1){
+                ?>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="user_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                ?>                                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                

@@ -70,11 +70,17 @@
               <i class="bi bi-circle"></i><span>Designation</span>
             </a>
           </li>
+          <?php
+            if($this->session->is_admin==1){
+          ?>
           <li>
             <a href="<?=base_url();?>manage_users">
               <i class="bi bi-circle"></i><span>User Manager</span>
             </a>
           </li>
+          <?php
+            }
+          ?>
         </ul>
       </li><!-- End Tables Nav -->
     </ul>

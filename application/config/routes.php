@@ -50,6 +50,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //========================Trainee Module=======================================
+$route['delete_users/(:any)/(:any)'] = 'pages/delete_users/$1/$2';
+$route['save_users'] = 'pages/save_users';
+$route['manage_users'] = 'pages/manage_users';
+//========================Trainee Module=======================================
 $route['delete_trainee/(:any)/(:any)'] = 'pages/delete_trainee/$1/$2';
 $route['save_trainee'] = 'pages/save_trainee';
 $route['manage_trainee'] = 'pages/manage_trainee';

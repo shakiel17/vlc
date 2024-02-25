@@ -324,5 +324,61 @@
             $data=$this->Payroll_model->fetch_single_trainee($id);
             echo json_encode($data);
         }
+
+        public function manage_users(){
+            $page = "manage_users";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Users Manager";
+            $datenow=date('Y-m-d');
+            $data['users'] = $this->Payroll_model->getAllUsers();
+            $data['branches'] = $this->Payroll_model->getAllBranch();                        
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_users(){
+            $save=$this->Payroll_model->save_users();
+            if($save){
+                $message="User details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','User details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save user details!');
+            }
+            redirect(base_url().'manage_users');
+        }
+        public function delete_users($id,$description){
+            $save=$this->Payroll_model->delete_users($id);
+            if($save){
+                $message="User $description successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','User details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete user details!');
+            }
+            redirect(base_url().'manage_users');
+        }
+        public function fetch_single_users(){
+            $id=$this->input->post('id');
+            $data=$this->Payroll_model->fetch_single_users($id);
+            echo json_encode($data);
+        }
     }
 ?>

@@ -137,7 +137,12 @@
             }
         }
         public function delete_agent($id){
-            $result=$this->db->query("DELETE FROM commissioner WHERE id='$id'");
+            $check=$this->db->query("SELECT * FROM commissionerdetails WHERE comm_id='$id'");
+            if($check->num_rows()>0){
+                return false;
+            }else{
+                $result=$this->db->query("DELETE FROM commissioner WHERE id='$id'");
+            }            
             if($result){
                 return true;
             }else{
@@ -262,6 +267,45 @@
         }
         public function fetch_single_trainee($id){
             $result=$this->db->query("SELECT e.*,e.status as t_status,ed.*,d.lastname as clastname,d.firstname as cfirstname,b.description,b.id as branch_id FROM customer e INNER JOIN commissionerdetails ed ON ed.trainee_id=e.controlno LEFT JOIN commissioner d ON d.id=e.commissioner LEFT JOIN branch b ON b.id=d.branch WHERE e.id='$id'");
+            return $result->result_array();
+        }
+
+        public function getAllUsers(){
+            $result=$this->db->query("SELECT * FROM users ORDER BY fullname ASC");
+            return $result->result_array();
+        }
+        public function save_users(){
+            $id=$this->input->post("id");
+            $username=$this->input->post("username");
+            $password=$this->input->post("password");
+            $fullname=$this->input->post("fullname");
+            $is_admin=$this->input->post("is_admin");
+            $branch=$this->input->post("branch");
+            $check_exist=$this->db->query("SELECT * FROM users WHERE username='$username' AND id <> '$id'");
+            if($check_exist->num_rows() > 0){
+            }else{
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO users(username,`password`,fullname,is_admin,branch) VALUES('$username','$password','$fullname','$is_admin','$branch')");
+                }else{
+                    $result=$this->db->query("UPDATE users SET username='$username',`password`='$password',fullname='$fullname',is_admin='$is_admin',branch='$branch' WHERE id='$id'");
+                }
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_users($id){            
+            $result=$this->db->query("DELETE FROM users WHERE id='$id'");            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function fetch_single_users($id){
+            $result=$this->db->query("SELECT * FROM users WHERE id='$id'");
             return $result->result_array();
         }
 
