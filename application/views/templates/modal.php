@@ -82,6 +82,9 @@
                     <label class="col-sm-2 control-label">First Name</label>
                     <input type="text" class="form-control" name="firstname" required id="agent_firstname">
                 </div>
+                <?php
+                    if($this->session->is_admin==1){
+                ?>
                 <div class="form-group mb-1">                    
                     <label class="col-sm-2 control-label">Branch</label>
                     <select name="branch" class="form-select" id="agent_branch" required>
@@ -93,6 +96,11 @@
                         ?>
                     </select>
                 </div>
+                <?php
+                    }else{
+                        echo "<input type='text' name='branch' value='".$this->session->branch."'>";
+                    }
+                ?>
                 <div class="form-group mb-1"> 
                     <label class="col-sm-2 control-label">Username</label>
                     <input type="text" class="form-control" name="username" required id="agent_username">
@@ -179,9 +187,12 @@
                     <label class="col-sm-3 control-label">Is Daily Rate?</label>
                     <input type="radio" name="is_daily" id="emp_daily_yes" value="1" checked> Yes <input type="radio" name="is_daily" id="emp_daily_no" value="0"> No
                 </div>
+                <?php
+                            if($this->session->is_admin=="1"){
+                        ?>
                 <div class="form-group mb-1">                    
                     <label class="col-sm-2 control-label">Branch</label>
-                    <select name="branch" class="form-select" id="emp_branch" required>
+                    <select name="branch" class="form-select" id="emp_branch" required>                        
                         <option value="">Select Branch</option>
                         <?php
                             foreach($branches as $branch){
@@ -190,6 +201,11 @@
                         ?>
                     </select>
                 </div>                              
+                <?php
+                            }else{
+                                echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                            }
+                            ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
