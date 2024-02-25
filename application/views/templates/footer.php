@@ -68,22 +68,23 @@
             document.getElementById("agent_id").value=id;
             document.getElementById("agent_lastname").value=response[0]['lastname'];
             document.getElementById("agent_firstname").value=response[0]['firstname'];
-            var selectBrand = document.getElementById("agent_branch");
-            var optn = response[0]['description'];
-            var optn1 = response[0]['branch'];
-            var el = document.createElement("option");
-                el.selected = "selected";
-                el.textContent = optn;
-                el.value = optn1;                
-                selectBrand.appendChild(el);
-                
-            var selectClass = document.getElementById("agent_status");
-            var optn = response[0]['status'];
-            var el = document.createElement("option");
-                el.selected = "selected";
-                el.textContent = optn;
-                el.value = optn;                
-                selectClass.appendChild(el);            
+            document.getElementById("agent_branch").value=response[0]['branch'];
+            // var selectBrand = document.getElementById("agent_branch");
+            // var optn = response[0]['description'];
+            // var optn1 = response[0]['branch'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn1;                
+            //     selectBrand.appendChild(el);
+            document.getElementById("agent_status").value=response[0]['status'];
+            // var selectClass = document.getElementById("agent_status");
+            // var optn = response[0]['status'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn;                
+            //     selectClass.appendChild(el);            
             document.getElementById("agent_username").value=response[0]['username'];
             document.getElementById("agent_password").value=response[0]['password'];            
           }
@@ -120,30 +121,31 @@
             document.getElementById("emp_middlename").value=response[0]['middlename'];
             document.getElementById("emp_suffix").value=response[0]['suffix'];
             document.getElementById("emp_birthdate").value=response[0]['birthdate'];
-            document.getElementById("emp_gender").value=response[0]['gender'];
-            var selectBrand = document.getElementById("emp_branch");
-            var optn = response[0]['description'];
-            var optn1 = response[0]['branch_id'];
-            var el = document.createElement("option");
-                el.selected = "selected";
-                el.textContent = optn;
-                el.value = optn1;                
-                selectBrand.appendChild(el);
-                
-            var selectClass = document.getElementById("emp_designation");
-            var optn = response[0]['designation'];
-            var optn1 = response[0]['designation_id'];
-            var el = document.createElement("option");
-                el.selected = "selected";
-                el.textContent = optn;
-                el.value = optn1;                
-                selectClass.appendChild(el);            
+            document.getElementById("emp_gender").value=response[0]['gender'];            
+            document.getElementById("emp_designation").value=response[0]['designation_id'];
+            // var selectClass = document.getElementById("emp_designation");
+            // var optn = response[0]['designation'];
+            // var optn1 = response[0]['designation_id'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn1;                
+            //     selectClass.appendChild(el);            
             document.getElementById("emp_salary").value=response[0]['salary'];
             if(response['is_daily']=="1")
               document.getElementById("emp_daily_yes").checked=true;            
             }else{
               document.getElementById("emp_daily_no").checked=true;            
-            }            
+            }
+            document.getElementById("emp_branch").value=response[0]['branch_id'];
+            // var selectBrand = document.getElementById("emp_branch");
+            // var optn = response[0]['description'];
+            // var optn1 = response[0]['branch_id'];
+            // var el = document.createElement("option");
+            //     el.selected = "selected";
+            //     el.textContent = optn;
+            //     el.value = optn1;                
+            //     selectBrand.appendChild(el);            
           }
         });        
       });
