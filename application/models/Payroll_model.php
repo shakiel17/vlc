@@ -103,7 +103,8 @@
             }
         }
         public function getAllAgent(){
-            $result=$this->db->query("SELECT * FROM commissioner ORDER BY lastname ASC");
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT * FROM commissioner WHERE branch='$branch' ORDER BY lastname ASC");
             return $result->result_array();
         }
         public function save_agent(){
@@ -144,7 +145,8 @@
             return $result->result_array();
         }
         public function getAllEmployee(){
-            $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch ORDER BY e.lastname ASC");
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE ed.branch='$branch' ORDER BY e.lastname ASC");
             return $result->result_array();
         }
         public function save_employee(){
@@ -193,7 +195,8 @@
         }
 
         public function getAllTraineeByDate($date){
-            $result=$this->db->query("SELECT e.*,e.status as t_status,ed.*,d.lastname as clastname,d.firstname as cfirstname,b.description,b.id as branch_id FROM customer e INNER JOIN commissionerdetails ed ON ed.trainee_id=e.controlno LEFT JOIN commissioner d ON d.id=e.commissioner LEFT JOIN branch b ON b.id=d.branch WHERE e.datearray='$date'");
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT e.*,e.status as t_status,ed.*,d.lastname as clastname,d.firstname as cfirstname,b.description,b.id as branch_id FROM customer e INNER JOIN commissionerdetails ed ON ed.trainee_id=e.controlno LEFT JOIN commissioner d ON d.id=e.commissioner LEFT JOIN branch b ON b.id=d.branch WHERE e.datearray='$date' AND d.branch='$branch'");
             return $result->result_array();
         }
         public function save_trainee(){
@@ -249,5 +252,6 @@
             $result=$this->db->query("SELECT e.*,e.status as t_status,ed.*,d.lastname as clastname,d.firstname as cfirstname,b.description,b.id as branch_id FROM customer e INNER JOIN commissionerdetails ed ON ed.trainee_id=e.controlno LEFT JOIN commissioner d ON d.id=e.commissioner LEFT JOIN branch b ON b.id=d.branch WHERE e.id='$id'");
             return $result->result_array();
         }
+        
     }
 ?>
