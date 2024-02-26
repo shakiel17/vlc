@@ -46,7 +46,19 @@
                     <li><a class="dropdown-item addExpenses" href="#" data-bs-toggle="modal" data-bs-target="#manageexpenses">Add Expenses</a></li>                    
                   </ul>
                 </div>
-              <h5 class="card-title">List of Branch</h5>
+              <h5 class="card-title">List of Branch
+              <div class="col-md-2"><br>
+                  Select Date
+                <?=form_open(base_url()."search_expenses");?>
+                <table border="0" width="100%">
+                  <tr>
+                    <td><input type="date" name="datearray" class="form-control" value="<?=date('Y-m-d');?>"></td>
+                    <td><input type="submit" name="submit" class="btn btn-primary btn-sm" value="Search"></td>
+                  </tr>
+                </table>                                                    
+                <?=form_close();?>
+                </div>
+              </h5>
 
               <!-- Default Table -->
               <table class="table">
@@ -65,7 +77,7 @@
                             echo "<tr>";
                                 echo "<td>$x.</td>";
                                 echo "<td>$branch[description]</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editExpenses' data-bs-toggle='modal' data-bs-target='#manageexpenses' data-id='$branch[id]_$branch[description]_$branch[branch]'>Edit</a>";
+                                echo "<td><a href='#' class='btn btn-sm btn-warning editExpenses' data-bs-toggle='modal' data-bs-target='#manageexpenses' data-id='$branch[id]_$branch[description]_$branch[branch]_$branch[datearray]'>Edit</a>";
                                 ?>
                                 <a href="<?=base_url();?>delete_expenses/<?=$branch['id'];?>/<?=$branch['description'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <?php

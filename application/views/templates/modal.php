@@ -362,7 +362,11 @@
             </div>
             <?=form_open(base_url()."save_expenses");?>
             <input type="hidden" name="id" id="expense_id">
-            <div class="modal-body">                
+            <div class="modal-body">  
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Applicable Date</label>
+                    <input type="date" name="datearray" value="<?=date('Y-m-d');?>" id="expense_date" class="form-control" required>
+                </div>              
                 <div class="form-group mb-1">                    
                     <label class="col-sm-3 control-label">Expense Details</label>
                     <textarea name="expenses" class="form-control" rows="3" id="expense_name"></textarea>

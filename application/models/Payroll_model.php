@@ -323,7 +323,7 @@
             $id=$this->input->post("id");
             $expenses=$this->input->post("expenses");            
             $branch=$this->input->post("branch");
-            $datearray=date('Y-m-d');
+            $datearray=$this->input->post("datearray");
             $timearray=date('H:i:s');
                 if($id==""){
                     $result=$this->db->query("INSERT INTO expenses(`description`,branch,datearray,timearray) VALUES('$expenses','$branch','$datearray','$timearray')");

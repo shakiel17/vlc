@@ -250,13 +250,19 @@
         }        
       });
     });
-
+    $('.addExpenses').click(function(){      
+      document.getElementById('expense_id').value = "";
+      document.getElementById('expense_name').value = "";
+      document.getElementById('expense_branch').value = "";
+      document.getElementById('expense_date').value = "";
+    });
     $('.editExpenses').click(function(){
       var data=$(this).data('id');
       var id=data.split('_');
       document.getElementById('expense_id').value = id[0];
       document.getElementById('expense_name').value = id[1];
       document.getElementById('expense_branch').value = id[2];
+      document.getElementById('expense_date').value = id[3];
     });
   </script>
 </body>

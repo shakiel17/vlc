@@ -455,5 +455,27 @@
             }
             redirect(base_url().'manage_expenses');
         }
+        public function search_expenses(){
+            $page = "manage_expenses";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Expenses Manager";
+            $datenow=$this->input->post('datearray');
+            $data['expenses'] = $this->Payroll_model->getAllExpensesByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
     }
 ?>
