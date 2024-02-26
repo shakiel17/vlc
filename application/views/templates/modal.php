@@ -226,7 +226,11 @@
             <?=form_open(base_url()."save_trainee");?>
             <input type="hidden" name="id" id="trainee_id">
             <input type="hidden" name="controlno" id="trainee_controlno">
-            <div class="modal-body">            
+            <div class="modal-body">
+            <div class="form-group mb-1"> 
+                    <label class="col-sm-3 control-label">Applicable Date</label>
+                    <input type="date" class="form-control" name="datearray" required id="trainee_date" value="<?=date('Y-m-d');?>">
+                </div>            
                 <div class="form-group mb-1"> 
                     <label class="col-sm-2 control-label">Last Name</label>
                     <input type="text" class="form-control" name="lastname" required id="trainee_lastname">
@@ -340,6 +344,49 @@
                     }
                 ?>                                
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="manageexpenses" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Expenses</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_expenses");?>
+            <input type="hidden" name="id" id="expense_id">
+            <div class="modal-body">                
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Expense Details</label>
+                    <textarea name="expenses" class="form-control" rows="3" id="expense_name"></textarea>
+                </div>            
+            <?php
+                    if($this->session->is_admin==1){
+                ?>
+            <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="expense_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                    ?>
+                    </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
                 <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>

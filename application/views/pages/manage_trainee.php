@@ -35,7 +35,7 @@
         <div class="col-lg-12 col-sm-12">
           <div class="row">
           <div class="card">          
-            <div class="card-body">
+            <div class="card-body">              
             <div class="filter">
                   <a class="icon text-black" href="#" data-bs-toggle="dropdown"><i class="bi bi-gear"></i> Settings</a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -46,7 +46,19 @@
                     <li><a class="dropdown-item addTrainee" href="#" data-bs-toggle="modal" data-bs-target="#managetrainee">Add Trainee</a></li>                    
                   </ul>
                 </div>
-              <h5 class="card-title">List of Trainee <span>| Today</span></h5>
+              <h5 class="card-title">List of Trainee <span>| Today
+                <div class="col-md-2"><br>
+                  Select Date
+                <?=form_open(base_url()."search_trainee");?>
+                <table border="0" width="100%">
+                  <tr>
+                    <td><input type="date" name="datearray" class="form-control" value="<?=date('Y-m-d');?>"></td>
+                    <td><input type="submit" name="submit" class="btn btn-primary btn-sm" value="Search"></td>
+                  </tr>
+                </table>                                                    
+                <?=form_close();?>
+                </div>
+              </span></h5>
 
               <!-- Default Table -->
               <table class="table datatable">

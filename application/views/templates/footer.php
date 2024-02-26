@@ -177,6 +177,7 @@
             document.getElementById("trainee_code").value=response[0]['code'];
             document.getElementById("trainee_amount").value=response[0]['amount'];            
             document.getElementById('trainee_branch').value=response[0]['branch'];
+            document.getElementById('trainee_date').value=response[0]['datearray'];
             // var selectBrand = document.getElementById("emp_branch");
             // var optn = response[0]['description'];
             // var optn1 = response[0]['branch_id'];
@@ -248,6 +249,14 @@
           }
         }        
       });
+    });
+
+    $('.editExpenses').click(function(){
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('expense_id').value = id[0];
+      document.getElementById('expense_name').value = id[1];
+      document.getElementById('expense_branch').value = id[2];
     });
   </script>
 </body>

@@ -229,7 +229,7 @@
             $amount=$this->input->post("amount");
             $commissioner=$this->input->post("commissioner");
             $branch=$this->input->post("branch");
-            $datearray=date('Y-m-d');
+            $datearray=$this->input->post("datearray");
             $timearray=date('H:i:s');
             $status=$this->input->post("status");
             $remarks=$this->input->post("remarks");
@@ -308,6 +308,42 @@
             $result=$this->db->query("SELECT * FROM users WHERE id='$id'");
             return $result->result_array();
         }
+
+        public function getAllExpensesByDate($date){
+            $branch=$this->session->branch;
+            if($this->session->is_admin==1){
+                $result=$this->db->query("SELECT * FROM expenses WHERE datearray='$date'");
+            }else{
+                $result=$this->db->query("SELECT * FROM expenses WHERE datearray='$date' AND branch='$branch");
+            }            
+            return $result->result_array();
+        }
+
+        public function save_expenses(){
+            $id=$this->input->post("id");
+            $expenses=$this->input->post("expenses");            
+            $branch=$this->input->post("branch");
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO expenses(`description`,branch,datearray,timearray) VALUES('$expenses','$branch','$datearray','$timearray')");
+                }else{
+                    $result=$this->db->query("UPDATE expenses SET `description`='$expenses',branch='$branch' WHERE id='$id'");
+                }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_expenses($id){
+            $result=$this->db->query("DELETE FROM expenses WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }  
 
     }
 ?>

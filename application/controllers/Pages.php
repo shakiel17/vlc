@@ -291,6 +291,30 @@
             $this->load->view('templates/modal');
             $this->load->view('templates/footer');
         }
+
+        public function search_trainee(){
+            $page = "manage_trainee";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Trainee Manager";
+            $datenow=$this->input->post('datearray');
+            $data['trainee'] = $this->Payroll_model->getAllTraineeByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();            
+            $data['agent'] = $this->Payroll_model->getAllAgent();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
         public function save_trainee(){
             $save=$this->Payroll_model->save_trainee();
             if($save){
@@ -379,6 +403,57 @@
             $id=$this->input->post('id');
             $data=$this->Payroll_model->fetch_single_users($id);
             echo json_encode($data);
+        }
+
+        public function manage_expenses(){
+            $page = "manage_expenses";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Expenses Manager";
+            $datenow=date('Y-m-d');
+            $data['expenses'] = $this->Payroll_model->getAllExpensesByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_expenses(){
+            $save=$this->Payroll_model->save_expenses();
+            if($save){
+                $message="Expenses details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Expenses details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save expenses details!');
+            }
+            redirect(base_url().'manage_expenses');
+        }
+        public function delete_expenses($id,$description){
+            $save=$this->Payroll_model->delete_expenses($id);
+            if($save){
+                $message="Expense details $description successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Expenses details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete expenses details!');
+            }
+            redirect(base_url().'manage_expenses');
         }
     }
 ?>
