@@ -399,3 +399,62 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="manageadvances" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Advances</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_advances");?>
+            <input type="hidden" name="id" id="advance_id">
+            <input type="hidden" name="empid" value="<?=$empid;?>">
+            <div class="modal-body">  
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Applicable Date</label>
+                    <input type="date" name="datearray" value="<?=date('Y-m-d');?>" id="advance_date" class="form-control" required>
+                </div>              
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Advance Details</label>
+                    <textarea name="description" class="form-control" rows="3" id="advance_name"></textarea>
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Amount</label>
+                    <input type="text" name="amount" id="advance_amount" class="form-control" required>
+                </div>            
+            <?php
+                    if($this->session->is_admin==1){
+                ?>
+            <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="advance_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                    ?>
+                    <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Status</label>
+                    <select name="status" class="form-select" id="advance_status" required>
+                        <option value="pending">PENDING</option>
+                        <option value="paid">PAID</option>                        
+                    </select>
+                </div>
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>

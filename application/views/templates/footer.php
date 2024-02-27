@@ -264,6 +264,24 @@
       document.getElementById('expense_branch').value = id[2];
       document.getElementById('expense_date').value = id[3];
     });
+    $('.addAdvances').click(function(){      
+      document.getElementById('advance_id').value = "";
+      document.getElementById('advance_name').value = "";
+      document.getElementById('advance_branch').value = "";
+      document.getElementById('advance_date').value = "";
+      document.getElementById('advance_amount').value = "";
+      document.getElementById('advance_status').value = "pending";
+    });
+    $('.editAdvances').click(function(){
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('advance_id').value = id[0];
+      document.getElementById('advance_name').value = id[1];
+      document.getElementById('advance_branch').value = id[2];
+      document.getElementById('advance_date').value = id[3];
+      document.getElementById('advance_amount').value = id[4];
+      document.getElementById('advance_status').value = id[5];
+    });
   </script>
 </body>
 

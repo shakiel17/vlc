@@ -50,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //========================Trainee Module=======================================
+$route['view_advances/(:any)'] = 'pages/view_advances/$1';
 $route['delete_advances/(:any)/(:any)'] = 'pages/delete_advances/$1/$2';
 $route['save_advances'] = 'pages/save_advances';
 $route['manage_advances'] = 'pages/manage_advances';

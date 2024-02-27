@@ -206,6 +206,10 @@
             $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.empid='$id'");
             return $result->result_array();
         }
+        public function getSingleEmployee($empid){
+            $result=$this->db->query("SELECT * FROM employee WHERE empid='$empid'");
+            return $result->row_array();
+        }
 
         public function getAllTraineeByDate($date){
             $branch=$this->session->branch;
@@ -343,7 +347,38 @@
             }else{
                 return false;
             }
-        }  
-
+        }          
+        public function save_advances(){
+            $id=$this->input->post("id");
+            $empid=$this->input->post("empid");
+            $description=$this->input->post("description");
+            $amount=$this->input->post("amount");
+            $branch=$this->input->post("branch");
+            $datearray=$this->input->post("datearray");
+            $status=$this->input->post("status");
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO advances(empid,`description`,amount,branch,datearray,timearray,`status`) VALUES('$empid','$description','$amount','$branch','$datearray','$timearray','$status')");                    
+                }else{
+                    $result=$this->db->query("UPDATE advances SET `description`='$description',amount='$amount',branch='$branch',`status`='$status' WHERE id='$id'");                    
+                }                        
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_advances($id){
+            $result=$this->db->query("DELETE FROM advances WHERE id='$id'");            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getAdvanceBalance($empid){
+            $result=$this->db->query("SELECT * FROM advances WHERE empid='$empid' ORDER BY datearray ASC");
+            return $result->result_array();
+        }
     }
 ?>

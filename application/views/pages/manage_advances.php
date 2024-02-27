@@ -5,7 +5,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?=base_url();?>main">Home</a></li>
-          <li class="breadcrumb-item active">User Account</li>
+          <li class="breadcrumb-item active">Employee Advances</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -35,54 +35,43 @@
         <div class="col-lg-12 col-sm-12">
           <div class="row">
           <div class="card">          
-            <div class="card-body">
-            <div class="filter">
-                  <a class="icon text-black" href="#" data-bs-toggle="dropdown"><i class="bi bi-gear"></i> Settings</a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Action</h6>
-                    </li>
-
-                    <li><a class="dropdown-item addUsers" href="#" data-bs-toggle="modal" data-bs-target="#manageusers">Add Agent</a></li>                    
-                  </ul>
-                </div>
-              <h5 class="card-title">List of Agent</h5>
+            <div class="card-body">            
+              <h5 class="card-title">List of Employee</h5>
 
               <!-- Default Table -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Fullname</th>                    
-                    <th scope="col">Username</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Branch</th>
-                    <th scope="col">is_admin</th>                    
+                    <th scope="col">ID</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Middle Name</th>                    
+                    <th scope="col">Suffix</th>
+                    <th scope="col">Balance</th>                    
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php               
                         $x=1;
-                        foreach($users as $branch){                            
+                        foreach($advances as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
                             $br=$query->row_array();
-                            if($branch['is_admin']==1){
-                              $admin="YES";
-                            }else{
-                              $admin="NO";
-                            }
+                            $balance=$this->Payroll_model->getAdvanceBalance($branch['empid']); 
+                            $amount=0;
+                            foreach($balance as $bal){
+                              $amount += $bal['amount'];
+                            }                           
                             echo "<tr>";
                                 echo "<td>$x.</td>";
-                                echo "<td>$branch[fullname]</td>";                                
-                                echo "<td>$branch[username]</td>";
-                                echo "<td>$branch[password]</td>";
-                                echo "<td>$br[description]</td>";                                
-                                echo "<td>$admin</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editUsers' data-bs-toggle='modal' data-bs-target='#manageusers' data-id='$branch[id]'>Edit</a>";
-                                ?>
-                                <a href="<?=base_url();?>delete_users/<?=$branch['id'];?>/<?=$branch['fullname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
-                                <?php
+                                echo "<td>$branch[empid]</td>";
+                                echo "<td>$branch[lastname]</td>";
+                                echo "<td>$branch[firstname]</td>";
+                                echo "<td>$branch[middlename]</td>";
+                                echo "<td>$branch[suffix]</td>";                               
+                                echo "<td align='right'>".number_format($amount,2)."</td>";
+                                echo "<td><a href='".base_url()."view_advances/$branch[empid]' class='btn btn-sm btn-primary'>View Details</a>";                               
                                 echo "</td>";                                
                             echo "</tr>";
                             $x++;

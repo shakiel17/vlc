@@ -477,5 +477,81 @@
             $this->load->view('templates/modal');
             $this->load->view('templates/footer');
         }
+        public function manage_advances(){
+            $page = "manage_advances";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Advances Manager";
+            $datenow=date('Y-m-d');
+            $data['advances'] = $this->Payroll_model->getAllEmployee();
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_advances(){
+            $empid=$this->input->post('empid');
+            $save=$this->Payroll_model->save_advances();
+            if($save){
+                $message="Advance details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Advances details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save advance details!');
+            }
+            redirect(base_url().'view_advances/'.$empid);
+        }
+        public function delete_advances($id,$description){
+            $save=$this->Payroll_model->delete_advances($id);
+            if($save){
+                $message="Advance details $description successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Advance details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete advance details!');
+            }
+            redirect(base_url().'manage_advances');
+        } 
+        
+        public function view_advances($empid){
+            $page = "view_advances";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Advances Manager";
+            $datenow=date('Y-m-d');
+            $data['empid'] = $empid;
+            $data['advances'] = $this->Payroll_model->getAdvanceBalance($empid);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['employee'] = $this->Payroll_model->getSingleEmployee($empid);
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
     }
 ?>
