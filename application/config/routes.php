@@ -50,7 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //========================Payroll Module=======================================
-$route['payroll_manager'] = 'pages/payroll_manager';
+$route['delete_payrollperiod/(:any)'] = 'pages/delete_payrollperiod/$1';
+$route['save_payrollperiod'] = 'pages/save_payrollperiod';
+$route['payroll_manager/(:any)'] = 'pages/payroll_manager/$1';
 $route['create_payroll'] = 'pages/create_payroll';
 $route['manage_payroll'] = 'pages/manage_payroll';
 //========================Trainee Module=======================================

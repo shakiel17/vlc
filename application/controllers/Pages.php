@@ -553,5 +553,58 @@
             $this->load->view('templates/modal');
             $this->load->view('templates/footer');
         }
+
+        public function manage_payroll(){
+            $page = "manage_payroll";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Payroll Manager";
+            $datenow=date('Y-m-d');
+            $data['payroll'] = $this->Payroll_model->getAllPayrollPeriod();            
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+
+        public function save_payrollperiod(){            
+            $save=$this->Payroll_model->save_payrollperiod();
+            if($save){
+                $message="Payroll Period successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Payroll Period successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save Payroll Period!');
+            }
+            redirect(base_url().'manage_payroll');
+        }
+
+        public function delete_payrollperiod($id){            
+            $save=$this->Payroll_model->delete_payrollperiod($id);
+            if($save){
+                $message="Payroll Period successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Payroll Period successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete Payroll Period!');
+            }
+            redirect(base_url().'manage_payroll');
+        }
     }
 ?>

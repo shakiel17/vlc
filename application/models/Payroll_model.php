@@ -380,5 +380,57 @@
             $result=$this->db->query("SELECT * FROM advances WHERE empid='$empid' ORDER BY datearray ASC");
             return $result->result_array();
         }
+        public function getAllPayrollDaily(){
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT * FROM payroll_daily WHERE branch='$branch'");
+            return $result->result_array();
+        }
+        public function getAllPayrollPerHead(){
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT * FROM payroll_per_head WHERE branch='$branch'");
+            return $result->result_array();
+        }
+        public function getAllPayrollPeriod(){
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT * FROM payroll_period WHERE branch='$branch' ORDER BY startdate DESC");
+            return $result->result_array();
+        }
+        public function save_payrollperiod(){
+            $id=$this->input->post("id");
+            $startdate=$this->input->post("startdate");
+            $enddate=$this->input->post("enddate");
+            $branch=$this->input->post("branch");
+            if($id==""){
+                $result=$this->db->query("INSERT INTO payroll_period(startdate,enddate,branch) VALUES('$startdate','$enddate','$branch')");
+            }else{
+                $result=$this->db->query("UPDATE payroll_period SET startdate='$startdate',enddate='$enddate',branch='$branch' WHERE id='$id'");
+            }
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_payrollperiod($id){
+            $result=$this->db->query("DELETE FROM payroll_period WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function checkPeriod($id){
+            $result=$this->db->query("SELECT * FROM payroll_daily WHERE payroll_period='$id' AND `status`='posted'");
+            if($result->num_rows() > 0){
+                return $result->result_array();
+            }else{
+                $result=$this->db->query("SELECT * FROM payroll_per_head WHERE payroll_period='$id' AND `status`='posted'");
+                if($result->num_rows() > 0){
+                    return $result->result_array();
+                }else{
+                    return false;
+                }
+            }
+        }
     }
 ?>

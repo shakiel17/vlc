@@ -282,6 +282,22 @@
       document.getElementById('advance_amount').value = id[4];
       document.getElementById('advance_status').value = id[5];
     });
+
+    $('.addPayrollPeriod').click(function(){      
+      document.getElementById('period_id').value = "";
+      document.getElementById('period_startdate').value = "";
+      document.getElementById('period_enddate').value = "";
+      document.getElementById('period_branch').value = "1";    
+    });
+
+    $('.editPayrollPeriod').click(function(){
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('period_id').value = id[0];
+      document.getElementById('period_startdate').value = id[1];
+      document.getElementById('period_enddate').value = id[2];
+      document.getElementById('period_branch').value = id[3];
+    });
   </script>
 </body>
 

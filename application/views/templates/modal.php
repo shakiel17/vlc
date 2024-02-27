@@ -458,3 +458,50 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="managepayrollperiod" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Payroll Period</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_payrollperiod");?>
+            <input type="hidden" name="id" id="period_id">
+            <div class="modal-body">
+                <div class="form-group mb-1"> 
+                    <label class="col-sm-2 control-label">Start Date</label>
+                    <input type="date" class="form-control" name="startdate" required id="period_startdate">
+                </div>
+                <div class="form-group mb-1"> 
+                    <label class="col-sm-2 control-label">End Date</label>
+                    <input type="date" class="form-control" name="enddate" required id="period_enddate">
+                </div>                
+                <?php
+                    if($this->session->is_admin==1){
+                ?>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="period_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                ?>                                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,8 +22,7 @@ DROP TABLE IF EXISTS `payroll_daily`;
 
 CREATE TABLE `payroll_daily` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `startdate` date DEFAULT NULL,
-  `enddate` date DEFAULT NULL,
+  `payroll_period` varchar(100) DEFAULT NULL,
   `empid` varchar(100) DEFAULT NULL,
   `salary` double DEFAULT NULL,
   `no_of_days_required` int(11) DEFAULT NULL,
@@ -43,8 +42,7 @@ DROP TABLE IF EXISTS `payroll_per_head`;
 
 CREATE TABLE `payroll_per_head` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `startdate` date DEFAULT NULL,
-  `enddate` date DEFAULT NULL,
+  `payroll_period` varchar(100) DEFAULT NULL,
   `empid` varchar(100) DEFAULT NULL,
   `no_of_heads_pdc` int(11) DEFAULT NULL,
   `no_of_heads_tdc` int(11) DEFAULT NULL,
@@ -53,6 +51,18 @@ CREATE TABLE `payroll_per_head` (
   `date_created` date DEFAULT NULL,
   `time_created` time DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
+  `branch` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Table structure for table `payroll_period` */
+
+DROP TABLE IF EXISTS `payroll_period`;
+
+CREATE TABLE `payroll_period` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `startdate` date DEFAULT NULL,
+  `enddate` date DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
