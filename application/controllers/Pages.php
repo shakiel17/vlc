@@ -606,5 +606,70 @@
             }
             redirect(base_url().'manage_payroll');
         }
+
+        public function payroll_manager($id){
+            $page = "payroll_manager";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Payroll Manager";
+            $datenow=date('Y-m-d');
+            $data['payroll_daily'] = $this->Payroll_model->getPayrollDaily($id);
+            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHead($id);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['payroll_period'] = $id;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+
+        public function create_payroll(){
+            $payroll_period=$this->input->post('id');
+            $empid=$this->input->post('empid');
+            $is_daily=$this->input->post('is_daily');
+            $required_days=$this->input->post('required_days');
+            $days_worked=$this->input->post('days_worked');
+            $adjustment=$this->input->post('adjustment');
+            $deduction=$this->input->post('deduction');
+            $x=0;
+            foreach($empid as $code){
+                $result=$this->Payroll_model->save_payroll($payroll_period,$code,$is_daily[$x],$required_days[$x],$days_worked[$x],$adjustment[$x],$deduction[$x]);
+                $x++;
+            }
+            if($result){
+                $this->session->set_flashdata('save_success','Payroll details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save Payroll details!');
+            }
+            redirect(base_url()."payroll_manager/$payroll_period");
+        }
+        public function post_payroll(){
+            $payroll_period=$this->input->post('id');            
+            $result=$this->Payroll_model->post_payroll($payroll_period);
+            if($result){
+                $this->session->set_flashdata('save_success','Payroll details successfully posted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to post Payroll details!');
+            }
+            redirect(base_url()."payroll_manager/$payroll_period");
+        }
+        public function unpost_payroll($id){            
+            $result=$this->Payroll_model->unpost_payroll($id);
+            if($result){
+                $this->session->set_flashdata('save_success','Payroll details successfully unposted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to unpost Payroll details!');
+            }
+            redirect(base_url()."payroll_manager/$id");
+        }
     }
 ?>

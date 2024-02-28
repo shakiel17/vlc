@@ -32,7 +32,7 @@
     <section class="section dashboard">
       <div class="row">
         <!-- Left side columns -->
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-8 col-sm-12">
           <div class="row">
           <div class="card">          
             <div class="card-body">
@@ -71,12 +71,13 @@
                             }
                             echo "<tr>";
                                 echo "<td>$x.</td>";                                
-                                echo "<td>$branch[startdate]</td>";
-                                echo "<td>$branch[enddate]</td>";
+                                echo "<td>".date('M d, Y',strtotime($branch['startdate']))."</td>";
+                                echo "<td>".date('M d, Y',strtotime($branch['enddate']))."</td>";
                                 echo "<td><a href='#' class='btn btn-sm btn-warning editPayrollPeriod' data-bs-toggle='modal' data-bs-target='#managepayrollperiod' data-id='$branch[id]_$branch[startdate]_$branch[enddate]_$branch[branch]'>Edit</a>";
                                 ?>
                                 <a href="<?=base_url();?>delete_payrollperiod/<?=$branch['id'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <a href="<?=base_url();?>payroll_manager/<?=$branch['id'];?>" class="btn btn-success btn-sm">Manage Payroll</a>
+                                <a href="<?=base_url();?>print_payslip/<?=$branch['id'];?>" class="btn btn-primary btn-sm" target="_blank">Print Payslip</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";
