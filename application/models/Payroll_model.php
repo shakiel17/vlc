@@ -412,8 +412,11 @@
             }
         }
         public function delete_payrollperiod($id){
-            $result=$this->db->query("DELETE FROM payroll_period WHERE id='$id'");
+            $branch=$this->session->branch;
+            $result=$this->db->query("DELETE FROM payroll_period WHERE id='$id' AND branch='$branch'");
             if($result){
+                $this->db->query("DELETE FROM payroll_daily WHERE payroll_period='$id' AND branch='$branch'");
+                $this->db->query("DELETE FROM payroll_per_head WHERE payroll_period='$id' AND branch='$branch'");
                 return true;
             }else{
                 return false;
@@ -432,7 +435,7 @@
                 }
             }
         }
-        public function create_payroll($id){
+        public function create_payroll($id,$type){
             $branch=$this->session->branch;
             $employee=$this->db->query("SELECT e.*,ed.* FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid WHERE ed.branch='$branch'");
             $emp=$employee->result_array();
@@ -457,28 +460,76 @@
             $datearray=date("Y-m-d");
             $timearray=date('H:i:s');
             foreach($emp as $e){
-                $check=$this->db->query("SELECT * FROM payroll_daily WHERE payroll_period='$id' AND empid='$e[empid]'");
+                $check=$this->db->query("SELECT * FROM payroll_daily WHERE payroll_period='$id' AND empid='$e[empid]' AND branch='$branch'");
                 if($check->num_rows() > 0){
 
                 }else{
-                    $check=$this->db->query("SELECT * FROM payroll_per_head WHERE payroll_period='$id' AND empid='$e[empid]'");
+                    $check=$this->db->query("SELECT * FROM payroll_per_head WHERE payroll_period='$id' AND empid='$e[empid]' AND branch='$branch'");
                     if($check->num_rows() > 0){
 
                     }else{
-                        if($e['is_daily']==1){
+                        if($type==1){
                             $this->db->query("INSERT INTO payroll_daily(payroll_period,empid,salary,no_of_days_required,no_of_days_work,adjustment,deduction,date_created,time_created,`status`,branch) VALUES('$id','$e[empid]','$e[salary]','$days_required','$days_required','0','0','$datearray','$timearray','pending','$branch')");
                         }else{
                             $this->db->query("INSERT INTO payroll_per_head(payroll_period,empid,no_of_heads_pdc,no_of_heads_tdc,adjustment,deduction,date_created,time_created,`status`,branch) VALUES('$id','$e[empid]','$pdc','$tdc','0','0','$datearray','$timearray','pending','$branch')");
-                        }                        
+                        }
+                        return true;                        
                     }
                 }
             }
         }
         public function getPayrollDaily($id){
+            $branch=$this->session->branch;
+            $employee=$this->db->query("SELECT e.*,ed.* FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid WHERE ed.branch='$branch' AND ed.is_daily='1'");
+            $emp=$employee->result_array();
+            $period=$this->db->query("SELECT * FROM payroll_period WHERE id='$id'");
+            $p=$period->row_array();
+            $d1=new DateTime($p['startdate']);
+            $d2=new DateTime($p['enddate']);
+            $interval=$d1->diff($d2);
+            $days_required=$interval->d + 1;
+            $datearray=date("Y-m-d");
+            $timearray=date('H:i:s');
+            foreach($emp as $e){
+                $check=$this->db->query("SELECT * FROM payroll_daily WHERE payroll_period='$id' AND empid='$e[empid]' AND branch='$branch'");
+                if($check->num_rows() > 0){
+
+                }else{
+                    $this->db->query("INSERT INTO payroll_daily(payroll_period,empid,salary,no_of_days_required,no_of_days_work,adjustment,deduction,date_created,time_created,`status`,branch) VALUES('$id','$e[empid]','$e[salary]','$days_required','$days_required','0','0','$datearray','$timearray','pending','$branch')");                                              
+                }
+            }            
             $result=$this->db->query("SELECT pd.*,e.* FROM payroll_daily pd INNER JOIN employee e ON e.empid=pd.empid WHERE pd.payroll_period='$id'");
             return $result->result_array();
         }
         public function getPayrollPerHead($id){
+            $branch=$this->session->branch;
+            $employee=$this->db->query("SELECT e.*,ed.* FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid WHERE ed.branch='$branch' AND ed.is_daily='0'");
+            $emp=$employee->result_array(); 
+            $period=$this->db->query("SELECT * FROM payroll_period WHERE id='$id'");
+            $p=$period->row_array();           
+            $train=$this->db->query("SELECT * FROM customer WHERE datearray BETWEEN '$p[startdate]' AND '$p[enddate]'");
+            $customer=$train->result_array();
+            $pdc=0;
+            $tdc=0;
+            foreach($customer as $t){
+                if($t['type'] == "PDC"){
+                    $pdc++;
+                }
+                if($t['type'] == "TDC"){
+                    $tdc++;
+                }
+            }
+            $datearray=date("Y-m-d");
+            $timearray=date('H:i:s');
+            foreach($emp as $e){
+                    $check=$this->db->query("SELECT * FROM payroll_per_head WHERE payroll_period='$id' AND empid='$e[empid]' AND branch='$branch'");
+                    if($check->num_rows() > 0){
+
+                    }else{
+                        $this->db->query("INSERT INTO payroll_per_head(payroll_period,empid,no_of_heads_pdc,no_of_heads_tdc,adjustment,deduction,date_created,time_created,`status`,branch) VALUES('$id','$e[empid]','$pdc','$tdc','0','0','$datearray','$timearray','pending','$branch')");                       
+                    }
+                
+            }
             $result=$this->db->query("SELECT pd.*,e.* FROM payroll_per_head pd INNER JOIN employee e ON e.empid=pd.empid WHERE pd.payroll_period='$id'");
             return $result->result_array();
         }

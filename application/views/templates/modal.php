@@ -505,3 +505,30 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="generateEnrollee" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enrollee Report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."print_enrollee");?>            
+            <div class="modal-body">
+                <div class="form-group mb-1">                    
+                    <label>Start Date</label>
+                    <input type="date" name="startdate" class="form-control">
+                </div>
+                <div class="form-group mb-1">                    
+                    <label>End Date</label>
+                    <input type="date" name="enddate" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-primary">Generate</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>

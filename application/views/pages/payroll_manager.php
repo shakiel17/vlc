@@ -1,5 +1,4 @@
-<?php
-  $this->Payroll_model->create_payroll($payroll_period);
+<?php  
   $post=$this->Payroll_model->db->query("SELECT * FROM payroll_daily WHERE `status`='pending' AND payroll_period='$payroll_period'");
   if($post->num_rows() > 0){
     $save="";

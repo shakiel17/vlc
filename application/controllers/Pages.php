@@ -619,7 +619,7 @@
                 redirect(base_url());
             }
             $data['title'] = "Payroll Manager";
-            $datenow=date('Y-m-d');
+            $datenow=date('Y-m-d');            
             $data['payroll_daily'] = $this->Payroll_model->getPayrollDaily($id);
             $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHead($id);
             $data['branches'] = $this->Payroll_model->getAllBranch();
@@ -671,5 +671,13 @@
             }
             redirect(base_url()."payroll_manager/$id");
         }
+
+        //===================================Start of Reports=========================================
+
+        public function print_enrollee(){
+            
+        }
+
+        //====================================End of Reports==========================================
     }
 ?>

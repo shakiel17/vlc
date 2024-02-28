@@ -93,6 +93,7 @@ $route['delete_branch/(:any)/(:any)'] = 'pages/delete_branch/$1/$2';
 $route['save_branch'] = 'pages/save_branch';
 $route['manage_branch'] = 'pages/manage_branch';
 //============================================================================
+$route['print_enrollee'] = 'pages/print_enrollee';
 $route['search_expenses'] = 'pages/search_expenses';
 $route['search_trainee'] = 'pages/search_trainee';
 $route['logout'] = 'pages/logout';

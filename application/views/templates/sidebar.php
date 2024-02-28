@@ -46,6 +46,11 @@
             <a href="<?=base_url();?>manage_payroll">
               <i class="bi bi-circle"></i><span>Payroll</span>
             </a>
+          </li>
+          <li>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#generateEnrollee">
+              <i class="bi bi-circle"></i><span>Enrollee</span>
+            </a>
           </li>          
         </ul>
       </li><!-- End Forms Nav -->
