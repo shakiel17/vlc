@@ -604,5 +604,13 @@
             $result=$this->db->query("SELECT * FROM customer WHERE datearray BETWEEN '$startdate' AND '$enddate' AND branch='$branch' AND `type`='$type' ORDER BY datearray ASC, lastname ASC");
             return $result->result_array();
         }
+        public function getPayrollDailySummary($id){                       
+            $result=$this->db->query("SELECT pd.*,e.* FROM payroll_daily pd INNER JOIN employee e ON e.empid=pd.empid WHERE pd.payroll_period='$id' AND pd.status='posted'");
+            return $result->result_array();
+        }
+        public function getPayrollPerHeadSummary($id){            
+            $result=$this->db->query("SELECT pd.*,e.* FROM payroll_per_head pd INNER JOIN employee e ON e.empid=pd.empid WHERE pd.payroll_period='$id' AND pd.status='posted'");
+            return $result->result_array();
+        }
     }
 ?>

@@ -11,6 +11,7 @@
             <td align="center" width="15%">Gross Pay</td>
             <td align="center" width="10%">Deduction</td>
             <td align="center" width="15%">Net Pay</td>
+            <td align="center" width="15%">Signature</td>
         </tr>
         <?php
         $x=1;
@@ -31,6 +32,7 @@
                 echo "<td align='right'>".number_format($gross,2)."</td>";
                 echo "<td align='right'>".number_format($branch['deduction'],2)."</td>";
                 echo "<td align='right'>".number_format($net,2)."</td>";
+                echo "<td>&nbsp;</td>";
             echo "</tr>";
             $totalnet += $net;
             $totalgross += $gross;
@@ -43,7 +45,8 @@
             <td align="right"><b><?=number_format($totaladjustment,2);?></b></td>
             <td align="right"><b><?=number_format($totalgross,2);?></b></td>
             <td align="right"><b><?=number_format($totaldeduction,2);?></b></td>
-            <td align="right"><b><?=number_format($totalnet,2);?><b/></td>
+            <td align="right"><b><?=number_format($totalnet,2);?></b></td>
+            <td>&nbsp;</td>
         </tr>
     </table>
     <br>
@@ -58,6 +61,7 @@
             <td align="center" width="15%">Gross Pay</td>
             <td align="center" width="10%">Deduction</td>
             <td align="center" width="15%">Net Pay</td>
+            <td align="center" width="15%">Signature</td>
         </tr>
         <?php
         $x=1;
@@ -80,6 +84,7 @@
                 echo "<td align='right'>".number_format($gross,2)."</td>";
                 echo "<td align='right'>".number_format($branch['deduction'],2)."</td>";
                 echo "<td align='right'>".number_format($net,2)."</td>";
+                echo "<td>&nbsp;</td>";
             echo "</tr>";
             $totalnet += $net;
             $totalgross += $gross;
@@ -92,7 +97,8 @@
             <td align="right"><b><?=number_format($totaladjustment,2);?></b></td>
             <td align="right"><b><?=number_format($totalgross,2);?></b></td>
             <td align="right"><b><?=number_format($totaldeduction,2);?></b></td>
-            <td align="right"><b><?=number_format($totalnet,2);?><b/></td>
+            <td align="right"><b><?=number_format($totalnet,2);?></b></td>
+            <td>&nbsp;</td>
         </tr>
     </table>
 </div>

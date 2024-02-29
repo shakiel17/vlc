@@ -784,8 +784,8 @@
             }else{
               redirect(base_url()."main");
             }                                    
-            $data['payroll_daily'] = $this->Payroll_model->getPayrollDaily($id);
-            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHead($id);            
+            $data['payroll_daily'] = $this->Payroll_model->getPayrollDailySummary($id);
+            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHeadSummary($id);            
             $html = $this->load->view('pages/'.$page,$data,true);
             $mpdf = new \Mpdf\Mpdf([
                     'setAutoTopMargin' => 'stretch',
