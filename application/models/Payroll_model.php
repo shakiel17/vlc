@@ -564,5 +564,45 @@
                 return false;
             }
         }
+        public function getAllDeduction($period,$empid){
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT * FROM deduction WHERE payroll_period='$period' AND empid='$empid' AND branch='$branch'");
+            return $result->result_array();
+        }
+        public function save_deduction(){
+            $id=$this->input->post("id");
+            $period=$this->input->post("period");
+            $empid=$this->input->post("empid");
+            $description=$this->input->post("description");
+            $amount=$this->input->post("amount");            
+            $branch=$this->session->branch;
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO deduction(payroll_period,empid,`description`,amount,datearray,timearray,branch) VALUES('$period','$empid','$description','$amount','$datearray','$timearray','$branch')");
+                }else{
+                    $result=$this->db->query("UPDATE deduction SET `description`='$description',amount='$amount' WHERE id='$id'");
+                }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_deduction($id){
+            $result=$this->db->query("DELETE FROM deduction WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getAllCustomer($type){
+            $startdate=$this->input->post('startdate');
+            $enddate=$this->input->post('enddate');
+            $branch=$this->session->branch;
+            $result=$this->db->query("SELECT * FROM customer WHERE datearray BETWEEN '$startdate' AND '$enddate' AND branch='$branch' AND `type`='$type' ORDER BY datearray ASC, lastname ASC");
+            return $result->result_array();
+        }
     }
 ?>

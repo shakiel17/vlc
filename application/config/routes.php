@@ -49,7 +49,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+//========================Deduction Module=====================================
+$route['delete_deduction/(:any)/(:any)/(:any)/(:any)'] = 'pages/delete_deduction/$1/$2/$3/$4';
+$route['save_deduction'] = 'pages/save_deduction';
+$route['manage_deduction/(:any)/(:any)'] = 'pages/manage_deduction/$1/$2';
 //========================Payroll Module=======================================
+$route['payroll_summary/(:any)'] = 'pages/payroll_summary/$1';
 $route['unpost_payroll/(:any)'] = 'pages/unpost_payroll/$1';
 $route['delete_payrollperiod/(:any)'] = 'pages/delete_payrollperiod/$1';
 $route['save_payrollperiod'] = 'pages/save_payrollperiod';

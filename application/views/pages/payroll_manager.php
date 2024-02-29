@@ -79,9 +79,12 @@
                         $x=1;
                         foreach($payroll_daily as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
-                            $br=$query->row_array();   
+                            $br=$query->row_array();                               
                             $net=(($branch['salary']*$branch['no_of_days_work'])+$branch['adjustment']) - $branch['deduction'];
                             $gross=($branch['salary']*$branch['no_of_days_work'])+$branch['adjustment'];
+                            $ded=$this->Payroll_model->db->query("SELECT SUM(amount) as deduction FROM deduction WHERE payroll_period='$payroll_period' AND empid='$branch[empid]' AND branch='$branch[branch]'");
+                            $deduct=$ded->row_array();
+                            $deduction=$deduct['deduction'];
                             echo "<input type='hidden' name='is_daily[]' value='1'>";
                             echo "<input type='hidden' name='empid[]' value='$branch[empid]'>";
                             echo "<tr>";
@@ -92,7 +95,10 @@
                                 echo "<td><input width='10%' style='text-align:center;' type='text' name='days_worked[]' class='form-control' value='$branch[no_of_days_work]'></td>";
                                 echo "<td><input width='10%' type='text' style='text-align:right;' name='adjustment[]' class='form-control' value='$branch[adjustment]'></td>";                                
                                 echo "<td align='right'>".number_format($gross,2)."</td>";                                
-                                echo "<td><input type='text' name='deduction[]' class='form-control' value='$branch[deduction]'></td>";
+                                echo "<td align='right'>
+                                  <a href='".base_url()."manage_deduction/$payroll_period/$branch[empid]'>".number_format($deduction,2)."</a>
+                                  <input type='hidden' name='deduction[]' class='form-control' value='$deduction'>
+                                </td>";                                
                                 echo "<td align='right'>".number_format($net,2)."</td>";
                             echo "</tr>";
                             $x++;
@@ -125,6 +131,9 @@
                             $tdc=$branch['no_of_heads_tdc']*80;
                             $gross=(($pdc+$tdc)/$per_head) + $branch['adjustment'];
                             $net=$gross - $branch['deduction'];
+                            $ded=$this->Payroll_model->db->query("SELECT SUM(amount) as deduction FROM deduction WHERE payroll_period='$payroll_period' AND empid='$branch[empid]' AND branch='$branch[branch]'");
+                            $deduct=$ded->row_array();
+                            $deduction=$deduct['deduction'];
                             echo "<input type='hidden' name='is_daily[]' value='0'>";
                             echo "<input type='hidden' name='empid[]' value='$branch[empid]'>";
                             echo "<tr>";
@@ -134,7 +143,10 @@
                                 echo "<td><input width='10%' style='text-align:center;' type='text' name='days_worked[]' class='form-control' value='$branch[no_of_heads_tdc]'></td>";
                                 echo "<td><input width='10%' type='text' style='text-align:right;' name='adjustment[]' class='form-control' value='$branch[adjustment]'></td>";                                
                                 echo "<td align='right'>".number_format($gross,2)."</td>";                                
-                                echo "<td><input type='text' name='deduction[]' class='form-control' value='$branch[deduction]'></td>";
+                                echo "<td align='right'>
+                                  <a href='".base_url()."manage_deduction/$payroll_period/$branch[empid]'>".number_format($deduction,2)."</a>
+                                  <input type='hidden' name='deduction[]' class='form-control' value='$deduction'>
+                                </td>";
                                 echo "<td align='right'>".number_format($net,2)."</td>";
                             echo "</tr>";
                             $x++;

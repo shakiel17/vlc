@@ -78,6 +78,7 @@
                                 <a href="<?=base_url();?>delete_payrollperiod/<?=$branch['id'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <a href="<?=base_url();?>payroll_manager/<?=$branch['id'];?>" class="btn btn-success btn-sm">Manage Payroll</a>
                                 <a href="<?=base_url();?>print_payslip/<?=$branch['id'];?>" class="btn btn-primary btn-sm" target="_blank">Print Payslip</a>
+                                <a href="<?=base_url();?>payroll_summary/<?=$branch['id'];?>" class="btn btn-info btn-sm" target="_blank">Payroll Summary</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";

@@ -672,12 +672,139 @@
             redirect(base_url()."payroll_manager/$id");
         }
 
+        public function manage_deduction($payroll_period,$empid){
+            $page = "manage_deduction";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Deduction Manager";
+            $datenow=date('Y-m-d');
+            $data['employee'] = $this->Payroll_model->getSingleEmployee($empid);
+            $data['deductions'] = $this->Payroll_model->getAllDeduction($payroll_period,$empid);            
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['payroll_period'] = $payroll_period;
+            $data['empid'] = $empid;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_deduction(){
+            $payroll_period=$this->input->post('period');
+            $empid=$this->input->post('empid');
+            $save=$this->Payroll_model->save_deduction();
+            if($save){
+                $message="Deduction details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Deduction details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save deduction details!');
+            }
+            redirect(base_url().'manage_deduction/'.$payroll_period.'/'.$empid);
+        }
+        public function delete_deduction($id,$description,$payroll_period,$empid){            
+            $save=$this->Payroll_model->delete_deduction($id);
+            if($save){
+                $message="Deduction details ($description) successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Deduction details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete deduction details!');
+            }
+            redirect(base_url().'manage_deduction/'.$payroll_period.'/'.$empid);
+        }
         //===================================Start of Reports=========================================
 
         public function print_enrollee(){
-            
+            $page="print_enrollee";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }            
+            if($this->session->user_login){
+                
+            }else{
+              redirect(base_url()."main");
+            }            
+            $startdate=$this->input->post('startdate');
+            $enddate=$this->input->post('enddate');
+            $type=$this->input->post('type');            
+            $interval="";
+            if($startdate==$enddate){
+                $interval="DAILY";
+                $date="DATE: ".date('M d, Y',strtotime($startdate));
+            }else{
+                $interval="WEEKLY";
+                $date="DATE RANGE: ".date('M d, Y',strtotime($startdate))." to ".date('M d, Y',strtotime($enddate));
+            }
+            $data['startdate']=$startdate;
+            $data['enddate']=$enddate;           
+            $data['items'] = $this->Payroll_model->getAllCustomer($type);            
+            $html = $this->load->view('pages/'.$page,$data,true);
+            $mpdf = new \Mpdf\Mpdf([
+                    'setAutoTopMargin' => 'stretch',
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'setAutoBottomMargin' => 'stretch'
+            ]);
+            $mpdf->setHTMLHeader('
+            <div align="center">
+			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             '.$type.' '.$interval.' ENROLLEES<br><br>             
+             </div>   
+             <div>
+             '.$date.'
+             </div>          
+            ');
+            $mpdf->autoPageBreak = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
         }
-
+        public function payroll_summary($id){
+            $page="payroll_summary";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }            
+            if($this->session->user_login){
+                
+            }else{
+              redirect(base_url()."main");
+            }                                    
+            $data['payroll_daily'] = $this->Payroll_model->getPayrollDaily($id);
+            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHead($id);            
+            $html = $this->load->view('pages/'.$page,$data,true);
+            $mpdf = new \Mpdf\Mpdf([
+                    'setAutoTopMargin' => 'stretch',
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'setAutoBottomMargin' => 'stretch',
+                    'orientation' => 'L'
+            ]);
+            $mpdf->setHTMLHeader('
+            <div align="center">
+			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             <h3>PAYROLL SUMMARY</h3>             
+             </div>          
+            ');
+            $mpdf->autoPageBreak = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+        }
         //====================================End of Reports==========================================
     }
 ?>

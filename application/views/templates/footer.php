@@ -298,6 +298,25 @@
       document.getElementById('period_enddate').value = id[2];
       document.getElementById('period_branch').value = id[3];
     });
+
+    $('.addDeduction').click(function(){      
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('deduct_id').value = "";
+      document.getElementById('deduct_period').value = id[0];
+      document.getElementById('deduct_empid').value = id[1];
+      document.getElementById('deduct_description').value = "";    
+      document.getElementById('deduct_amount').value = "";
+    });
+    $('.editDeduction').click(function(){      
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('deduct_id').value = id[0];
+      document.getElementById('deduct_description').value = id[1];    
+      document.getElementById('deduct_amount').value = id[2];
+      document.getElementById('deduct_period').value = id[4];
+      document.getElementById('deduct_empid').value = id[3];      
+    });
   </script>
 </body>
 
