@@ -50,7 +50,12 @@
                 $this->session->set_flashdata('error','You are not logged in!');
                 redirect(base_url());
             }
+            $date=date('Y-m-d');
             $data['title'] = "Dashboard";
+            $data['tdc'] = $this->Payroll_model->getAllCustomerByDate("TDC",$date);
+            $data['pdc'] = $this->Payroll_model->getAllCustomer("PDC",$date);
+            $data['employee'] = $this->Payroll_model->getAllEmployee();
+            $data['trainee'] = $this->Payroll_model->getAllTraineeByDate($date);
             $this->load->view('templates/header');
             $this->load->view('templates/navbar');
             $this->load->view('templates/sidebar');

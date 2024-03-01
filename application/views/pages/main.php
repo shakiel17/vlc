@@ -42,15 +42,15 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6><?=count($pdc);?></h6>
+                      <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
                   </div>
                 </div>                
 
               </div>
-            </div>
+            </div>            
             <div class="col-xxl-3 col-md-6">
               <div class="card info-card sales-card">
 
@@ -75,8 +75,8 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6><?=count($tdc);?></h6>
+                      <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
                   </div>
@@ -85,7 +85,15 @@
               </div>
             </div>
             <!-- End Sales Card -->
-
+            <?php
+            $totalrevenue=0;
+            foreach($pdc as $item){
+              $totalrevenue +=$item['amount'];
+            }
+            foreach($tdc as $item){
+              $totalrevenue +=$item['amount'];
+            }
+            ?>
             <!-- Revenue Card -->
             <div class="col-xxl-3 col-md-6">
               <div class="card info-card revenue-card">
@@ -108,10 +116,10 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="">&#8369;</i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
+                      <h6><?=number_format($totalrevenue,2);?></h6>
                       <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
@@ -147,8 +155,7 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                      <h6><?=count($employee);?></h6>                      
 
                     </div>
                   </div>
@@ -167,15 +174,26 @@
                   <table class="table table-borderless">
                     <thead>
                       <tr>
-                        <th scope="col">OR #</th>
+                        <th scope="col">#</th>
                         <th scope="col">Trainee Name</th>
                         <th scope="col">Type</th>
                         <th scope="col">Amount</th>
-                        <th scope="col">Sta000tus</th>
+                        <th scope="col">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      
+                      <?php
+                      $x=1;
+                      foreach($trainee as $item){
+                        echo "<tr>";
+                          echo "<td>$x.</td>";
+                          echo "<td>$item[lastname], $item[firstname]</td>";
+                          echo "<td align='center'>$item[type]</td>";
+                          echo "<td align='right'>".number_format($item['amount'],2)."</td>";
+                          echo "<td align='center'>$item[status]</td>";
+                        echo "</tr>";
+                      }
+                      ?>
                     </tbody>
                   </table>
 
