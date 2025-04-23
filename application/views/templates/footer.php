@@ -255,6 +255,7 @@
       document.getElementById('expense_name').value = "";
       document.getElementById('expense_branch').value = "";
       document.getElementById('expense_date').value = "";
+      document.getElementById('expense_amount').value = "";
     });
     $('.editExpenses').click(function(){
       var data=$(this).data('id');
@@ -263,6 +264,7 @@
       document.getElementById('expense_name').value = id[1];
       document.getElementById('expense_branch').value = id[2];
       document.getElementById('expense_date').value = id[3];
+      document.getElementById('expense_amount').value = id[4];
     });
     $('.addAdvances').click(function(){      
       document.getElementById('advance_id').value = "";
@@ -316,6 +318,40 @@
       document.getElementById('deduct_amount').value = id[2];
       document.getElementById('deduct_period').value = id[4];
       document.getElementById('deduct_empid').value = id[3];      
+    });
+
+    $('.addDeposit').click(function(){      
+      document.getElementById('deposit_id').value = "";
+      document.getElementById('deposit_name').value = "";
+      document.getElementById('deposit_branch').value = "";
+      document.getElementById('deposit_date').value = "";
+      document.getElementById('deposit_amount').value = "";
+    });
+    $('.editDeposit').click(function(){
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('deposit_id').value = id[0];
+      document.getElementById('deposit_name').value = id[1];
+      document.getElementById('deposit_branch').value = id[2];
+      document.getElementById('deposit_date').value = id[3];
+      document.getElementById('deposit_amount').value = id[4];
+    });
+
+    $('.addBalance').click(function(){      
+      document.getElementById('balance_id').value = "";
+      document.getElementById('balance_name').value = "";
+      document.getElementById('balance_branch').value = "";
+      document.getElementById('balance_date').value = "";
+      document.getElementById('balance_amount').value = "";
+    });
+    $('.editBalance').click(function(){
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('balance_id').value = id[0];
+      document.getElementById('balance_name').value = id[1];
+      document.getElementById('balance_branch').value = id[2];
+      document.getElementById('balance_date').value = id[3];
+      document.getElementById('balance_amount').value = id[4];
     });
   </script>
 </body>

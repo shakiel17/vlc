@@ -425,6 +425,7 @@
             $datenow=date('Y-m-d');
             $data['expenses'] = $this->Payroll_model->getAllExpensesByDate($datenow);
             $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['date_expense'] = $datenow;
             $this->load->view('templates/header');
             $this->load->view('templates/navbar');
             $this->load->view('templates/sidebar');
@@ -475,6 +476,7 @@
             $datenow=$this->input->post('datearray');
             $data['expenses'] = $this->Payroll_model->getAllExpensesByDate($datenow);
             $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['date_expense'] = $datenow;
             $this->load->view('templates/header');
             $this->load->view('templates/navbar');
             $this->load->view('templates/sidebar');
@@ -482,6 +484,159 @@
             $this->load->view('templates/modal');
             $this->load->view('templates/footer');
         }
+
+
+
+        public function manage_deposit(){
+            $page = "manage_deposit";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Deposit Manager";
+            $datenow=date('Y-m-d');
+            $data['expenses'] = $this->Payroll_model->getAllDepositByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['date_expense'] = $datenow;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_deposit(){
+            $save=$this->Payroll_model->save_deposit();
+            if($save){
+                $message="Deposit details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Deposit details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save deposit details!');
+            }
+            redirect(base_url().'manage_deposit');
+        }
+        public function delete_deposit($id,$description){
+            $save=$this->Payroll_model->delete_deposit($id);
+            if($save){
+                $message="Deposit details $description successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Deposit details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete deposit details!');
+            }
+            redirect(base_url().'manage_deposit');
+        }
+        public function search_deposit(){
+            $page = "manage_deposit";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Deposit Manager";
+            $datenow=$this->input->post('datearray');
+            $data['expenses'] = $this->Payroll_model->getAllDepositByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['date_expense'] = $datenow;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+
+        public function manage_balances(){
+            $page = "manage_balance";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Balance Manager";
+            $datenow=date('Y-m-d');
+            $data['expenses'] = $this->Payroll_model->getAllBalanceByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['date_expense'] = $datenow;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_balance(){
+            $save=$this->Payroll_model->save_balance();
+            if($save){
+                $message="Balance details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Balance details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save balance details!');
+            }
+            redirect(base_url().'manage_balances');
+        }
+        public function delete_balance($id,$description){
+            $save=$this->Payroll_model->delete_balance($id);
+            if($save){
+                $message="Balance details $description successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Balance details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete balance details!');
+            }
+            redirect(base_url().'manage_balances');
+        }
+        public function search_balance(){
+            $page = "manage_balance";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Balance Manager";
+            $datenow=$this->input->post('datearray');
+            $data['expenses'] = $this->Payroll_model->getAllBalanbceByDate($datenow);
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['date_expense'] = $datenow;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+
         public function manage_advances(){
             $page = "manage_advances";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
@@ -840,6 +995,43 @@
              <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
              <b>Kidapawan City</b><br><br>
              <h3>PAYROLL SUMMARY</h3>             
+             </div>          
+            ');
+            $mpdf->autoPageBreak = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();*/
+        }
+
+        public function print_expenses(){
+            $page="print_expenses";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }            
+            if($this->session->user_login){
+                
+            }else{
+              redirect(base_url()."main");
+            }            
+            $date=$this->input->post('rundate');
+            $data['date']=$date;
+            $data['items'] = $this->Payroll_model->getAllExpensesByDate($date);            
+            $data['deposit'] = $this->Payroll_model->getAllDepositByDate($date);
+            $data['balance'] = $this->Payroll_model->getAllBalanceByDate($date);
+            $html = $this->load->view('pages/'.$page,$data);
+            /*$mpdf = new \Mpdf\Mpdf([
+                    'setAutoTopMargin' => 'stretch',
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'setAutoBottomMargin' => 'stretch'
+            ]);
+            $mpdf->setHTMLHeader('
+            <div align="center">
+			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             '.$type.' '.$interval.' ENROLLEES<br><br>             
+             </div>   
+             <div>
+             '.$date.'
              </div>          
             ');
             $mpdf->autoPageBreak = true;

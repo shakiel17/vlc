@@ -30,6 +30,16 @@
             </a>
           </li>
           <li>
+            <a href="<?=base_url();?>manage_deposit">
+              <i class="bi bi-circle"></i><span>Bank Deposit</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?=base_url();?>manage_balances">
+              <i class="bi bi-circle"></i><span>Balances & Others</span>
+            </a>
+          </li>
+          <li>
             <a href="<?=base_url();?>manage_advances">
               <i class="bi bi-circle"></i><span>Advances</span>
             </a>
@@ -51,7 +61,12 @@
             <a href="#" data-bs-toggle="modal" data-bs-target="#generateEnrollee">
               <i class="bi bi-circle"></i><span>Enrollee</span>
             </a>
-          </li>          
+          </li>
+          <li>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#generateExpenses">
+              <i class="bi bi-circle"></i><span>Consolidated Report</span>
+            </a>
+          </li>                    
         </ul>
       </li><!-- End Forms Nav -->
 

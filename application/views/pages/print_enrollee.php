@@ -29,6 +29,7 @@
                     echo "<td align='center'>$item[status]</td>";
                     echo "<td align='center' style='font-size:12px;'>$item[remarks]</td>";
                 echo "</tr>";
+                $x++;
             }
         ?>
     </table>

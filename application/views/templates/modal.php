@@ -370,6 +370,10 @@
                 <div class="form-group mb-1">                    
                     <label class="col-sm-3 control-label">Expense Details</label>
                     <textarea name="expenses" class="form-control" rows="3" id="expense_name"></textarea>
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Amount</label>
+                    <input type="text" name="amount" id="expense_amount" class="form-control" required>
                 </div>            
             <?php
                     if($this->session->is_admin==1){
@@ -566,6 +570,131 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="generateExpenses" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Consolidated Report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."print_expenses",array('target' => '_blank'));?>            
+            <div class="modal-body">
+                <div class="form-group mb-1">                    
+                    <label>Start Date</label>
+                    <input type="date" name="rundate" class="form-control">
+                </div>                                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-primary">Generate</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="managedeposit" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Deposit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_deposit");?>
+            <input type="hidden" name="id" id="deposit_id">
+            <div class="modal-body">  
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Applicable Date</label>
+                    <input type="date" name="datearray" value="<?=date('Y-m-d');?>" id="deposit_date" class="form-control" required>
+                </div>              
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Deposit Details</label>
+                    <textarea name="deposit" class="form-control" rows="3" id="deposit_name"></textarea>
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Amount</label>
+                    <input type="text" name="amount" id="deposit_amount" class="form-control" required>
+                </div>            
+            <?php
+                    if($this->session->is_admin==1){
+                ?>
+            <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="deposit_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                    ?>
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="managebalance" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Balances</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_balance");?>
+            <input type="hidden" name="id" id="balance_id">
+            <div class="modal-body">  
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Applicable Date</label>
+                    <input type="date" name="datearray" value="<?=date('Y-m-d');?>" id="balance_date" class="form-control" required>
+                </div>              
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Deposit Details</label>
+                    <textarea name="balance" class="form-control" rows="3" id="balance_name"></textarea>
+                </div>
+                <div class="form-group mb-1">                    
+                    <label class="col-sm-3 control-label">Amount</label>
+                    <input type="text" name="amount" id="balance_amount" class="form-control" required>
+                </div>            
+            <?php
+                    if($this->session->is_admin==1){
+                ?>
+            <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="balance_branch" required>
+                        <option value="">Select Branch</option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                    ?>
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
                 <?=form_close();?>
             </div>
         </div>

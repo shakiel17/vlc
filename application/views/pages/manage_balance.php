@@ -5,7 +5,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?=base_url();?>main">Home</a></li>
-          <li class="breadcrumb-item active">Expenses</li>
+          <li class="breadcrumb-item active">Balance</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -43,14 +43,13 @@
                       <h6>Action</h6>
                     </li>
 
-                    <li><a class="dropdown-item addExpenses" href="#" data-bs-toggle="modal" data-bs-target="#manageexpenses">Add Expenses</a></li>                    
-                    <!-- <li><a class="dropdown-item addExpenses" href="<?=base_url('print_expenses/'.$date_expense);?>">Print Expenses</a></li> -->
+                    <li><a class="dropdown-item addBalance" href="#" data-bs-toggle="modal" data-bs-target="#managebalance">Add Balance</a></li>                                        
                   </ul>
                 </div>
-              <h5 class="card-title">List of Expenses
+              <h5 class="card-title">List of Balance/Additional Money
               <div class="col-md-4"><br>
                   Select Date
-                <?=form_open(base_url()."search_expenses");?>
+                <?=form_open(base_url()."search_deposit");?>
                 <table border="0" width="100%">
                   <tr>
                     <td><input type="date" name="datearray" class="form-control" value="<?=$date_expense;?>"></td>
@@ -80,9 +79,9 @@
                                 echo "<td>$x.</td>";
                                 echo "<td>$branch[description]</td>";
                                 echo "<td>".number_format($branch['amount'],2)."</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editExpenses' data-bs-toggle='modal' data-bs-target='#manageexpenses' data-id='$branch[id]_$branch[description]_$branch[branch]_$branch[datearray]_$branch[amount]'>Edit</a>";
+                                echo "<td><a href='#' class='btn btn-sm btn-warning editBalance' data-bs-toggle='modal' data-bs-target='#managebalance' data-id='$branch[id]_$branch[description]_$branch[branch]_$branch[datearray]_$branch[amount]'>Edit</a>";
                                 ?>
-                                <a href="<?=base_url();?>delete_expenses/<?=$branch['id'];?>/<?=$branch['description'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
+                                <a href="<?=base_url();?>delete_balance/<?=$branch['id'];?>/<?=$branch['description'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";

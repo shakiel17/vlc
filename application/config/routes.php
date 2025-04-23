@@ -49,6 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+//========================Reports Module=======================================
+$route['print_expenses'] = 'pages/print_expenses';
 //========================Deduction Module=====================================
 $route['delete_deduction/(:any)/(:any)/(:any)/(:any)'] = 'pages/delete_deduction/$1/$2/$3/$4';
 $route['save_deduction'] = 'pages/save_deduction';
@@ -69,6 +71,14 @@ $route['delete_advances/(:any)/(:any)'] = 'pages/delete_advances/$1/$2';
 $route['save_advances'] = 'pages/save_advances';
 $route['manage_advances'] = 'pages/manage_advances';
 //========================Trainee Module=======================================
+$route['search_balance'] = 'pages/search_balance';
+$route['delete_balance/(:any)/(:any)'] = 'pages/delete_balance/$1/$2';
+$route['save_balance'] = 'pages/save_balance';
+$route['manage_balances'] = 'pages/manage_balances';
+$route['search_deposit'] = 'pages/search_deposit';
+$route['delete_deposit/(:any)/(:any)'] = 'pages/delete_deposit/$1/$2';
+$route['save_deposit'] = 'pages/save_deposit';
+$route['manage_deposit'] = 'pages/manage_deposit';
 $route['delete_expenses/(:any)/(:any)'] = 'pages/delete_expenses/$1/$2';
 $route['save_expenses'] = 'pages/save_expenses';
 $route['manage_expenses'] = 'pages/manage_expenses';

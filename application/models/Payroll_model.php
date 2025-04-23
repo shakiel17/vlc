@@ -326,13 +326,14 @@
         public function save_expenses(){
             $id=$this->input->post("id");
             $expenses=$this->input->post("expenses");            
+            $amount=$this->input->post("amount");  
             $branch=$this->input->post("branch");
             $datearray=$this->input->post("datearray");
             $timearray=date('H:i:s');
                 if($id==""){
-                    $result=$this->db->query("INSERT INTO expenses(`description`,branch,datearray,timearray) VALUES('$expenses','$branch','$datearray','$timearray')");
+                    $result=$this->db->query("INSERT INTO expenses(`description`,amount,branch,datearray,timearray) VALUES('$expenses','$amount','$branch','$datearray','$timearray')");
                 }else{
-                    $result=$this->db->query("UPDATE expenses SET `description`='$expenses',branch='$branch' WHERE id='$id'");
+                    $result=$this->db->query("UPDATE expenses SET `description`='$expenses',branch='$branch',amount='$amount' WHERE id='$id'");
                 }            
             if($result){
                 return true;
@@ -632,5 +633,78 @@
             $result=$this->db->query("SELECT ed.*,d.designation FROM employeedetails ed INNER JOIN designation d ON d.id=ed.designation WHERE ed.empid='$empid'");
             return $result->row_array();
         }
+
+        public function getAllDepositByDate($date){
+            $branch=$this->session->branch;
+            if($this->session->is_admin==1){
+                $result=$this->db->query("SELECT * FROM deposit WHERE datearray='$date'");
+            }else{
+                $result=$this->db->query("SELECT * FROM deposit WHERE datearray='$date' AND branch='$branch");
+            }            
+            return $result->result_array();
+        }
+
+        public function getAllBalanceByDate($date){
+            $branch=$this->session->branch;
+            if($this->session->is_admin==1){
+                $result=$this->db->query("SELECT * FROM balances WHERE datearray='$date'");
+            }else{
+                $result=$this->db->query("SELECT * FROM balances WHERE datearray='$date' AND branch='$branch");
+            }            
+            return $result->result_array();
+        }
+        public function save_deposit(){
+            $id=$this->input->post("id");
+            $expenses=$this->input->post("deposit");            
+            $amount=$this->input->post("amount");  
+            $branch=$this->input->post("branch");
+            $datearray=$this->input->post("datearray");
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO deposit(`description`,amount,branch,datearray,timearray) VALUES('$expenses','$amount','$branch','$datearray','$timearray')");
+                }else{
+                    $result=$this->db->query("UPDATE deposit SET `description`='$expenses',branch='$branch',amount='$amount' WHERE id='$id'");
+                }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_deposit($id){
+            $result=$this->db->query("DELETE FROM deposit WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        } 
+
+        public function save_balance(){
+            $id=$this->input->post("id");
+            $expenses=$this->input->post("balance");            
+            $amount=$this->input->post("amount");  
+            $branch=$this->input->post("branch");
+            $datearray=$this->input->post("datearray");
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO balances(`description`,amount,branch,datearray,timearray) VALUES('$expenses','$amount','$branch','$datearray','$timearray')");
+                }else{
+                    $result=$this->db->query("UPDATE balances SET `description`='$expenses',branch='$branch',amount='$amount' WHERE id='$id'");
+                }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_balance($id){
+            $result=$this->db->query("DELETE FROM balances WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        } 
     }
 ?>
