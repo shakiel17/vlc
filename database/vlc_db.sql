@@ -25,8 +25,10 @@ CREATE TABLE `advances` (
   `empid` varchar(100) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
+  `branch` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
