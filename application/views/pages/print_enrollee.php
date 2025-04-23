@@ -1,4 +1,12 @@
-<div>
+<div align="center">
+             <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             <?=$type;?> <?=$interval;?> ENROLLEES<br><br>             
+             </div>   
+             <div>
+             <?=$date;?>
+             </div>
+<div><br>
     <table border="1" width="100%" cellspacing="0" cellpadding="1" style="border-collapse: collapse;">
         <tr>
             <td align="center">NO.</td>

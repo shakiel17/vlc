@@ -756,7 +756,10 @@
                 $date="DATE RANGE: ".date('M d, Y',strtotime($startdate))." to ".date('M d, Y',strtotime($enddate));
             }
             $data['startdate']=$startdate;
-            $data['enddate']=$enddate;           
+            $data['enddate']=$enddate;    
+            $data['interval']        = $interval;
+            $data['type'] = $type;
+            $data['date']=$date;
             $data['items'] = $this->Payroll_model->getAllCustomer($type);            
             $html = $this->load->view('pages/'.$page,$data);
             /*$mpdf = new \Mpdf\Mpdf([
