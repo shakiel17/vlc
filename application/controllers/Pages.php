@@ -758,8 +758,8 @@
             $data['startdate']=$startdate;
             $data['enddate']=$enddate;           
             $data['items'] = $this->Payroll_model->getAllCustomer($type);            
-            $html = $this->load->view('pages/'.$page,$data,true);
-            $mpdf = new \Mpdf\Mpdf([
+            $html = $this->load->view('pages/'.$page,$data);
+            /*$mpdf = new \Mpdf\Mpdf([
                     'setAutoTopMargin' => 'stretch',
                     'margin_left' => 10,
                     'margin_right' => 10,
@@ -777,7 +777,7 @@
             ');
             $mpdf->autoPageBreak = true;
             $mpdf->WriteHTML($html);
-            $mpdf->Output();
+            $mpdf->Output();*/
         }
         public function payroll_summary($id){
             $page="payroll_summary";
@@ -791,8 +791,8 @@
             }                                    
             $data['payroll_daily'] = $this->Payroll_model->getPayrollDailySummary($id);
             $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHeadSummary($id);            
-            $html = $this->load->view('pages/'.$page,$data,true);
-            $mpdf = new \Mpdf\Mpdf([
+            $html = $this->load->view('pages/'.$page,$data);
+            /*$mpdf = new \Mpdf\Mpdf([
                     'setAutoTopMargin' => 'stretch',
                     'margin_left' => 10,
                     'margin_right' => 10,
@@ -808,7 +808,40 @@
             ');
             $mpdf->autoPageBreak = true;
             $mpdf->WriteHTML($html);
-            $mpdf->Output();
+            $mpdf->Output();*/
+        }
+
+        public function print_payslip($id){
+            $page="payslip";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }            
+            if($this->session->user_login){
+                
+            }else{
+              redirect(base_url()."main");
+            }                                    
+            $data['payroll_daily'] = $this->Payroll_model->getPayrollDailySummary($id);
+            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHeadSummary($id);
+            $data['period'] = $this->Payroll_model->getPayrollPeriod($id);
+            $html = $this->load->view('pages/'.$page,$data);
+            /*$mpdf = new \Mpdf\Mpdf([
+                    'setAutoTopMargin' => 'stretch',
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'setAutoBottomMargin' => 'stretch',
+                    'orientation' => 'L'
+            ]);
+            $mpdf->setHTMLHeader('
+            <div align="center">
+             <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             <h3>PAYROLL SUMMARY</h3>             
+             </div>          
+            ');
+            $mpdf->autoPageBreak = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();*/
         }
         //====================================End of Reports==========================================
     }

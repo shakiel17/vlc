@@ -54,6 +54,7 @@ $route['delete_deduction/(:any)/(:any)/(:any)/(:any)'] = 'pages/delete_deduction
 $route['save_deduction'] = 'pages/save_deduction';
 $route['manage_deduction/(:any)/(:any)'] = 'pages/manage_deduction/$1/$2';
 //========================Payroll Module=======================================
+$route['print_payslip/(:any)'] = 'pages/print_payslip/$1';
 $route['payroll_summary/(:any)'] = 'pages/payroll_summary/$1';
 $route['unpost_payroll/(:any)'] = 'pages/unpost_payroll/$1';
 $route['delete_payrollperiod/(:any)'] = 'pages/delete_payrollperiod/$1';

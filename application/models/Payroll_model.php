@@ -617,5 +617,18 @@
             $result=$this->db->query("SELECT * FROM customer WHERE `type`='$type' AND datearray='$date'");
             return $result->result_array();
         }
+        public function getDeduction($period,$empid){
+            $result=$this->db->query("SELECT * FROM deduction WHERE payroll_period='$period' AND empid='$empid'");
+            return $result->result_array();
+        }
+        public function getPayrollPeriod($id){
+            $result=$this->db->query("SELECT * FROM payroll_period WHERE id='$id'");
+            return $result->row_array();
+        }
+
+        public function getEmployeeDetails($empid){
+            $result=$this->db->query("SELECT ed.*,d.designation FROM employeedetails ed INNER JOIN designation d ON d.id=ed.designation WHERE ed.empid='$empid'");
+            return $result->row_array();
+        }
     }
 ?>

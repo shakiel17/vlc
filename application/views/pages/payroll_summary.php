@@ -1,3 +1,8 @@
+<div align="center">
+			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             <h3>PAYROLL SUMMARY</h3>             
+             </div>
 <div>
     DAILY RATE SALARY
     <table border="1" width="100%" cellspacing="0" cellpadding="1" style="border-collapse: collapse; font-size:14px;">
