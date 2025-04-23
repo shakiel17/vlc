@@ -550,6 +550,7 @@
             $branch=$this->session->branch;
             $result=$this->db->query("UPDATE payroll_daily SET `status`='posted' WHERE payroll_period='$id' AND branch='$branch'");
             if($result){
+                $this->db->query("UPDATE payroll_per_head SET `status`='posted' WHERE payroll_period='$id' AND branch='$branch'");
                 return true;
             }else{
                 return false;
@@ -559,6 +560,7 @@
             $branch=$this->session->branch;
             $result=$this->db->query("UPDATE payroll_daily SET `status`='pending' WHERE payroll_period='$id' AND branch='$branch'");
             if($result){
+                $this->db->query("UPDATE payroll_per_head SET `status`='pending' WHERE payroll_period='$id' AND branch='$branch'");
                 return true;
             }else{
                 return false;

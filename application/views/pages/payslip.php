@@ -1,10 +1,13 @@
+<table width="100%" border="0">
+	<tr>
+		<td>
 <?php
 		foreach($payroll_daily as $item){
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
 			?>
-<div style="width: 25%; float: left; margin-right: 20px;">
-<table width="100%" border="0">
+<div style="width: 25%; float: left; margin-right: 20px; margin-bottom: 30px;">
+<table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
 	<tr>		
 			<td>
 				<b style="font-size:12px;">VLC DRIVING TUTORIAL SERVICES</b><br>	            
@@ -12,7 +15,7 @@
 	            <b style="font-size:12px;"><?=$des['designation'];?></b> <b style="float:right;">Daily Rate: <?=number_format($des['salary'],2);?></b><br><br>
 	            <b>Employee: (<?=$item['empid'];?>) <?=$item['lastname'];?>, <?=$item['firstname'];?> <?=$item['middlename'];?></b>
 	            <hr><hr>
-	            <table width="100%" border="0">
+	            <table width="100%" border="0" style="font-size: 12px;">
 	            	<tr>
 	            		<td>Required Days</td>
 	            		<td colspan="2"><?=$item['no_of_days_required'];?></td>
@@ -77,11 +80,12 @@
 <?php
 		}
 	?>
-
-	
-	
+	</td>
+</tr>
+<tr>
+	<td>
 	<?php
-		$per_head=count($payroll_per_head);
+		$per_head=4;
 		foreach($payroll_per_head as $item){
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
@@ -89,8 +93,8 @@
             $tdc=$item['no_of_heads_tdc']*80;
             $gross=(($pdc+$tdc)/$per_head) + $item['adjustment'];
 			?>
-<div style="width: 25%; float: left; margin-right: 20px;">
-<table width="100%" border="0">
+<div style="width: 25%; margin-right: 20px; float: left;">
+<table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
 	<tr>		
 			<td>
 				<b style="font-size:12px;">VLC DRIVING TUTORIAL SERVICES</b><br>	            
@@ -98,7 +102,7 @@
 	            <b style="font-size:12px;"><?=$des['designation'];?></b><br><br>
 	            <b>Employee: (<?=$item['empid'];?>) <?=$item['lastname'];?>, <?=$item['firstname'];?> <?=$item['middlename'];?></b>
 	            <hr><hr>
-	            <table width="100%" border="0">
+	            <table width="100%" border="0" style="font-size: 12px;">
 	            	<tr>
 	            		<td>No. of PDC</td>
 	            		<td><?=$item['no_of_heads_pdc'];?></td>	
@@ -160,6 +164,10 @@
 	</tr>
 </table>
 </div>
+
 <?php
 		}
 	?>
+</td>
+</tr>
+</table>
