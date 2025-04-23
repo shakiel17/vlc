@@ -1,12 +1,12 @@
 <table width="100%" border="0">
 	<tr>
-		<td>
+		<td align="center">
 <?php
 		foreach($payroll_daily as $item){
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
 			?>
-<div style="width: 25%; float: left; margin-right: 20px; margin-bottom: 30px;">
+<div style="width: 23%; float: left; margin-right: 20px; margin-bottom: 30px;">
 <table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
 	<tr>		
 			<td>
@@ -83,7 +83,7 @@
 	</td>
 </tr>
 <tr>
-	<td>
+	<td align="center">
 	<?php
 		$per_head=4;
 		foreach($payroll_per_head as $item){
@@ -93,7 +93,7 @@
             $tdc=$item['no_of_heads_tdc']*80;
             $gross=(($pdc+$tdc)/$per_head) + $item['adjustment'];
 			?>
-<div style="width: 25%; margin-right: 20px; float: left;">
+<div style="width: 23%; margin-right: 20px; float: left;">
 <table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
 	<tr>		
 			<td>

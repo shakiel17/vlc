@@ -123,7 +123,7 @@
                 </thead>
                 <tbody>
                   <?php 
-                      $per_head=count($payroll_per_head); 
+                      $per_head=4; 
                         foreach($payroll_per_head as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
                             $br=$query->row_array();   
