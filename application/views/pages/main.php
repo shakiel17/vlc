@@ -171,7 +171,7 @@
                 <div class="card-body pb-0">
                   <h5 class="card-title">Recent Sales <span>| Today</span></h5>
 
-                  <table class="table table-borderless">
+                  <table class="table datatable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -179,6 +179,7 @@
                         <th scope="col">Type</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Remarks</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -190,7 +191,8 @@
                           echo "<td>$item[lastname], $item[firstname]</td>";
                           echo "<td align='center'>$item[type]</td>";
                           echo "<td align='right'>".number_format($item['amount'],2)."</td>";
-                          echo "<td align='center'>$item[status]</td>";
+                          echo "<td align='center'>$item[t_status]</td>";
+                          echo "<td align='center'>$item[remarks]</td>";
                         echo "</tr>";
                       }
                       ?>
