@@ -55,8 +55,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">First Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Password</th>
+                    <!-- <th scope="col">Username</th>
+                    <th scope="col">Password</th> -->
                     <th scope="col">Branch</th>
                     <th scope="col">Date</th>
                     <th scope="col">Status</th>
@@ -74,8 +74,8 @@
                                 echo "<td>$x.</td>";
                                 echo "<td>$branch[lastname]</td>";
                                 echo "<td>$branch[firstname]</td>";
-                                echo "<td>$branch[username]</td>";
-                                echo "<td>$branch[password]</td>";
+                                // echo "<td>$branch[username]</td>";
+                                // echo "<td>$branch[password]</td>";
                                 echo "<td>$br[description]</td>";
                                 echo "<td>$date</td>";
                                 echo "<td>$branch[status]</td>";

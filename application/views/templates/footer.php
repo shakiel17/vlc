@@ -53,8 +53,8 @@
       document.getElementById('agent_id').value = "";
       document.getElementById('agent_lastname').value = "";
       document.getElementById('agent_firstname').value = "";
-      document.getElementById('agent_username').value = "";
-      document.getElementById('agent_password').value = "";
+      // document.getElementById('agent_username').value = "";
+      // document.getElementById('agent_password').value = "";
     });
     $('.editAgent').click(function(){            
       var id=$(this).data('id');
@@ -85,8 +85,8 @@
             //     el.textContent = optn;
             //     el.value = optn;                
             //     selectClass.appendChild(el);            
-            document.getElementById("agent_username").value=response[0]['username'];
-            document.getElementById("agent_password").value=response[0]['password'];            
+            // document.getElementById("agent_username").value=response[0]['username'];
+            // document.getElementById("agent_password").value=response[0]['password'];            
           }
         }        
       });

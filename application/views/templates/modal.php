@@ -101,14 +101,14 @@
                         echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
                     }
                 ?>
-                <div class="form-group mb-1"> 
+                <!-- <div class="form-group mb-1"> 
                     <label class="col-sm-2 control-label">Username</label>
                     <input type="text" class="form-control" name="username" required id="agent_username">
                 </div>
                 <div class="form-group mb-1">                    
                     <label class="col-sm-2 control-label">Password</label>
                     <input type="password" class="form-control" name="password" required id="agent_password">
-                </div>
+                </div> -->
                 <div class="form-group mb-1">                    
                     <label class="col-sm-2 control-label">Status</label>
                     <select name="status" class="form-select" id="agent_status">

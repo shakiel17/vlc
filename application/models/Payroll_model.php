@@ -116,8 +116,8 @@
             $lastname=$this->input->post("lastname");
             $firstname=$this->input->post("firstname");
             $branch=$this->input->post("branch");
-            $username=$this->input->post("username");
-            $password=$this->input->post("password");
+            // $username=$this->input->post("username");
+            // $password=$this->input->post("password");
             $datearray=date('Y-m-d');
             $timearray=date('H:i:s');
             $status=$this->input->post('status');
@@ -125,9 +125,9 @@
             if($check_exist->num_rows() > 0){
             }else{
                 if($id==""){
-                    $result=$this->db->query("INSERT INTO commissioner(lastname,firstname,branch,username,`password`,datearray,timearray,`status`) VALUES('$lastname','$firstname','$branch','$username','$password','$datearray','$timearray','$status')");
+                    $result=$this->db->query("INSERT INTO commissioner(lastname,firstname,branch,username,`password`,datearray,timearray,`status`) VALUES('$lastname','$firstname','$branch','','','$datearray','$timearray','$status')");
                 }else{
-                    $result=$this->db->query("UPDATE commissioner SET lastname='$lastname',firstname='$firstname',branch='$branch',username='$username',`password`='$password' WHERE id='$id'");
+                    $result=$this->db->query("UPDATE commissioner SET lastname='$lastname',firstname='$firstname',branch='$branch' WHERE id='$id'");
                 }
             }            
             if($result){
