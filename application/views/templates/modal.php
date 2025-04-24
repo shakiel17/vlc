@@ -252,9 +252,9 @@
                     <select name="code" class="form-select" id="trainee_code">
                         <option value="">None</option>
                         <option value="1">1</option>
-                        <option value="12">1 & 2</option>
+                        <option value="1&2">1 & 2</option>
                         <option value="2">2</option>
-                        <option value="3">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
                 <div class="form-group mb-1">
@@ -699,6 +699,29 @@
                     }
                     ?>
                     </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="manageclaim" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Claim Commission</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."claim_commission");?>
+            <input type="hidden" name="comm_id" value="<?=$comm_id;?>">
+            <div class="modal-body">
+                <div class="form-group mb-1">                    
+                    <input type="text" class="form-control" placeholder="Enter No. of Commission to dispense" name="commission" required>
+                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
                 <button type="submit" class="btn btn-danger" onclick="return confirm('Do you wish to submit details?');return false;">Submit</button>

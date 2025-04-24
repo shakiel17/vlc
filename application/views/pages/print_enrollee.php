@@ -18,6 +18,7 @@ if($type=="All"){
             <td align="center" width="30%">NAME</td>
             <td align="center">TYPE</td>
             <td align="center">CODE</td>
+            <td align="center">COMM</td>
             <td align="center">AMOUNT</td>
             <td align="center">STATUS</td>
             <td align="center" width="30%">REMARKS</td>
@@ -26,11 +27,13 @@ if($type=="All"){
             $x=1;
             $totalamount=0;
             foreach($items as $item){
+                $comm=$this->Payroll_model->getSingleAgent($item['commissioner']);                
                 echo "<tr>";
                     echo "<td>$x.</td>";
                     echo "<td>$item[lastname], $item[firstname]</td>";
                     echo "<td align='center'>$item[type]</td>";
                     echo "<td align='center'>$item[code]</td>";
+                    echo "<td align='center'>$comm[firstname]</td>";
                     echo "<td align='right'>".number_format($item['amount'],2)."</td>";
                     echo "<td align='center'>$item[status]</td>";
                     echo "<td align='center' style='font-size:12px;'>$item[remarks]</td>";
@@ -45,7 +48,7 @@ if($type=="All"){
             <td colspan="7">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="4" align="right"><b>TOTAL</b></td>
+            <td colspan="5" align="right"><b>TOTAL</b></td>
             <td align="right"><b><?=number_format($totalamount,2);?></b></td>
             <td colspan="2"></td>
         </tr>

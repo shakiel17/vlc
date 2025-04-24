@@ -220,7 +220,7 @@
             echo json_encode($data);
         }
 
-        public function manage_commission(){
+        public function manage_commission($id){
             $page = "manage_commission";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
                 show_404();
@@ -231,14 +231,16 @@
                 $this->session->set_flashdata('error','You are not logged in!');
                 redirect(base_url());
             }
-            $data['title'] = "Agent Manager";
-            $data['commission'] = $this->Payroll_model->getAllAgentCommission();
+            $data['title'] = "Agent Commission";
+            $data['comm_id'] = $id;
+            $data['commission'] = $this->Payroll_model->getAllAgentCommission($id);
             $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['comm'] = $this->Payroll_model->getSingleAgent($id);
             $this->load->view('templates/header');
             $this->load->view('templates/navbar');
             $this->load->view('templates/sidebar');
             $this->load->view('pages/'.$page,$data);
-            $this->load->view('templates/modal');
+            $this->load->view('templates/modal',$data);
             $this->load->view('templates/footer');
         }
 

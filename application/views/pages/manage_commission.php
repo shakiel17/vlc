@@ -5,7 +5,8 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?=base_url();?>main">Home</a></li>
-          <li class="breadcrumb-item active">Agent</li>
+          <li class="breadcrumb-item"><a href="<?=base_url('manage_agent');?>">Agent</a></li>
+          <li class="breadcrumb-item active">Commission</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -43,52 +44,30 @@
                       <h6>Action</h6>
                     </li>
 
-                    <li><a class="dropdown-item addAgent" href="#" data-bs-toggle="modal" data-bs-target="#manageagent">Add Agent</a></li>                    
+                    <li><a class="dropdown-item manageclaim" href="#" data-bs-toggle="modal" data-bs-target="#manageclaim">New Claim</a></li>                    
                   </ul>
                 </div>
-              <h5 class="card-title">List of Agent</h5>
+              <h5 class="card-title">Commissioner Name: <?=$comm['firstname'];?></h5>
 
               <!-- Default Table -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <!-- <th scope="col">Last Name</th> -->
-                    <th scope="col">Name</th>
-                    <!-- <th scope="col">Username</th>
-                    <th scope="col">Password</th> -->
-                    <th scope="col">Branch</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Commission</th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php               
                         $x=1;
-                        foreach($agents as $branch){
-                            $date=date('M d, Y',strtotime($branch['datearray']))." ".date('h:i a',strtotime($branch['timearray']));
-                            $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
-                            $br=$query->row_array();
-                            $q=$this->Payroll_model->getAllAgentCommission($branch['id']);
-                            $totalcom=count($q);
+                        foreach($commission as $branch){                            
                             echo "<tr>";
                                 echo "<td>$x.</td>";
-                                // echo "<td>$branch[lastname]</td>";
+                                echo "<td>$branch[lastname]</td>";
                                 echo "<td>$branch[firstname]</td>";
-                                // echo "<td>$branch[username]</td>";
-                                // echo "<td>$branch[password]</td>";
-                                echo "<td>$br[description]</td>";
-                                echo "<td>$date</td>";
-                                echo "<td>$branch[status]</td>";
-                                echo "<td align='center'>$totalcom</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editAgent' data-bs-toggle='modal' data-bs-target='#manageagent' data-id='$branch[id]'>Edit</a>";
-                                ?>
-                                <a href="<?=base_url();?>delete_agent/<?=$branch['id'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
-                                <a href="<?=base_url('manage_commission/'.$branch['id']);?>" class="btn btn-sm btn-primary">Commission</a>
-                                <?php
-                                echo "</td>";                                
+                                echo "<td>$branch[datearray]</td>";        
                             echo "</tr>";
                             $x++;
                         }
