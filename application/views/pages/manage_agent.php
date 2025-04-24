@@ -82,6 +82,7 @@
                                 echo "<td><a href='#' class='btn btn-sm btn-warning editAgent' data-bs-toggle='modal' data-bs-target='#manageagent' data-id='$branch[id]'>Edit</a>";
                                 ?>
                                 <a href="<?=base_url();?>delete_agent/<?=$branch['id'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
+                                <a href="<?=base_url('manage_commission/'.$branch['id']);?>" class="btn btn-sm btn-primary">Commission</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";

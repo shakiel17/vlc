@@ -238,7 +238,7 @@
             $status=$this->input->post("status");
             $remarks=$this->input->post("remarks");
             $loginuser=$this->session->fullname;
-            $check_exist=$this->db->query("SELECT * FROM customer WHERE lastname='$lastname' AND firstname='$firstname' AND id <> '$id'");
+            $check_exist=$this->db->query("SELECT * FROM customer WHERE lastname='$lastname' AND firstname='$firstname' AND id <> '$id' AND `type`='$type'");
             if($check_exist->num_rows() > 0){
             }else{
                 if($id==""){

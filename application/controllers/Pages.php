@@ -220,6 +220,28 @@
             echo json_encode($data);
         }
 
+        public function manage_commission(){
+            $page = "manage_commission";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Agent Manager";
+            $data['commission'] = $this->Payroll_model->getAllAgentCommission();
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+
         public function manage_employee(){
             $page = "manage_employee";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
