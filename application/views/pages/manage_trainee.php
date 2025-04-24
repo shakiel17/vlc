@@ -78,7 +78,8 @@
                 <tbody>
                   <?php               
                         $x=1;
-                        foreach($trainee as $branch){                                                        
+                        foreach($trainee as $branch){
+                                                                                  
                             echo "<tr>";
                                 echo "<td>$x.</td>";                                
                                 echo "<td>$branch[lastname]</td>";
