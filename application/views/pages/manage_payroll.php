@@ -64,11 +64,11 @@
                         foreach($payroll as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
                             $br=$query->row_array(); 
-                            if(count($this->Payroll_model->checkPeriod($branch['id'])) > 0){
-                              $view="style='display:none;'";
-                            }else{
-                              $view="";
-                            }
+                            // if(count($this->Payroll_model->checkPeriod($branch['id'])) > 0){
+                            //   $view="style='display:none;'";
+                            // }else{
+                            //   $view="";
+                            // }
                             echo "<tr>";
                                 echo "<td>$x.</td>";                                
                                 echo "<td>".date('M d, Y',strtotime($branch['startdate']))."</td>";
