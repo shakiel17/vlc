@@ -95,6 +95,7 @@ $route['delete_employee/(:any)/(:any)'] = 'pages/delete_employee/$1/$2';
 $route['save_employee'] = 'pages/save_employee';
 $route['manage_employee'] = 'pages/manage_employee';
 //========================Agent Module=======================================
+$route['claim_commission'] = 'pages/claim_commission';
 $route['manage_commission/(:any)'] = 'pages/manage_commission/$1';
 $route['delete_agent/(:any)/(:any)'] = 'pages/delete_agent/$1/$2';
 $route['save_agent'] = 'pages/save_agent';

@@ -711,12 +711,28 @@
             }
         }
         public function getAllAgentCommission($id) {
-            $result=$this->db->query("SELECT c.lastname,c.firstname,cd.datearray FROM customer c INNER JOIN commissionerdetails cd ON cd.trainee_id=c.controlno WHERE cd.comm_id='$id' AND cd.status='pending' ORDER BY cd.datearray ASC,c.lastname ASC");
+            $result=$this->db->query("SELECT c.lastname,c.firstname,cd.datearray,cd.id FROM customer c INNER JOIN commissionerdetails cd ON cd.trainee_id=c.controlno WHERE cd.comm_id='$id' AND cd.status='pending' ORDER BY cd.datearray ASC,c.lastname ASC");
             return $result->result_array();
         }
         public function getSingleAgent($id){
             $result=$this->db->query("SELECT * FROM commissioner WHERE id='$id'");
             return $result->row_array();
+        }
+        public function claim_commission(){
+            $id=$this->input->post('comm_id');
+            $amount=$this->input->post('commission');
+            $check=$this->Payroll_model->getAllAgentCommission($id);
+            if(count($check) >= $amount){
+                foreach($check as $item){
+                    if($amount > 0){
+                        $this->db->query("UPDATE commissionerdetails SET `status`='claimed' WHERE id='$item[id]'");
+                        $amount--;
+                    }
+                }
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 ?>

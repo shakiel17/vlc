@@ -244,6 +244,22 @@
             $this->load->view('templates/footer');
         }
 
+        public function claim_commission(){
+            $id=$this->input->post('comm_id');
+            $save=$this->Payroll_model->claim_commission();
+            if($save){
+                $message="Commission successfully dispensed!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Commission successfully claimed!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to claim commission!');
+            }
+            redirect(base_url().'manage_commission/'.$id);
+        }
+
         public function manage_employee(){
             $page = "manage_employee";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
