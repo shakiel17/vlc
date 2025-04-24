@@ -90,7 +90,7 @@
                         }
                     }else{
                         echo "<tr>";
-                            echo "<td colspan='3' align='center'>No record found!</td>";
+                            echo "<td colspan='4' align='center'>No record found!</td>";
                         echo "</tr>";
                     }
                   ?>
