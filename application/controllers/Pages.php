@@ -51,9 +51,12 @@
                 redirect(base_url());
             }
             $date=date('Y-m-d');
+            $prev_date=date('Y-m-d',strtotime('-1 day',strtotime($date)));
             $data['title'] = "Dashboard";
             $data['tdc'] = $this->Payroll_model->getAllCustomerByDate("TDC",$date);
-            $data['pdc'] = $this->Payroll_model->getAllCustomer("PDC",$date);
+            $data['pdc'] = $this->Payroll_model->getAllCustomerByDate("PDC",$date);
+            $data['previous_tdc'] = $this->Payroll_model->getAllCustomerByDate("TDC",$prev_date);
+            $data['previous_pdc'] = $this->Payroll_model->getAllCustomerByDate("PDC",$prev_date);
             $data['employee'] = $this->Payroll_model->getAllEmployee();
             $data['trainee'] = $this->Payroll_model->getAllTraineeByDate($date);
             $this->load->view('templates/header');

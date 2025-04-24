@@ -88,10 +88,33 @@
             <?php
             $totalrevenue=0;
             foreach($pdc as $item){
-              $totalrevenue +=$item['amount'];
+              if($item['status']=="PAID"){
+                $totalrevenue +=$item['amount'];
+              }
             }
             foreach($tdc as $item){
-              $totalrevenue +=$item['amount'];
+              if($item['status']=="PAID"){
+                $totalrevenue +=$item['amount'];
+              }
+            }
+
+            $totalrevenue_prev=0;
+            foreach($previous_pdc as $item){
+              if($item['status']=="PAID"){
+                $totalrevenue_prev +=$item['amount'];
+              }
+            }
+            foreach($previous_tdc as $item){
+              if($item['status']=="PAID"){
+                $totalrevenue_prev +=$item['amount'];
+              }
+            }
+
+            $den=$totalrevenue+$totalrevenue_prev;
+            $diff=$totalrevenue-$totalrevenue_prev;
+            $increase=$diff/$den;
+            if($increase < 0){
+              $increase=0;
             }
             ?>
             <!-- Revenue Card -->
@@ -112,7 +135,7 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                  <h5 class="card-title">Revenue <span>| Today</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -120,7 +143,7 @@
                     </div>
                     <div class="ps-3">
                       <h6><?=number_format($totalrevenue,2);?></h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <span class="text-success small pt-1 fw-bold"><?=number_format($increase*100,0);?>%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
                   </div>
