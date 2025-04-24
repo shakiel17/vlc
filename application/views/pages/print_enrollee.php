@@ -1,3 +1,8 @@
+<?php
+if($type=="All"){
+    $type="PDC/TDC/ADD CODE";
+}
+?>
 <div align="center">
              <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
              <b>Kidapawan City</b><br><br>
@@ -19,6 +24,7 @@
         </tr>
         <?php
             $x=1;
+            $totalamount=0;
             foreach($items as $item){
                 echo "<tr>";
                     echo "<td>$x.</td>";
@@ -29,8 +35,19 @@
                     echo "<td align='center'>$item[status]</td>";
                     echo "<td align='center' style='font-size:12px;'>$item[remarks]</td>";
                 echo "</tr>";
+                if($item['status']=="PAID"){
+                    $totalamount += $item['amount'];
+                }
                 $x++;
             }
         ?>
+        <tr>
+            <td colspan="7">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="right"><b>TOTAL</b></td>
+            <td align="right"><b><?=number_format($totalamount,2);?></b></td>
+            <td colspan="2"></td>
+        </tr>
     </table>
 </div>

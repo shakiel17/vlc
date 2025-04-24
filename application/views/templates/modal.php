@@ -74,12 +74,12 @@
             <?=form_open(base_url()."save_agent");?>
             <input type="hidden" name="id" id="agent_id">
             <div class="modal-body">
-                <div class="form-group mb-1"> 
+                <!-- <div class="form-group mb-1"> 
                     <label class="col-sm-2 control-label">Last Name</label>
                     <input type="text" class="form-control" name="lastname" required id="agent_lastname">
-                </div>
+                </div> -->
                 <div class="form-group mb-1">                    
-                    <label class="col-sm-2 control-label">First Name</label>
+                    <label class="col-sm-2 control-label">Name</label>
                     <input type="text" class="form-control" name="firstname" required id="agent_firstname">
                 </div>
                 <?php
@@ -261,7 +261,7 @@
                         <option value="">Select Referral</option>
                         <?php
                             foreach($agent as $branch){
-                                echo "<option value='$branch[id]'>$branch[lastname] $branch[firstname]</option>";
+                                echo "<option value='$branch[id]'>$branch[firstname]</option>";
                             }
                         ?>
                     </select>
@@ -521,19 +521,20 @@
             <div class="modal-body">
                 <div class="form-group mb-1">                    
                     <label>Start Date</label>
-                    <input type="date" name="startdate" class="form-control">
+                    <input type="date" name="startdate" class="form-control" value="<?=date('Y-m-d');?>">
                 </div>
                 <div class="form-group mb-1">                    
                     <label>End Date</label>
-                    <input type="date" name="enddate" class="form-control">
+                    <input type="date" name="enddate" class="form-control" value="<?=date('Y-m-d');?>">
                 </div>
                 <div class="form-group mb-1">                    
                     <label>Type</label>
                     <select name="type" class="form-select" required>
                         <option value="">Select Type</option>
+                        <option value="All">ALL</option>
                         <option value="PDC">Practical Driving Course</option>
                         <option value="TDC">Theoretical Driving Course</option>
-                        <option value="Add Code">Add Code</option>
+                        <option value="Add Code">Add Code</option>                        
                     </select>
                 </div>
             </div>

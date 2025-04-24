@@ -51,7 +51,7 @@
     });
     $('.addAgent').click(function(){            
       document.getElementById('agent_id').value = "";
-      document.getElementById('agent_lastname').value = "";
+     // document.getElementById('agent_lastname').value = "";
       document.getElementById('agent_firstname').value = "";
       // document.getElementById('agent_username').value = "";
       // document.getElementById('agent_password').value = "";
@@ -66,7 +66,7 @@
         success:function(response){
           if(response.length>0){
             document.getElementById("agent_id").value=id;
-            document.getElementById("agent_lastname").value=response[0]['lastname'];
+            //document.getElementById("agent_lastname").value=response[0]['lastname'];
             document.getElementById("agent_firstname").value=response[0]['firstname'];
             document.getElementById("agent_branch").value=response[0]['branch'];
             // var selectBrand = document.getElementById("agent_branch");
@@ -254,7 +254,7 @@
       document.getElementById('expense_id').value = "";
       document.getElementById('expense_name').value = "";
       document.getElementById('expense_branch').value = "";
-      document.getElementById('expense_date').value = "";
+      //document.getElementById('expense_date').value = "";
       document.getElementById('expense_amount').value = "";
     });
     $('.editExpenses').click(function(){
@@ -324,7 +324,7 @@
       document.getElementById('deposit_id').value = "";
       document.getElementById('deposit_name').value = "";
       document.getElementById('deposit_branch').value = "";
-      document.getElementById('deposit_date').value = "";
+      //document.getElementById('deposit_date').value = "";
       document.getElementById('deposit_amount').value = "";
     });
     $('.editDeposit').click(function(){
@@ -341,7 +341,7 @@
       document.getElementById('balance_id').value = "";
       document.getElementById('balance_name').value = "";
       document.getElementById('balance_branch').value = "";
-      document.getElementById('balance_date').value = "";
+      //document.getElementById('balance_date').value = "";
       document.getElementById('balance_amount').value = "";
     });
     $('.editBalance').click(function(){

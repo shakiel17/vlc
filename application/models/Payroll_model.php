@@ -113,7 +113,7 @@
         }
         public function save_agent(){
             $id=$this->input->post("id");
-            $lastname=$this->input->post("lastname");
+            //$lastname=$this->input->post("lastname");
             $firstname=$this->input->post("firstname");
             $branch=$this->input->post("branch");
             // $username=$this->input->post("username");
@@ -121,13 +121,13 @@
             $datearray=date('Y-m-d');
             $timearray=date('H:i:s');
             $status=$this->input->post('status');
-            $check_exist=$this->db->query("SELECT * FROM commissioner WHERE lastname='$lastname' AND firstname='$firstname' AND id <> '$id'");
+            $check_exist=$this->db->query("SELECT * FROM commissioner WHERE firstname='$firstname' AND id <> '$id'");
             if($check_exist->num_rows() > 0){
             }else{
                 if($id==""){
-                    $result=$this->db->query("INSERT INTO commissioner(lastname,firstname,branch,username,`password`,datearray,timearray,`status`) VALUES('$lastname','$firstname','$branch','','','$datearray','$timearray','$status')");
+                    $result=$this->db->query("INSERT INTO commissioner(lastname,firstname,branch,username,`password`,datearray,timearray,`status`) VALUES('','$firstname','$branch','','','$datearray','$timearray','$status')");
                 }else{
-                    $result=$this->db->query("UPDATE commissioner SET lastname='$lastname',firstname='$firstname',branch='$branch' WHERE id='$id'");
+                    $result=$this->db->query("UPDATE commissioner SET firstname='$firstname',branch='$branch' WHERE id='$id'");
                 }
             }            
             if($result){
@@ -604,7 +604,11 @@
             $startdate=$this->input->post('startdate');
             $enddate=$this->input->post('enddate');
             $branch=$this->session->branch;
-            $result=$this->db->query("SELECT * FROM customer WHERE datearray BETWEEN '$startdate' AND '$enddate' AND branch='$branch' AND `type`='$type' ORDER BY datearray ASC, lastname ASC");
+            if($type=="All"){
+                $result=$this->db->query("SELECT * FROM customer WHERE datearray BETWEEN '$startdate' AND '$enddate' AND branch='$branch' ORDER BY `type` ASC, lastname ASC");
+            }else{
+                $result=$this->db->query("SELECT * FROM customer WHERE datearray BETWEEN '$startdate' AND '$enddate' AND branch='$branch' AND `type`='$type' ORDER BY datearray ASC, lastname ASC");
+            }            
             return $result->result_array();
         }
         public function getPayrollDailySummary($id){                       

@@ -1,3 +1,25 @@
+<?php
+    $totalpdc=0;
+    foreach($pdc as $item){
+        if($item['status']=="PAID"){
+            $totalpdc += $item['amount'];
+        }
+    }
+
+    $totaltdc=0;
+    foreach($tdc as $item){
+        if($item['status']=="PAID"){
+            $totaltdc += $item['amount'];
+        }
+    }
+
+    $totaladdcode=0;
+    foreach($addcode as $item){
+        if($item['status']=="PAID"){
+            $totaladdcode += $item['amount'];
+        }
+    }
+?>
 <div id="printArea">
              <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br><br>
              <b style="font-size:18px;">CONSOLIDATED REPORT</b><br><br>             
@@ -154,8 +176,26 @@
                 <table border="1" width="100%" cellspacing="0" cellpadding="1" style="border-collapse: collapse;">
                 <tr>
                         <td colspan="2"><b>TOTAL EXPENSES</b></td>
-                        <td align="right"><b><?=number_format($totalamountDeposit+$totalamountExpense,2);?></b></td>
+                        <td align="right"><b><?=number_format($totalamountExpense,2);?></b></td>
                     </tr>
+                    <tr>
+                        <td colspan="2"><b>INCOME LESS EXPENSE</b></td>
+                        <td align="right"><b style="color:red;"><?=number_format(($totalpdc+$totaltdc+$totaladdcode+$totalamountBalance)-$totalamountExpense,2);?></b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>INCOME</b></td>
+                        <td align="right"><b><?=number_format(($totalpdc+$totaltdc+$totaladdcode+$totalamountBalance),2);?></b></td>
+                    </tr>
+                    </table>
+            </td>
+            <td>
+            </td>
+            <td>
+            <table border="1" width="100%" cellspacing="0" cellpadding="1" style="border-collapse: collapse;">               
+                    <tr>
+                        <td colspan="2"><b>CASH</b></td>
+                        <td align="right"><b><?=number_format(($totalpdc+$totaltdc+$totaladdcode+$totalamountBalance)-$totalamountExpense - $totalamountDeposit,2);?></b></td>
+                    </tr>                    
                     </table>
             </td>
         </tr>

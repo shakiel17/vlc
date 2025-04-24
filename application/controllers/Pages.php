@@ -1017,6 +1017,10 @@
             $data['items'] = $this->Payroll_model->getAllExpensesByDate($date);            
             $data['deposit'] = $this->Payroll_model->getAllDepositByDate($date);
             $data['balance'] = $this->Payroll_model->getAllBalanceByDate($date);
+            $data['pdc'] = $this->Payroll_model->getAllCustomerByDate('PDC',$date);
+            $data['tdc'] = $this->Payroll_model->getAllCustomerByDate('TDC',$date);
+            $data['pdc'] = $this->Payroll_model->getAllCustomerByDate('PDC',$date);
+            $data['addcode'] = $this->Payroll_model->getAllCustomerByDate('Add Code',$date);
             $html = $this->load->view('pages/'.$page,$data);
             /*$mpdf = new \Mpdf\Mpdf([
                     'setAutoTopMargin' => 'stretch',
