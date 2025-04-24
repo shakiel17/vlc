@@ -249,7 +249,13 @@
                 </div>
                 <div class="form-group mb-1">
                     <label class="col-sm-2 control-label">Code</label>
-                    <input type="text" class="form-control" name="code" id="trainee_code">
+                    <select name="type" class="form-select" id="trainee_code">
+                        <option value="">None</option>
+                        <option value="1">1</option>
+                        <option value="12">1 & 2</option>
+                        <option value="2">2</option>
+                        <option value="3">2</option>
+                    </select>
                 </div>
                 <div class="form-group mb-1">
                     <label class="col-sm-2 control-label">Amount</label>

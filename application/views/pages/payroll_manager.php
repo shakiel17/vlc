@@ -85,6 +85,9 @@
                             $ded=$this->Payroll_model->db->query("SELECT SUM(amount) as deduction FROM deduction WHERE payroll_period='$payroll_period' AND empid='$branch[empid]' AND branch='$branch[branch]'");
                             $deduct=$ded->row_array();
                             $deduction=$deduct['deduction'];
+                            if($deduction==""){
+                              $deduction=0;
+                            }                            
                             echo "<input type='hidden' name='is_daily[]' value='1'>";
                             echo "<input type='hidden' name='empid[]' value='$branch[empid]'>";
                             echo "<tr>";
@@ -134,6 +137,9 @@
                             $ded=$this->Payroll_model->db->query("SELECT SUM(amount) as deduction FROM deduction WHERE payroll_period='$payroll_period' AND empid='$branch[empid]' AND branch='$branch[branch]'");
                             $deduct=$ded->row_array();
                             $deduction=$deduct['deduction'];
+                            if($deduction==""){
+                              $deduction=0;
+                            }
                             echo "<input type='hidden' name='is_daily[]' value='0'>";
                             echo "<input type='hidden' name='empid[]' value='$branch[empid]'>";
                             echo "<tr>";
