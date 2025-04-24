@@ -112,6 +112,9 @@
 
             $den=$totalrevenue+$totalrevenue_prev;
             $diff=$totalrevenue-$totalrevenue_prev;
+            if($den==0){
+              $den=1;
+            }
             $increase=$diff/$den;
             if($increase < 0){
               $increase=0;
