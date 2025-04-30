@@ -204,7 +204,7 @@
             }
         }
         public function fetch_single_employee($id){
-            $result=$this->db->query("SELECT e.*,ed.is_daily,d.salary,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.idno='$id'");
+            $result=$this->db->query("SELECT e.*,ed.is_daily,ed.salary,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE e.idno='$id'");
             return $result->result_array();
         }
         public function getSingleEmployee($empid){
