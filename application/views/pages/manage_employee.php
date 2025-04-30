@@ -85,7 +85,7 @@
                                 echo "<td>$branch[birthdate]</td>";
                                 echo "<td>$branch[gender]</td>";
                                 echo "<td>$branch[designation]<br>$daily<br>$branch[description]</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editEmployee' data-bs-toggle='modal' data-bs-target='#manageemployee' data-id='$branch[empid]'>Edit</a>";
+                                echo "<td><a href='#' class='btn btn-sm btn-warning editEmployee' data-bs-toggle='modal' data-bs-target='#manageemployee' data-id='$branch[idno]'>Edit</a>";
                                 ?>
                                 <a href="<?=base_url();?>delete_employee/<?=$branch['empid'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <a href="<?=base_url('manage_fixed_deduction/'.$branch['empid']);?>" class="btn btn-info btn-sm">Fixed Deduction</a>

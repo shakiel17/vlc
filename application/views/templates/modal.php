@@ -134,8 +134,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <?=form_open(base_url()."save_employee");?>
-            <input type="hidden" name="id" id="emp_id">
-            <input type="hidden" name="empidold" id="emp_idnumold">
+            <input type="text" name="id" id="emp_id">
+            <input type="text" name="empidold" id="emp_idnumold">
             <div class="modal-body">
             <div class="form-group mb-1"> 
                     <label class="col-sm-3 control-label">Employee ID</label>
