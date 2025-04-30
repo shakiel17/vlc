@@ -79,7 +79,7 @@
         $totalgross=0;
         $totaladjustment=0;
         $totaldeduction=0;
-        $per_head=count($payroll_per_head);
+        $per_head=4;
         foreach($payroll_per_head as $branch){
             $adjustment=$this->Payroll_model->getAllAdjustment($branch['payroll_period'],$branch['empid']);			
             $adjusttotal=0;
