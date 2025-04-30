@@ -110,7 +110,7 @@
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
 			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
 			$adjustment=$this->Payroll_model->getAllAdjustment($item['payroll_period'],$item['empid']);
-			$totaldeduction=0;
+			$totaladjustment=0;
 	            	foreach($deduction as $row){
 						$totaladjustment += $row['amount'];
 					}
@@ -139,8 +139,8 @@
 	            		<td align="right"><?=number_format($tdc/$per_head,2);?></td>            		
 	            	</tr>
 					<?php
-					$totaldeduction=0;
-	            	foreach($deduction as $row){
+					$totaladjustment=0;
+	            	foreach($adjustment as $row){
 					?>
 	            	<tr>
 	            		<td><?=$row['description'];?></td>
