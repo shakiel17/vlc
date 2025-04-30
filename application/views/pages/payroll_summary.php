@@ -25,15 +25,20 @@
         $totaladjustment=0;
         $totaldeduction=0;
         foreach($payroll_daily as $branch){
-            $net=(($branch['salary']*$branch['no_of_days_work'])+$branch['adjustment']) - $branch['deduction'];
-            $gross=($branch['salary']*$branch['no_of_days_work'])+$branch['adjustment'];
+            $adjustment=$this->Payroll_model->getAllAdjustment($branch['payroll_period'],$branch['empid']);			
+            $adjusttotal=0;
+            foreach($adjustment as $row){
+                $adjusttotal += $row['amount'];
+            }
+            $net=(($branch['salary']*$branch['no_of_days_work'])+$adjusttotal) - $branch['deduction'];
+            $gross=($branch['salary']*$branch['no_of_days_work'])+$adjusttotal;
             echo "<tr>";
                 echo "<td>$x.</td>";
                 echo "<td>$branch[lastname], $branch[firstname] $branch[middlename] $branch[suffix]</td>";                                
                 echo "<td align='right'>".number_format($branch['salary'],2)."</td>";
                 echo "<td align='center'>$branch[no_of_days_required]</td>";
                 echo "<td align='center'>$branch[no_of_days_work]</td>";
-                echo "<td align='right'>".number_format($branch['adjustment'],2)."</td>";
+                echo "<td align='right'>".number_format($adjusttotal,2)."</td>";
                 echo "<td align='right'>".number_format($gross,2)."</td>";
                 echo "<td align='right'>".number_format($branch['deduction'],2)."</td>";
                 echo "<td align='right'>".number_format($net,2)."</td>";
@@ -41,7 +46,7 @@
             echo "</tr>";
             $totalnet += $net;
             $totalgross += $gross;
-            $totaladjustment += $branch['adjustment'];
+            $totaladjustment += $adjusttotal;
             $totaldeduction += $branch['deduction'];
         }
         ?>
@@ -76,16 +81,21 @@
         $totaldeduction=0;
         $per_head=count($payroll_per_head);
         foreach($payroll_per_head as $branch){
+            $adjustment=$this->Payroll_model->getAllAdjustment($branch['payroll_period'],$branch['empid']);			
+            $adjusttotal=0;
+            foreach($adjustment as $row){
+                $adjusttotal += $row['amount'];
+            }
             $pdc=$branch['no_of_heads_pdc']*60;
             $tdc=$branch['no_of_heads_tdc']*80;
-            $gross=(($pdc+$tdc)/$per_head) + $branch['adjustment'];
+            $gross=(($pdc+$tdc)/$per_head) + $adjusttotal;
             $net=$gross - $branch['deduction'];
             echo "<tr>";
                 echo "<td>$x.</td>";
                 echo "<td>$branch[lastname], $branch[firstname] $branch[middlename] $branch[suffix]</td>";                                                
                 echo "<td align='center'>$branch[no_of_heads_pdc]</td>";
                 echo "<td align='center'>$branch[no_of_heads_tdc]</td>";
-                echo "<td align='right'>".number_format($branch['adjustment'],2)."</td>";
+                echo "<td align='right'>".number_format($adjusttotal,2)."</td>";
                 echo "<td align='right'>".number_format($gross,2)."</td>";
                 echo "<td align='right'>".number_format($branch['deduction'],2)."</td>";
                 echo "<td align='right'>".number_format($net,2)."</td>";
@@ -93,7 +103,7 @@
             echo "</tr>";
             $totalnet += $net;
             $totalgross += $gross;
-            $totaladjustment += $branch['adjustment'];
+            $totaladjustment += $adjusttotal;
             $totaldeduction += $branch['deduction'];
         }
         ?>
