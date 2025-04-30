@@ -1099,7 +1099,8 @@
               redirect(base_url()."main");
             }                                    
             $data['payroll_daily'] = $this->Payroll_model->getPayrollDailySummary($id);
-            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHeadSummary($id);            
+            $data['payroll_per_head'] = $this->Payroll_model->getPayrollPerHeadSummary($id); 
+            $data['payroll_period'] = $this->Payroll_model->getPayrollPeriod($id);
             $html = $this->load->view('pages/'.$page,$data);
             /*$mpdf = new \Mpdf\Mpdf([
                     'setAutoTopMargin' => 'stretch',

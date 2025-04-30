@@ -1,7 +1,8 @@
 <div align="center">
 			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
              <b>Kidapawan City</b><br><br>
-             <h3>PAYROLL SUMMARY</h3>             
+             <h3>PAYROLL SUMMARY</h3>
+             <b><?=date('M d, Y',strtotime($payroll_period['startdate']));?> to <?=date('M d, Y',strtotime($payroll_period['enddate']));?></b>
              </div>
 <div>
     DAILY RATE SALARY
@@ -10,13 +11,13 @@
             <td align="center">No.</td>
             <td align="center" width="25%">Name</td>
             <td align="center" width="8%">Rate</td>
-            <td align="center" width="13%">Required Days</td>
-            <td align="center" width="13%">Days Worked</td>
-            <td align="center" width="10%">Adjustment</td>
-            <td align="center" width="15%">Gross Pay</td>
-            <td align="center" width="10%">Deduction</td>
-            <td align="center" width="15%">Net Pay</td>
-            <td align="center" width="15%">Signature</td>
+            <td align="center" width="10%">Required Days</td>
+            <td align="center" width="10%">Days Worked</td>
+            <td align="center" width="8%">Adjustment</td>
+            <td align="center" width="10%">Gross Pay</td>
+            <td align="center" width="8%">Deduction</td>
+            <td align="center" width="9%">Net Pay</td>
+            <td align="center" width="12%">Signature</td>
         </tr>
         <?php
         $x=1;
@@ -41,13 +42,14 @@
                 echo "<td align='right'>".number_format($adjusttotal,2)."</td>";
                 echo "<td align='right'>".number_format($gross,2)."</td>";
                 echo "<td align='right'>".number_format($branch['deduction'],2)."</td>";
-                echo "<td align='right'>".number_format($net,2)."</td>";
+                echo "<td align='right'><b>".number_format($net,2)."</b></td>";
                 echo "<td>&nbsp;</td>";
             echo "</tr>";
             $totalnet += $net;
             $totalgross += $gross;
             $totaladjustment += $adjusttotal;
             $totaldeduction += $branch['deduction'];
+            $x++;
         }
         ?>
         <tr>
@@ -68,10 +70,10 @@
             <td align="center" width="8%">PDC</td>
             <td align="center" width="8%">TDC</td>            
             <td align="center" width="10%">Adjustment</td>
-            <td align="center" width="15%">Gross Pay</td>
+            <td align="center" width="13%">Gross Pay</td>
             <td align="center" width="10%">Deduction</td>
-            <td align="center" width="15%">Net Pay</td>
-            <td align="center" width="15%">Signature</td>
+            <td align="center" width="13%">Net Pay</td>
+            <td align="center" width="13%">Signature</td>
         </tr>
         <?php
         $x=1;
@@ -98,13 +100,14 @@
                 echo "<td align='right'>".number_format($adjusttotal,2)."</td>";
                 echo "<td align='right'>".number_format($gross,2)."</td>";
                 echo "<td align='right'>".number_format($branch['deduction'],2)."</td>";
-                echo "<td align='right'>".number_format($net,2)."</td>";
+                echo "<td align='right'><b>".number_format($net,2)."</b></td>";
                 echo "<td>&nbsp;</td>";
             echo "</tr>";
             $totalnet += $net;
             $totalgross += $gross;
             $totaladjustment += $adjusttotal;
             $totaldeduction += $branch['deduction'];
+            $x++;
         }
         ?>
         <tr>
