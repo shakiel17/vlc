@@ -43,10 +43,10 @@
                       <h6>Action</h6>
                     </li>
 
-                    <li><a class="dropdown-item addUsers" href="#" data-bs-toggle="modal" data-bs-target="#manageusers">Add Agent</a></li>                    
+                    <li><a class="dropdown-item addUsers" href="#" data-bs-toggle="modal" data-bs-target="#manageusers">Add User</a></li>                    
                   </ul>
                 </div>
-              <h5 class="card-title">List of Agent</h5>
+              <h5 class="card-title">List of User Accounts</h5>
 
               <!-- Default Table -->
               <table class="table datatable">
