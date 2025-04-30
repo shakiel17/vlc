@@ -195,8 +195,8 @@
             }
         }
         public function delete_employee($id){
-            $result=$this->db->query("DELETE FROM employee WHERE empid='$id'");
-            $result=$this->db->query("DELETE FROM employeedetails WHERE empid='$id'");
+            $result=$this->db->query("DELETE FROM employee WHERE idno='$id'");
+            $result=$this->db->query("DELETE FROM employeedetails WHERE idno='$id'");
             if($result){
                 return true;
             }else{
