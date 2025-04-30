@@ -6,6 +6,7 @@
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
 			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
+			$adjustment=$this->Payroll_model->getAllAdjustment($item['payroll_period'],$item['empid']);			
 			?>
 <div style="width: 23%; float: left; margin-right: 20px; margin-bottom: 30px;">
 <table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
@@ -26,16 +27,24 @@
 	            		<td><?=$item['no_of_days_work'];?></td>
 	            		<td align="right"><?=number_format($item['no_of_days_work']*$des['salary'],2);?></td>
 	            	</tr>
+					<?php
+					$totaladjustment=0;
+						foreach($adjustment as $row){							
+					?>
 	            	<tr>
-	            		<td>Adjustment</td>
-	            		<td colspan="2" align="right"><?=number_format($item['adjustment'],2);?></td>
+	            		<td><?=$row['description'];?></td>
+	            		<td colspan="2" align="right"><?=number_format($row['amount'],2);?></td>
 	            	</tr>
+					<?php
+						$totaladjustment += $row['amount'];
+						}
+					?>
 	            	<tr>
 	            		<td colspan="3">&nbsp;</td>
 	            	</tr>
 	            	<tr>
 	            		<td><b>Gross Pay.........</b></td>
-	            		<td colspan="2" align="right"><b><?=number_format(($item['no_of_days_work']*$des['salary'])+$item['adjustment'],2);?></b></td>
+	            		<td colspan="2" align="right"><b><?=number_format(($item['no_of_days_work']*$des['salary'])+$totaladjustment,2);?></b></td>
 	            	</tr>
 	            	<tr>
 	            		<td colspan="3">&nbsp;</td>
@@ -100,9 +109,14 @@
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
 			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
+			$adjustment=$this->Payroll_model->getAllAdjustment($item['payroll_period'],$item['empid']);
+			$totaldeduction=0;
+	            	foreach($deduction as $row){
+						$totaladjustment += $row['amount'];
+					}
 			$pdc=$item['no_of_heads_pdc']*60;
             $tdc=$item['no_of_heads_tdc']*80;
-            $gross=(($pdc+$tdc)/$per_head) + $item['adjustment'];
+            $gross=(($pdc+$tdc)/$per_head) + $totaladjustment;			
 			?>
 <div style="width: 23%; margin-right: 20px; float: left;">
 <table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
@@ -124,10 +138,17 @@
 	            		<td ><?=$item['no_of_heads_tdc'];?></td>	
 	            		<td align="right"><?=number_format($tdc/$per_head,2);?></td>            		
 	            	</tr>
+					<?php
+					$totaldeduction=0;
+	            	foreach($deduction as $row){
+					?>
 	            	<tr>
-	            		<td>Adjustment</td>
-	            		<td colspan="2" align="right"><?=number_format($item['adjustment'],2);?></td>
+	            		<td><?=$row['description'];?></td>
+	            		<td colspan="2" align="right"><?=number_format($row['amount'],2);?></td>
 	            	</tr>
+					<?php
+					}
+					?>
 	            	<tr>
 	            		<td colspan="3">&nbsp;</td>
 	            	</tr>

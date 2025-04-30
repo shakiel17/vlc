@@ -55,7 +55,7 @@
               <input type="hidden" name="id" value="<?=$payroll_period;?>">
               <input type="submit" name="save_changes" value="Post Payroll" class="btn btn-success" onclick="return confirm('Do you wish to post this payroll?'); return false;" <?=$post;?>/>
               <?=form_close();?>
-              <a href="<?=base_url();?>unpost_payroll/<?=$payroll_period;?>" class="btn btn-warning" <?=$open;?>>Unpost Payroll</a>
+              <a href="<?=base_url();?>unpost_payroll/<?=$payroll_period;?>" class="btn btn-warning" onclick="return confirm('Do you wish to unpost this payroll?'); return false;" <?=$open;?>>Unpost Payroll</a>
             </div>              
               <!-- Default Table -->
               <table class="table">
@@ -79,27 +79,43 @@
                         $x=1;
                         foreach($payroll_daily as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
-                            $br=$query->row_array();                               
-                            $net=(($branch['salary']*$branch['no_of_days_work'])+$branch['adjustment']) - $branch['deduction'];
-                            $gross=($branch['salary']*$branch['no_of_days_work'])+$branch['adjustment'];
+                            $br=$query->row_array();  
+                            $adjustment=$this->Payroll_model->getAllAdjustment($payroll_period,$branch['empid']);
+                            $totaladjustment=0;
+                            foreach($adjustment as $item){
+                              $totaladjustment += $item['amount'];
+                            }                             
+                            $net=(($branch['salary']*$branch['no_of_days_work'])+$totaladjustment) - $branch['deduction'];
+                            $gross=($branch['salary']*$branch['no_of_days_work'])+$totaladjustment;
                             $ded=$this->Payroll_model->db->query("SELECT SUM(amount) as deduction FROM deduction WHERE payroll_period='$payroll_period' AND empid='$branch[empid]' AND branch='$branch[branch]'");
-                            $deduct=$ded->row_array();
+                            $deduct=$ded->row_array();                            
                             $deduction=$deduct['deduction'];
                             if($deduction==""){
                               $deduction=0;
-                            }                            
+                            } 
+                            if($branch['status']=="pending"){
+                              $button="<a href='".base_url()."manage_deduction/$payroll_period/$branch[empid]'>".number_format($deduction,2)."</a>";
+                              $stat="";
+                              $adjust="<a href='".base_url()."manage_adjustment/$payroll_period/$branch[empid]'>".number_format($totaladjustment,2)."</a>";
+                            }else{
+                              $stat="disabled";
+                              $button=number_format($deduction,2);
+                              $adjust=number_format($totaladjustment);
+                            }                           
                             echo "<input type='hidden' name='is_daily[]' value='1'>";
                             echo "<input type='hidden' name='empid[]' value='$branch[empid]'>";
                             echo "<tr>";
                                 echo "<td>$x.</td>";                                
                                 echo "<td>$branch[lastname], $branch[firstname] $branch[middlename] $branch[suffix]</td>";                                
                                 echo "<td align='right'>$branch[salary]</td>";
-                                echo "<td><input width='10%' style='text-align:center;' type='text' name='required_days[]' class='form-control' value='$branch[no_of_days_required]'></td>";
-                                echo "<td><input width='10%' style='text-align:center;' type='text' name='days_worked[]' class='form-control' value='$branch[no_of_days_work]'></td>";
-                                echo "<td><input width='10%' type='text' style='text-align:right;' name='adjustment[]' class='form-control' value='$branch[adjustment]'></td>";                                
+                                echo "<td><input width='10%' style='text-align:center;' type='text' name='required_days[]' class='form-control' value='$branch[no_of_days_required]' $stat></td>";
+                                echo "<td><input width='10%' style='text-align:center;' type='text' name='days_worked[]' class='form-control' value='$branch[no_of_days_work]' $stat></td>";
+                                echo "<td align='right'>
+                                $adjust
+                                <input width='10%' type='hidden' style='text-align:right;' name='adjustment[]' class='form-control' value='$totaladjustment'></td>";                                
                                 echo "<td align='right'>".number_format($gross,2)."</td>";                                
                                 echo "<td align='right'>
-                                  <a href='".base_url()."manage_deduction/$payroll_period/$branch[empid]'>".number_format($deduction,2)."</a>
+                                  $button
                                   <input type='hidden' name='deduction[]' class='form-control' value='$deduction'>
                                 </td>";                                
                                 echo "<td align='right'>".number_format($net,2)."</td>";
@@ -130,27 +146,43 @@
                         foreach($payroll_per_head as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
                             $br=$query->row_array();   
+                            $adjustment=$this->Payroll_model->getAllAdjustment($payroll_period,$branch['empid']);
+                            $totaladjustment=0;
+                            foreach($adjustment as $item){
+                              $totaladjustment += $item['amount'];
+                            }
                             $pdc=$branch['no_of_heads_pdc']*60;
                             $tdc=$branch['no_of_heads_tdc']*80;
-                            $gross=(($pdc+$tdc)/$per_head) + $branch['adjustment'];
+                            $gross=(($pdc+$tdc)/$per_head) + $totaladjustment;
                             $net=$gross - $branch['deduction'];
                             $ded=$this->Payroll_model->db->query("SELECT SUM(amount) as deduction FROM deduction WHERE payroll_period='$payroll_period' AND empid='$branch[empid]' AND branch='$branch[branch]'");
                             $deduct=$ded->row_array();
-                            $deduction=$deduct['deduction'];
+                            $deduction=$deduct['deduction'];                            
                             if($deduction==""){
                               $deduction=0;
                             }
+                            if($branch['status']=="pending"){
+                              $button="<a href='".base_url()."manage_deduction/$payroll_period/$branch[empid]'>".number_format($deduction,2)."</a>";
+                              $stat="";
+                              $adjust="<a href='".base_url()."manage_adjustment/$payroll_period/$branch[empid]'>".number_format($totaladjustment,2)."</a>";
+                            }else{
+                              $stat="disabled";
+                              $button=number_format($deduction,2);
+                              $adjust=number_format($totaladjustment);
+                            }                           
                             echo "<input type='hidden' name='is_daily[]' value='0'>";
                             echo "<input type='hidden' name='empid[]' value='$branch[empid]'>";
                             echo "<tr>";
                                 echo "<td>$x.</td>";                                
                                 echo "<td>$branch[lastname], $branch[firstname] $branch[middlename] $branch[suffix]</td>";                                                                
-                                echo "<td><input width='10%' style='text-align:center;' type='text' name='required_days[]' class='form-control' value='$branch[no_of_heads_pdc]'></td>";
-                                echo "<td><input width='10%' style='text-align:center;' type='text' name='days_worked[]' class='form-control' value='$branch[no_of_heads_tdc]'></td>";
-                                echo "<td><input width='10%' type='text' style='text-align:right;' name='adjustment[]' class='form-control' value='$branch[adjustment]'></td>";                                
+                                echo "<td><input width='10%' style='text-align:center;' type='text' name='required_days[]' class='form-control' value='$branch[no_of_heads_pdc]' $stat></td>";
+                                echo "<td><input width='10%' style='text-align:center;' type='text' name='days_worked[]' class='form-control' value='$branch[no_of_heads_tdc]' $stat></td>";
+                                echo "<td align='right'>
+                                $adjust
+                                <input width='10%' type='hidden' style='text-align:right;' name='adjustment[]' class='form-control' value='$totaladjustment' $stat></td>";                                
                                 echo "<td align='right'>".number_format($gross,2)."</td>";                                
                                 echo "<td align='right'>
-                                  <a href='".base_url()."manage_deduction/$payroll_period/$branch[empid]'>".number_format($deduction,2)."</a>
+                                  $button
                                   <input type='hidden' name='deduction[]' class='form-control' value='$deduction'>
                                 </td>";
                                 echo "<td align='right'>".number_format($net,2)."</td>";

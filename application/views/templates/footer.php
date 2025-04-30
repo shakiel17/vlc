@@ -370,6 +370,24 @@
       document.getElementById('balance_date').value = id[3];
       document.getElementById('balance_amount').value = id[4];
     });
+    $('.addAdjustment').click(function(){      
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('adjust_id').value = "";
+      document.getElementById('adjust_period').value = id[0];
+      document.getElementById('adjust_empid').value = id[1];
+      document.getElementById('adjust_description').value = "";    
+      document.getElementById('adjust_amount').value = "";
+    });
+    $('.editAdjustment').click(function(){      
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('adjust_id').value = id[0];
+      document.getElementById('adjust_description').value = id[1];    
+      document.getElementById('adjust_amount').value = id[2];
+      document.getElementById('adjust_period').value = id[4];
+      document.getElementById('adjust_empid').value = id[3];      
+    });
   </script>
 </body>
 

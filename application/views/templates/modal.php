@@ -759,3 +759,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="manageadjustment" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Adjustment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?=form_open(base_url()."save_adjustment");?>            
+            <input type="hidden" name="id" id="adjust_id">
+            <input type="hidden" name="period" id="adjust_period">
+            <input type="hidden" name="empid" id="adjust_empid">
+            <div class="modal-body">
+                <div class="form-group mb-1">                    
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" id="adjust_description" rows="3"></textarea>
+                </div>
+                <div class="form-group mb-1">                    
+                    <label>Amount</label>
+                    <input type="text" name="amount" class="form-control" id=adjust_amount">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -769,5 +769,37 @@
                 return false;
             }
         }
+        public function getAllAdjustment($period,$empid){
+            $result=$this->db->query("SELECT * FROM adjustment WHERE payroll_period='$period' AND empid='$empid'");
+            return $result->result_array();
+        }
+        public function save_adjustment(){
+            $id=$this->input->post("id");
+            $period=$this->input->post("period");
+            $empid=$this->input->post("empid");
+            $description=$this->input->post("description");
+            $amount=$this->input->post("amount");            
+            $branch=$this->session->branch;
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO adjustment(payroll_period,empid,`description`,amount,datearray,timearray,branch) VALUES('$period','$empid','$description','$amount','$datearray','$timearray','$branch')");
+                }else{
+                    $result=$this->db->query("UPDATE adjustment SET `description`='$description',amount='$amount' WHERE id='$id'");
+                }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function delete_adjustment($id){
+            $result=$this->db->query("DELETE FROM adjustment WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>

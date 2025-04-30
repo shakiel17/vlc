@@ -983,6 +983,61 @@
             }
             redirect(base_url().'manage_fixed_deduction/'.$empid);
         }
+        public function manage_adjustment($payroll_period,$empid){
+            $page = "manage_adjustment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Adjustment Manager";
+            $datenow=date('Y-m-d');
+            $data['employee'] = $this->Payroll_model->getSingleEmployee($empid);
+            $data['deductions'] = $this->Payroll_model->getAllAdjustment($payroll_period,$empid);            
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['payroll_period'] = $payroll_period;
+            $data['empid'] = $empid;
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_adjustment(){
+            $payroll_period=$this->input->post('period');
+            $empid=$this->input->post('empid');
+            $save=$this->Payroll_model->save_adjustment();
+            if($save){
+                $message="Adjustment details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Adjustment details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save adjustment details!');
+            }
+            redirect(base_url().'manage_adjustment/'.$payroll_period.'/'.$empid);
+        }
+        public function delete_adjustment($id,$description,$payroll_period,$empid){            
+            $save=$this->Payroll_model->delete_adjustment($id);
+            if($save){
+                $message="Adjustment details ($description) successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Adjustment details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete Adjustment details!');
+            }
+            redirect(base_url().'manage_adjustment/'.$payroll_period.'/'.$empid);
+        }
         //===================================Start of Reports=========================================
 
         public function print_enrollee(){
