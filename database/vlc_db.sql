@@ -16,6 +16,22 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`vlc_db` /*!40100 DEFAULT CHARACTER SET 
 
 USE `vlc_db`;
 
+/*Table structure for table `adjustment` */
+
+DROP TABLE IF EXISTS `adjustment`;
+
+CREATE TABLE `adjustment` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `payroll_period` varchar(100) DEFAULT NULL,
+  `empid` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `datearray` date DEFAULT NULL,
+  `timearray` time DEFAULT NULL,
+  `branch` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 /*Table structure for table `advances` */
 
 DROP TABLE IF EXISTS `advances`;
@@ -155,6 +171,7 @@ DROP TABLE IF EXISTS `employee`;
 
 CREATE TABLE `employee` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
+  `idno` varchar(100) DEFAULT NULL,
   `empid` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) DEFAULT NULL,
   `firstname` varchar(100) DEFAULT NULL,
@@ -163,7 +180,7 @@ CREATE TABLE `employee` (
   `birthdate` date DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Table structure for table `employeedetails` */
 
@@ -171,13 +188,14 @@ DROP TABLE IF EXISTS `employeedetails`;
 
 CREATE TABLE `employeedetails` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
+  `idno` varchar(100) DEFAULT NULL,
   `empid` varchar(100) DEFAULT NULL,
   `designation` varchar(100) DEFAULT NULL,
   `salary` double DEFAULT NULL,
   `is_daily` int(11) DEFAULT 1,
   `branch` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Table structure for table `expenses` */
 
@@ -204,7 +222,7 @@ CREATE TABLE `fixed_deduction` (
   `amount` double DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `payroll_daily` */
 
@@ -268,7 +286,7 @@ CREATE TABLE `user_logs` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Table structure for table `users` */
 
