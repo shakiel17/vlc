@@ -111,9 +111,9 @@
 			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
 			$adjustment=$this->Payroll_model->getAllAdjustment($item['payroll_period'],$item['empid']);
 			$totaladjustment=0;
-	            	foreach($deduction as $row){
-						$totaladjustment += $row['amount'];
-					}
+	            foreach($adjustment as $row){
+					$totaladjustment += $row['amount'];
+				}
 			$pdc=$item['no_of_heads_pdc']*60;
             $tdc=$item['no_of_heads_tdc']*80;
             $gross=(($pdc+$tdc)/$per_head) + $totaladjustment;			
@@ -138,8 +138,7 @@
 	            		<td ><?=$item['no_of_heads_tdc'];?></td>	
 	            		<td align="right"><?=number_format($tdc/$per_head,2);?></td>            		
 	            	</tr>
-					<?php
-					$totaladjustment=0;
+					<?php					
 	            	foreach($adjustment as $row){
 					?>
 	            	<tr>
