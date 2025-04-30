@@ -114,7 +114,7 @@
         success:function(response){
           if(response.length>0){            
             document.getElementById("emp_idnum").value=id;
-            document.getElementById("emp_idnumold").value=id;
+            document.getElementById("emp_idnumold").value=response[0]['idno'];
             document.getElementById("emp_id").value=response[0]['id'];
             document.getElementById("emp_lastname").value=response[0]['lastname'];
             document.getElementById("emp_firstname").value=response[0]['firstname'];

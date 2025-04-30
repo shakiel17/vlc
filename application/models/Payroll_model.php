@@ -156,16 +156,16 @@
         public function getAllEmployee(){
             $branch=$this->session->branch;
             if($this->session->is_admin==1){
-                $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch ORDER BY e.lastname ASC");
+                $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.idno=e.idno LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch ORDER BY e.lastname ASC");
             }else{
-                $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.empid=e.empid LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE ed.branch='$branch' ORDER BY e.lastname ASC");
+                $result=$this->db->query("SELECT e.*,ed.*,d.*,d.id as designation_id,b.description,b.id as branch_id FROM employee e INNER JOIN employeedetails ed ON ed.idno=e.idno LEFT JOIN designation d ON d.id=ed.designation LEFT JOIN branch b ON b.id=ed.branch WHERE ed.branch='$branch' ORDER BY e.lastname ASC");
             }
             return $result->result_array();
         }
         public function save_employee(){
             $id=$this->input->post("id");
-            $empid=$this->input->post("empid");
-            $empidold=$this->input->post("empidold");
+            $empid=$this->input->post("empid");            
+            $empidold=$this->input->post("empidold");            
             $lastname=$this->input->post("lastname");
             $firstname=$this->input->post("firstname");
             $middlename=$this->input->post("middlename");
@@ -175,16 +175,17 @@
             $designation=$this->input->post("designation");
             $salary=$this->input->post("salary");
             $branch=$this->input->post("branch");
-            $is_daily=$this->input->post("is_daily");            
+            $is_daily=$this->input->post("is_daily");                    
             $check_exist=$this->db->query("SELECT * FROM employee WHERE lastname='$lastname' AND firstname='$firstname' AND empid <> '$empid'");
             if($check_exist->num_rows() > 0){
             }else{
                 if($id==""){
-                    $result=$this->db->query("INSERT INTO employee(empid,lastname,firstname,middlename,suffix,birthdate,gender) VALUES('$empid','$lastname','$firstname','$middlename','$suffix','$birthdate','$gender')");
-                    $result=$this->db->query("INSERT INTO employeedetails(empid,designation,salary,is_daily,branch) VALUES('$empid','$designation','$salary','$is_daily','$branch')");
-                }else{
-                    $result=$this->db->query("UPDATE employee SET empid='$empid',lastname='$lastname',firstname='$firstname',middlename='$middlename',suffix='$suffix',birthdate='$birthdate',gender='$gender' WHERE id='$id'");
-                    $result=$this->db->query("UPDATE employeedetails SET empid='$empid',designation='$designation',salary='$salary',is_daily='$is_daily',branch='$branch' WHERE empid='$empidold'");
+                    $idno=date('YmdHis');
+                    $result=$this->db->query("INSERT INTO employee(idno,empid,lastname,firstname,middlename,suffix,birthdate,gender) VALUES('$idno','$empid','$lastname','$firstname','$middlename','$suffix','$birthdate','$gender')");
+                    $result=$this->db->query("INSERT INTO employeedetails(idno,empid,designation,salary,is_daily,branch) VALUES('$idno','$empid','$designation','$salary','$is_daily','$branch')");
+                }else{                    
+                        $result=$this->db->query("UPDATE employee SET empid='$empid',lastname='$lastname',firstname='$firstname',middlename='$middlename',suffix='$suffix',birthdate='$birthdate',gender='$gender' WHERE id='$id'");                    
+                        $result=$this->db->query("UPDATE employeedetails SET empid='$empid',designation='$designation',salary='$salary',is_daily='$is_daily',branch='$branch' WHERE idno='$empidold'");                   
                 }
             }            
             if($result){
