@@ -91,6 +91,9 @@ $route['delete_trainee/(:any)/(:any)'] = 'pages/delete_trainee/$1/$2';
 $route['save_trainee'] = 'pages/save_trainee';
 $route['manage_trainee'] = 'pages/manage_trainee';
 //========================Employee Module=======================================
+$route['delete_fixed_deduction/(:any)/(:any)'] = 'pages/delete_fixed_deduction/$1/$2';
+$route['save_fixed_deduction'] = 'pages/save_fixed_deduction';
+$route['manage_fixed_deduction/(:any)'] = 'pages/manage_fixed_deduction/$1';
 $route['delete_employee/(:any)/(:any)'] = 'pages/delete_employee/$1/$2';
 $route['save_employee'] = 'pages/save_employee';
 $route['manage_employee'] = 'pages/manage_employee';

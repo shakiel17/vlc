@@ -5,6 +5,7 @@
 		foreach($payroll_daily as $item){
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
+			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
 			?>
 <div style="width: 23%; float: left; margin-right: 20px; margin-bottom: 30px;">
 <table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
@@ -53,6 +54,15 @@
 	            		<?php
 	            		$totaldeduction += $row['amount'];
 	            	}
+					foreach($fixed_deduction as $row){
+	            		?>
+	            		<tr>
+		            		<td><?=$row['description'];?></td>
+		            		<td colspan="2" align="right"><?=number_format($row['amount'],2);?></td>
+	            		</tr>
+	            		<?php
+	            		$totaldeduction += $row['amount'];
+	            	}
 	            	?>
 	            	<tr>
 	            		<td colspan="3">&nbsp;</td>
@@ -89,6 +99,7 @@
 		foreach($payroll_per_head as $item){
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
+			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
 			$pdc=$item['no_of_heads_pdc']*60;
             $tdc=$item['no_of_heads_tdc']*80;
             $gross=(($pdc+$tdc)/$per_head) + $item['adjustment'];
@@ -133,6 +144,15 @@
 	            	<?php
 	            	$totaldeduction=0;
 	            	foreach($deduction as $row){
+	            		?>
+	            		<tr>
+		            		<td><?=$row['description'];?></td>
+		            		<td colspan="2" align="right"><?=number_format($row['amount'],2);?></td>
+	            		</tr>
+	            		<?php
+	            		$totaldeduction += $row['amount'];
+	            	}
+					foreach($fixed_deduction as $row){
 	            		?>
 	            		<tr>
 		            		<td><?=$row['description'];?></td>

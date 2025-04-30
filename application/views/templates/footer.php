@@ -320,6 +320,23 @@
       document.getElementById('deduct_empid').value = id[3];      
     });
 
+    $('.addFixedDeduction').click(function(){      
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('fixed_deduct_id').value = "";      
+      document.getElementById('fixed_deduct_empid').value = id[0];
+      document.getElementById('fixed_deduct_description').value = "";    
+      document.getElementById('fixed_deduct_amount').value = "";
+    });
+    $('.editFixedDeduction').click(function(){      
+      var data=$(this).data('id');
+      var id=data.split('_');
+      document.getElementById('fixed_deduct_id').value = id[0];
+      document.getElementById('fixed_deduct_description').value = id[1];    
+      document.getElementById('fixed_deduct_amount').value = id[2];    
+      document.getElementById('fixed_deduct_empid').value = id[3];      
+    });
+
     $('.addDeposit').click(function(){      
       document.getElementById('deposit_id').value = "";
       document.getElementById('deposit_name').value = "";

@@ -64,6 +64,15 @@
                         foreach($payroll as $branch){                            
                             $query=$this->Payroll_model->db->query("SELECT * FROM branch WHERE id='$branch[branch]'");
                             $br=$query->row_array(); 
+                            $qry=$this->Payroll_model->db->query("SELECT * FROM payroll_daily WHERE payroll_period='$branch[id]'");
+                            $res=$qry->row_array(); 
+                            if($res['status']=="pending"){
+                              $delete="";
+                              $payslip="style='display:none;'";
+                            }else{
+                              $delete="style='display:none;'";
+                              $payslip="";
+                            }
                             // if(count($this->Payroll_model->checkPeriod($branch['id'])) > 0){
                             //   $view="style='display:none;'";
                             // }else{
@@ -73,12 +82,12 @@
                                 echo "<td>$x.</td>";                                
                                 echo "<td>".date('M d, Y',strtotime($branch['startdate']))."</td>";
                                 echo "<td>".date('M d, Y',strtotime($branch['enddate']))."</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editPayrollPeriod' data-bs-toggle='modal' data-bs-target='#managepayrollperiod' data-id='$branch[id]_$branch[startdate]_$branch[enddate]_$branch[branch]'>Edit</a>";
+                                echo "<td><a href='#' class='btn btn-sm btn-warning editPayrollPeriod' data-bs-toggle='modal' data-bs-target='#managepayrollperiod' data-id='$branch[id]_$branch[startdate]_$branch[enddate]_$branch[branch]' $delete>Edit</a>";
                                 ?>
-                                <a href="<?=base_url();?>delete_payrollperiod/<?=$branch['id'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
+                                <a href="<?=base_url();?>delete_payrollperiod/<?=$branch['id'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;" <?=$delete;?>>Delete</a>
                                 <a href="<?=base_url();?>payroll_manager/<?=$branch['id'];?>" class="btn btn-success btn-sm">Manage Payroll</a>
-                                <a href="<?=base_url();?>print_payslip/<?=$branch['id'];?>" class="btn btn-primary btn-sm" target="_blank">Print Payslip</a>
-                                <a href="<?=base_url();?>payroll_summary/<?=$branch['id'];?>" class="btn btn-info btn-sm" target="_blank">Payroll Summary</a>
+                                <a href="<?=base_url();?>print_payslip/<?=$branch['id'];?>" class="btn btn-primary btn-sm" target="_blank" <?=$payslip;?>>Print Payslip</a>
+                                <a href="<?=base_url();?>payroll_summary/<?=$branch['id'];?>" class="btn btn-info btn-sm" target="_blank" <?=$payslip;?>>Payroll Summary</a>
                                 <?php
                                 echo "</td>";                                
                             echo "</tr>";

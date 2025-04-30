@@ -202,6 +202,7 @@ CREATE TABLE `fixed_deduction` (
   `empid` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `amount` double DEFAULT NULL,
+  `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -734,5 +734,39 @@
                 return false;
             }
         }
+
+        public function getAllFixedDeduction($empid){
+            $result=$this->db->query("SELECT * FROM fixed_deduction WHERE empid='$empid'");
+            return $result->result_array();
+        }
+
+        public function save_fixed_deduction(){
+            $id=$this->input->post("id");            
+            $empid=$this->input->post("empid");
+            $description=$this->input->post("description");
+            $amount=$this->input->post("amount");            
+            $branch=$this->session->branch;
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+                if($id==""){
+                    $result=$this->db->query("INSERT INTO fixed_deduction(empid,`description`,amount,branch) VALUES('$empid','$description','$amount','$branch')");
+                }else{
+                    $result=$this->db->query("UPDATE fixed_deduction SET `description`='$description',amount='$amount' WHERE id='$id'");
+                }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function delete_fixed_deduction($id){
+            $result=$this->db->query("DELETE FROM fixed_deduction WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>

@@ -930,6 +930,59 @@
             }
             redirect(base_url().'manage_deduction/'.$payroll_period.'/'.$empid);
         }
+        public function manage_fixed_deduction($empid){
+            $page = "manage_fixed_deduction";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }             
+            if($this->session->user_login){
+
+            }else{
+                $this->session->set_flashdata('error','You are not logged in!');
+                redirect(base_url());
+            }
+            $data['title'] = "Fixed Deduction";
+            $datenow=date('Y-m-d');
+            $data['payroll'] = $this->Payroll_model->getAllFixedDeduction($empid);            
+            $data['empid'] = $empid;
+            $data['branches'] = $this->Payroll_model->getAllBranch();
+            $data['employee'] = $this->Payroll_model->getSingleEmployee($empid);
+            $this->load->view('templates/header');
+            $this->load->view('templates/navbar');
+            $this->load->view('templates/sidebar');
+            $this->load->view('pages/'.$page,$data);
+            $this->load->view('templates/modal');
+            $this->load->view('templates/footer');
+        }
+        public function save_fixed_deduction(){            
+            $empid=$this->input->post('empid');
+            $save=$this->Payroll_model->save_fixed_deduction();
+            if($save){
+                $message="Deduction details successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Deduction details successfully saved!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to save deduction details!');
+            }
+            redirect(base_url().'manage_fixed_deduction/'.$empid);
+        }
+        public function delete_fixed_deduction($id,$empid){            
+            $save=$this->Payroll_model->delete_fixed_deduction($id);
+            if($save){
+                $message="Deduction details successfully deleted!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                $this->session->set_flashdata('save_success','Deduction details successfully deleted!');
+            }else{
+                $this->session->set_flashdata('save_failed','Unable to delete deduction details!');
+            }
+            redirect(base_url().'manage_fixed_deduction/'.$empid);
+        }
         //===================================Start of Reports=========================================
 
         public function print_enrollee(){
