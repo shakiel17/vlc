@@ -6,12 +6,18 @@
 			$des=$this->Payroll_model->getEmployeeDetails($item['empid']);
 			$deduction=$this->Payroll_model->getDeduction($item['payroll_period'],$item['empid']);
 			$fixed_deduction=$this->Payroll_model->getAllFixedDeduction($item['empid']);
-			$adjustment=$this->Payroll_model->getAllAdjustment($item['payroll_period'],$item['empid']);			
+			$adjustment=$this->Payroll_model->getAllAdjustment($item['payroll_period'],$item['empid']);
+			$totaladjustment=0;
+						foreach($adjustment as $row){
+							$totaladjustment += $row['amount'];
+						}
+			$gross=($item['no_of_days_work']*$des['salary'])+$totaladjustment;	
+			if($gross > 0){		
 			?>
-<div style="width: 23%; float: left; margin-right: 20px; margin-bottom: 30px;">
-<table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
+<div style="width: 45%; float: left; margin-right: 20px; margin-bottom: 30px;">
+<table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="3">
 	<tr>		
-			<td>
+			<td  style="border:0px solid black;">
 				<b style="font-size:12px;">VLC DRIVING TUTORIAL SERVICES</b><br>	            
 	            <b style="font-size:12px;">Payroll Period : <?=$period['startdate'];?> to <?=$period['enddate'];?></b><br>
 	            <b style="font-size:12px;"><?=$des['designation'];?></b> <b style="float:right;">Daily Rate: <?=number_format($des['salary'],2);?></b><br><br>
@@ -95,12 +101,17 @@
 	</tr>
 </table>
 </div>
+				
 
 <?php
+			}
 		}
 	?>
 	</td>
 </tr>
+	</table>
+	<br><br>
+	<table width="100%" border="0">
 <tr>
 	<td align="center">
 	<?php
@@ -118,10 +129,10 @@
             $tdc=$item['no_of_heads_tdc']*80;
             $gross=(($pdc+$tdc)/$per_head) + $totaladjustment;			
 			?>
-<div style="width: 23%; margin-right: 20px; float: left;">
+<div style="width: 45%; margin-right: 20px; float: left;">
 <table width="100%" border="0" style="font-size: 12px;" cellspacing="0" cellpadding="0">
 	<tr>		
-			<td>
+			<td style="border:0px solid black;">
 				<b style="font-size:12px;">VLC DRIVING TUTORIAL SERVICES</b><br>	            
 	            <b style="font-size:12px;">Payroll Period : <?=$period['startdate'];?> to <?=$period['enddate'];?></b><br>
 	            <b style="font-size:12px;"><?=$des['designation'];?></b><br><br>
