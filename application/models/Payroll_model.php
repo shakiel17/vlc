@@ -176,7 +176,7 @@
             $salary=$this->input->post("salary");
             $branch=$this->input->post("branch");
             $is_daily=$this->input->post("is_daily");                    
-            $check_exist=$this->db->query("SELECT * FROM employee WHERE lastname='$lastname' AND firstname='$firstname' AND empid <> '$empid'");
+            $check_exist=$this->db->query("SELECT * FROM employee WHERE lastname='$lastname' AND firstname='$firstname' AND empid <> '$empidold'");
             if($check_exist->num_rows() > 0){
             }else{
                 if($id==""){
