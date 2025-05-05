@@ -28,7 +28,7 @@
         </div>
     <?php
         }
-    ?>
+    ?>        
     <section class="section dashboard">
       <div class="row">
         <!-- Left side columns -->
@@ -46,8 +46,20 @@
                     <li><a class="dropdown-item addEmployee" href="#" data-bs-toggle="modal" data-bs-target="#manageemployee">Add Employee</a></li>                    
                   </ul>
                 </div>
-              <h5 class="card-title">List of Employee</h5>
-
+              <h5 class="card-title">List of Employee</h5>         
+              <div style="width:100vw;height:100vh; position:fixed;" id="loader">
+                <div class="wavy-text">
+                <span>L</span>
+                <span>o</span>
+                <span>a</span>
+                <span>d</span>
+                <span>i</span>
+                <span>n</span>
+                <span>g</span>
+                <span>.</span>
+                <span>.</span>
+                </div>
+              </div>     
               <!-- Default Table -->
               <table class="table datatable">
                 <thead>
@@ -85,8 +97,15 @@
                                 echo "<td>$branch[birthdate]</td>";
                                 echo "<td>$branch[gender]</td>";
                                 echo "<td>$branch[designation]<br>$daily<br>$branch[description]</td>";
-                                echo "<td><a href='#' class='btn btn-sm btn-warning editEmployee' data-bs-toggle='modal' data-bs-target='#manageemployee' data-id='$branch[idno]'>Edit</a>";
+                                echo "<td>";
                                 ?>
+                                <!-- <div class="menu">
+                                  <div class="center">Menu</div>
+                                  <div class="item"><a href='#' class='editEmployee text-white' data-bs-toggle='modal' data-bs-target='#manageemployee' data-id='<?=$branch['idno'];?>'>Edit</a></div>
+                          -->  
+                                  
+                                                                
+                                <a href='#' class='editEmployee btn btn-warning btn-sm text-white' data-bs-toggle='modal' data-bs-target='#manageemployee' data-id='<?=$branch['idno'];?>'>Edit</a>
                                 <a href="<?=base_url();?>delete_employee/<?=$branch['idno'];?>/<?=$branch['lastname'];?>_<?=$branch['firstname'];?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');return false;">Delete</a>
                                 <a href="<?=base_url('manage_fixed_deduction/'.$branch['empid']);?>" class="btn btn-info btn-sm">Fixed Deduction</a>
                                 <?php

@@ -28,6 +28,7 @@
 
   <!-- Template Main JS File -->
   <script src="<?=base_url();?>design/assets/js/main.js"></script>
+  <script src="<?=base_url();?>design/assets/js/carousel.js"></script>
   <script>
     $('.addBranch').click(function(){      
       document.getElementById('branch_id').value = "";
@@ -387,8 +388,19 @@
       document.getElementById('adjust_amount').value = id[2];
       document.getElementById('adjust_period').value = id[4];
       document.getElementById('adjust_empid').value = id[3];      
-    });
-  </script>
+    });    
+    $(window).on('load', function(){      
+    setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.    
+  });
+  function removeLoader(){
+    
+      $( "#loader" ).fadeOut(500, function() {
+        // fadeOut complete. Remove the loading div
+        $( "#loader" ).remove(); //makes page more lightweight 
+         
+    });   
+  }
+  </script>  
 </body>
 
 </html>

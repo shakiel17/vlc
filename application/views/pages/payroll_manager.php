@@ -43,7 +43,7 @@
         }
     ?>
     <section class="section dashboard">
-      <div class="row">
+      <div class="row">        
         <!-- Left side columns -->        
         <div class="col-lg-12 col-sm-12">
           <div class="row">
@@ -57,6 +57,19 @@
               <?=form_close();?>
               <a href="<?=base_url();?>unpost_payroll/<?=$payroll_period;?>" class="btn btn-warning" onclick="return confirm('Do you wish to unpost this payroll?'); return false;" <?=$open;?>>Unpost Payroll</a>
             </div>              
+            <div style="width:100vw;height:100vh; position:fixed;" id="loader">
+                <div class="wavy-text">
+                <span>L</span>
+                <span>o</span>
+                <span>a</span>
+                <span>d</span>
+                <span>i</span>
+                <span>n</span>
+                <span>g</span>
+                <span>.</span>
+                <span>.</span>
+                </div>
+              </div>
               <!-- Default Table -->
               <table class="table">
                 <thead>

@@ -1,5 +1,4 @@
 <body>
-
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -186,7 +185,7 @@
                 ?>
               </span>
             </li>
-            <li>
+            <!-- <li>
               <hr class="dropdown-divider">
             </li>
 
@@ -215,7 +214,7 @@
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
               </a>
-            </li>
+            </li> -->
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -233,4 +232,4 @@
       </ul>
     </nav><!-- End Icons Navigation -->
 
-  </header><!-- End Header -->
+  </header><!-- End Header -->  
