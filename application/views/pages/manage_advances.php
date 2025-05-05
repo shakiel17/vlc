@@ -62,7 +62,12 @@
                             $amount=0;
                             foreach($balance as $bal){
                               $amount += $bal['amount'];
-                            }                           
+                            }
+                            $payment=$this->Payroll_model->getAdvancePayment($branch['empid']);
+                            $totalpayment=0;
+                            foreach($payment as $pay){
+                              $totalpayment += $pay['amount'];
+                            }
                             echo "<tr>";
                                 echo "<td>$x.</td>";
                                 echo "<td>$branch[empid]</td>";
@@ -70,8 +75,12 @@
                                 echo "<td>$branch[firstname]</td>";
                                 echo "<td>$branch[middlename]</td>";
                                 echo "<td>$branch[suffix]</td>";                               
-                                echo "<td align='right'>".number_format($amount,2)."</td>";
-                                echo "<td><a href='".base_url()."view_advances/$branch[empid]' class='btn btn-sm btn-primary'>View Details</a>";                               
+                                echo "<td align='right'>".number_format($amount-$totalpayment,2)."</td>";
+                                echo "<td>";
+                                ?>
+                                <a href="<?=base_url('view_advances/'.$branch['empid']);?>" class="btn btn-sm btn-primary">View Details</a>
+                                <a href="<?=base_url('view_advance_payment/'.$branch['empid']);?>" class="btn btn-success btn-sm" target="_blank">View Payment</a>  
+                                <?php
                                 echo "</td>";                                
                             echo "</tr>";
                             $x++;

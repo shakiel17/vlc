@@ -70,6 +70,7 @@ $route['post_payroll'] = 'pages/post_payroll';
 $route['create_payroll'] = 'pages/create_payroll';
 $route['manage_payroll'] = 'pages/manage_payroll';
 //========================Trainee Module=======================================
+$route['view_advance_payment/(:any)'] = 'pages/view_advance_payment/$1';
 $route['view_advances/(:any)'] = 'pages/view_advances/$1';
 $route['delete_advances/(:any)/(:any)'] = 'pages/delete_advances/$1/$2';
 $route['save_advances'] = 'pages/save_advances';

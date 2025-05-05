@@ -1070,6 +1070,40 @@
             $mpdf->WriteHTML($html);
             $mpdf->Output();*/
         }
+        public function view_advance_payment($empid){
+            $page="view_advance_payment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }            
+            if($this->session->user_login){
+                
+            }else{
+              redirect(base_url()."main");
+            }                        
+            $data['advances'] = $this->Payroll_model->getAdvanceBalance($empid);
+            $data['payment'] = $this->Payroll_model->getAdvancePayment($empid);
+            $data['emp'] = $this->Payroll_model->getSingleEmployee($empid);
+            $html = $this->load->view('pages/'.$page,$data);
+            /*$mpdf = new \Mpdf\Mpdf([
+                    'setAutoTopMargin' => 'stretch',
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'setAutoBottomMargin' => 'stretch'
+            ]);
+            $mpdf->setHTMLHeader('
+            <div align="center">
+			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             '.$type.' '.$interval.' ENROLLEES<br><br>             
+             </div>   
+             <div>
+             '.$date.'
+             </div>          
+            ');
+            $mpdf->autoPageBreak = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();*/
+        }
         //===================================Start of Reports=========================================
 
         public function print_enrollee(){

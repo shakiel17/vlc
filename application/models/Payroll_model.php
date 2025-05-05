@@ -801,5 +801,9 @@
                 return false;
             }
         }
+        public function getAdvancePayment($empid){
+            $result=$this->db->query("SELECT * FROM deduction WHERE empid='$empid' AND `description`='Cash Advance'");
+            return $result->result_array();
+        }
     }
 ?>
