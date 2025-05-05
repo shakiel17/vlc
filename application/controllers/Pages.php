@@ -1038,6 +1038,38 @@
             }
             redirect(base_url().'manage_adjustment/'.$payroll_period.'/'.$empid);
         }
+        public function print_employee_list(){
+            $page="print_employee_list";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }            
+            if($this->session->user_login){
+                
+            }else{
+              redirect(base_url()."main");
+            }                        
+            $data['items'] = $this->Payroll_model->getAllEmployee();            
+            $html = $this->load->view('pages/'.$page,$data);
+            /*$mpdf = new \Mpdf\Mpdf([
+                    'setAutoTopMargin' => 'stretch',
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'setAutoBottomMargin' => 'stretch'
+            ]);
+            $mpdf->setHTMLHeader('
+            <div align="center">
+			 <b style="font-size:20px;">VLC DRIVING TUTORIAL SERVICES</b><br>
+             <b>Kidapawan City</b><br><br>
+             '.$type.' '.$interval.' ENROLLEES<br><br>             
+             </div>   
+             <div>
+             '.$date.'
+             </div>          
+            ');
+            $mpdf->autoPageBreak = true;
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();*/
+        }
         //===================================Start of Reports=========================================
 
         public function print_enrollee(){

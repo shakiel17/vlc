@@ -43,7 +43,8 @@
                       <h6>Action</h6>
                     </li>
 
-                    <li><a class="dropdown-item addPayrollPeriod" href="#" data-bs-toggle="modal" data-bs-target="#managepayrollperiod">Add Payroll Period</a></li>                    
+                    <li><a class="dropdown-item addPayrollPeriod" href="#" data-bs-toggle="modal" data-bs-target="#managepayrollperiod">Add Payroll Period</a></li>
+                    <li><a class="dropdown-item" href="<?=base_url('print_employee_list');?>" target="_blank">Print List</a></li>
                   </ul>
                 </div>
               <h5 class="card-title">Payroll History</h5>
