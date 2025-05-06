@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.6.16 : Database - vlc_db
+SQLyog Community v13.3.0 (64 bit)
+MySQL - 10.4.32-MariaDB : Database - vlc_db
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.6.16 : Database - vlc_db
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`vlc_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`vlc_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `vlc_db`;
 
@@ -24,13 +24,13 @@ CREATE TABLE `adjustment` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `payroll_period` varchar(100) DEFAULT NULL,
   `empid` varchar(100) DEFAULT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `adjustment` */
 
@@ -47,14 +47,14 @@ DROP TABLE IF EXISTS `advances`;
 CREATE TABLE `advances` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `empid` varchar(100) DEFAULT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `advances` */
 
@@ -68,13 +68,13 @@ DROP TABLE IF EXISTS `balances`;
 
 CREATE TABLE `balances` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `description` text,
+  `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `balances` */
 
@@ -86,7 +86,7 @@ CREATE TABLE `branch` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `branch` */
 
@@ -109,7 +109,7 @@ CREATE TABLE `commissioner` (
   `timearray` time NOT NULL,
   `status` varchar(100) DEFAULT 'Active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `commissioner` */
 
@@ -171,7 +171,7 @@ CREATE TABLE `commissionerdetails` (
   `timearray` time DEFAULT NULL,
   `status` varchar(100) DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `commissionerdetails` */
 
@@ -209,7 +209,7 @@ CREATE TABLE `customer` (
   `branch` varchar(100) NOT NULL,
   `remarks` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `customer` */
 
@@ -235,13 +235,13 @@ CREATE TABLE `deduction` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `payroll_period` varchar(100) DEFAULT NULL,
   `empid` varchar(100) DEFAULT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `deduction` */
 
@@ -261,13 +261,13 @@ DROP TABLE IF EXISTS `deposit`;
 
 CREATE TABLE `deposit` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `description` text,
+  `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `deposit` */
 
@@ -279,7 +279,7 @@ CREATE TABLE `designation` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `designation` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `designation` */
 
@@ -305,7 +305,7 @@ CREATE TABLE `employee` (
   `birthdate` date DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `employee` */
 
@@ -328,10 +328,10 @@ CREATE TABLE `employeedetails` (
   `empid` varchar(100) DEFAULT NULL,
   `designation` varchar(100) DEFAULT NULL,
   `salary` double DEFAULT NULL,
-  `is_daily` int(11) DEFAULT '1',
+  `is_daily` int(11) DEFAULT 1,
   `branch` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `employeedetails` */
 
@@ -350,13 +350,13 @@ DROP TABLE IF EXISTS `expenses`;
 
 CREATE TABLE `expenses` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `description` text,
+  `description` text DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `expenses` */
 
@@ -371,7 +371,7 @@ CREATE TABLE `fixed_deduction` (
   `amount` double DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `fixed_deduction` */
 
@@ -402,7 +402,7 @@ CREATE TABLE `payroll_daily` (
   `status` varchar(100) DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `payroll_daily` */
 
@@ -445,7 +445,7 @@ CREATE TABLE `payroll_per_head` (
   `status` varchar(100) DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `payroll_per_head` */
 
@@ -454,8 +454,8 @@ insert  into `payroll_per_head`(`id`,`payroll_period`,`empid`,`no_of_heads_pdc`,
 (2,'1','03',54,64,0,0,'2025-04-23','11:04:34','posted','4'),
 (3,'2','01',100,133,0,0,'2025-04-23','11:54:54','posted','4'),
 (4,'2','03',67,87,0,0,'2025-04-23','11:54:54','posted','4'),
-(5,'3','01',89,119,0,0,'2025-04-30','11:23:34','posted','4'),
-(6,'3','03',89,119,0,0,'2025-04-30','11:23:34','posted','4'),
+(5,'3','01',89,119,1250,0,'2025-04-30','11:23:34','posted','4'),
+(6,'3','03',89,119,0,500,'2025-04-30','11:23:34','posted','4'),
 (7,'4','01',0,0,0,0,'2025-05-05','12:25:25','posted','4'),
 (8,'4','03',0,0,0,0,'2025-05-05','12:25:25','posted','4');
 
@@ -469,7 +469,7 @@ CREATE TABLE `payroll_period` (
   `enddate` date DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `payroll_period` */
 
@@ -485,12 +485,12 @@ DROP TABLE IF EXISTS `user_logs`;
 
 CREATE TABLE `user_logs` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `transaction` text,
+  `transaction` text DEFAULT NULL,
   `loginuser` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `user_logs` */
 
@@ -643,7 +643,7 @@ CREATE TABLE `users` (
   `is_admin` int(1) DEFAULT NULL,
   `branch` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `users` */
 
