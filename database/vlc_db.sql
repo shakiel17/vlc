@@ -189,6 +189,24 @@ insert  into `commissionerdetails`(`id`,`comm_id`,`trainee_id`,`datearray`,`time
 (15,'18','20250424112737','2025-04-24','11:27:37','pending'),
 (16,'32','20250424112822','2025-04-24','11:28:22','pending');
 
+/*Table structure for table `computation` */
+
+DROP TABLE IF EXISTS `computation`;
+
+CREATE TABLE `computation` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `tdc` int(11) DEFAULT NULL,
+  `pdc` int(11) DEFAULT NULL,
+  `employee` int(11) DEFAULT NULL,
+  `branch` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `computation` */
+
+insert  into `computation`(`id`,`tdc`,`pdc`,`employee`,`branch`) values 
+(1,80,60,4,'4');
+
 /*Table structure for table `customer` */
 
 DROP TABLE IF EXISTS `customer`;
@@ -456,8 +474,8 @@ insert  into `payroll_per_head`(`id`,`payroll_period`,`empid`,`no_of_heads_pdc`,
 (4,'2','03',67,87,0,0,'2025-04-23','11:54:54','posted','4'),
 (5,'3','01',89,119,1250,0,'2025-04-30','11:23:34','posted','4'),
 (6,'3','03',89,119,0,500,'2025-04-30','11:23:34','posted','4'),
-(7,'4','01',0,0,0,0,'2025-05-05','12:25:25','posted','4'),
-(8,'4','03',0,0,0,0,'2025-05-05','12:25:25','posted','4');
+(7,'4','01',50,50,0,0,'2025-05-05','12:25:25','posted','4'),
+(8,'4','03',50,50,0,0,'2025-05-05','12:25:25','posted','4');
 
 /*Table structure for table `payroll_period` */
 
@@ -490,7 +508,7 @@ CREATE TABLE `user_logs` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `user_logs` */
 
@@ -629,7 +647,8 @@ insert  into `user_logs`(`id`,`transaction`,`loginuser`,`datearray`,`timearray`)
 (150,'Deduction details successfully saved!','Administrator','2025-05-02','14:59:39'),
 (151,'Payroll Period successfully saved!','Administrator','2025-05-05','12:25:22'),
 (152,'Advance details successfully saved!','Administrator','2025-05-05','14:24:46'),
-(153,'Advance details successfully saved!','Administrator','2025-05-05','14:25:07');
+(153,'Advance details successfully saved!','Administrator','2025-05-05','14:25:07'),
+(154,'Computation successfully saved!','Administrator','2025-05-09','22:58:15');
 
 /*Table structure for table `users` */
 
