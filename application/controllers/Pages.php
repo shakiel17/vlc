@@ -1104,6 +1104,27 @@
             $mpdf->WriteHTML($html);
             $mpdf->Output();*/
         }
+
+        public function save_computation(){
+            $save=$this->Payroll_model->save_computation();
+            if($save){
+                $message="Computation successfully saved!";
+                $username=$this->session->fullname;
+                $datearray=date('Y-m-d');
+                $timearray=date('H:i:s');
+                $this->Payroll_model->userlogs($message,$username,$datearray,$timearray);
+                echo "<script>";
+                    echo "alert('Computation successfully updated!');";
+                echo "</script>";
+            }else{
+                echo "<script>";
+                    echo "alert('Unable to update computation!');";
+                echo "</script>";
+            }
+                echo "<script>";
+                    echo "window.history.back();";
+                echo "</script>";
+        }
         //===================================Start of Reports=========================================
 
         public function print_enrollee(){

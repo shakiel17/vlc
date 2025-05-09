@@ -115,6 +115,7 @@ $route['save_designation'] = 'pages/save_designation';
 $route['manage_designation'] = 'pages/manage_designation';
 //============================================================================
 //========================Branch Module=======================================
+$route['save_computation'] = 'pages/save_computation';
 $route['delete_branch/(:any)/(:any)'] = 'pages/delete_branch/$1/$2';
 $route['save_branch'] = 'pages/save_branch';
 $route['manage_branch'] = 'pages/manage_branch';

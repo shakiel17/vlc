@@ -805,5 +805,26 @@
             $result=$this->db->query("SELECT * FROM deduction WHERE empid='$empid' AND `description`='Cash Advance'");
             return $result->result_array();
         }
+        public function getAllComputation(){
+            $result=$this->db->query("SELECT c.*,b.description FROM computation c INNER JOIN branch b ON b.id=c.branch");
+            return $result->row_array();
+        }
+        public function save_computation(){
+            $tdc=$this->input->post('tdc');
+            $pdc=$this->input->post('pdc');
+            $employee=$this->input->post('employee');
+            $branch=$this->input->post('branch');
+            $check=$this->db->query("SELECT * FROM computation");
+            if($check->num_rows()>0){
+                $result=$this->db->query("UPDATE computation SET tdc='$tdc',pdc='$pdc',employee='$employee',branch='$branch'");
+            }else{
+                $result=$this->db->query("INSERT INTO computation(tdc,pdc,employee,branch) VALUES('$tdc','$pdc','$employee','$branch')");
+            }
+            if($result){ 
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>

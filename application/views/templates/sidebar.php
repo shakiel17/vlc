@@ -98,6 +98,11 @@
               <i class="bi bi-circle"></i><span>User Manager</span>
             </a>
           </li>
+          <li>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#managecomputation">
+              <i class="bi bi-circle"></i><span>Computation</span>
+            </a>
+          </li>
           <?php
             }
           ?>          

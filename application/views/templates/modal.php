@@ -778,8 +778,62 @@
                 </div>
                 <div class="form-group mb-1">                    
                     <label>Amount</label>
-                    <input type="text" name="amount" class="form-control" id=adjust_amount">
+                    <input type="text" name="amount" class="form-control" id="adjust_amount">
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <?=form_close();?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="managecomputation" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage Computation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?php
+            $comp=$this->Payroll_model->getAllComputation();
+            ?>
+            <?=form_open(base_url()."save_computation");?>                        
+            <div class="modal-body">
+                <div class="form-group mb-1">                    
+                    <label>TDC</label>
+                    <input type="number" name="tdc" class="form-control" value="<?=$comp['tdc'];?>">
+                </div>
+                <div class="form-group mb-1">                    
+                    <label>PDC</label>
+                    <input type="number" name="pdc" class="form-control" value="<?=$comp['pdc'];?>">
+                </div>
+                <div class="form-group mb-1">                    
+                    <label>No. of Employee</label>
+                    <input type="number" name="employee" class="form-control" value="<?=$comp['employee'];?>">
+                </div>
+                <?php
+                    if($this->session->is_admin==1){
+                        $branches=$this->Payroll_model->getAllBranch();
+                ?>
+            <div class="form-group mb-1">                    
+                    <label class="col-sm-2 control-label">Branch</label>
+                    <select name="branch" class="form-select" id="balance_branch" required>
+                        <option value="<?=$comp['branch'];?>"><?=$comp['description'];?></option>
+                        <?php
+                            foreach($branches as $branch){
+                                echo "<option value='$branch[id]'>$branch[description]</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }else{
+                        echo "<input type='hidden' name='branch' value='".$this->session->branch."'>";
+                    }
+                    ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>                

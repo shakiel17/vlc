@@ -31,7 +31,7 @@
 	            	<tr>
 	            		<td>Days Worked</td>
 	            		<td><?=$item['no_of_days_work'];?></td>
-	            		<td align="right"><?=number_format($item['no_of_days_work']*$des['salary'],2);?></td>
+	            		<td align="right"><?=number_format($item['no_of_days_work']*$item['salary'],2);?></td>
 	            	</tr>
 					<?php
 					$totaladjustment=0;
@@ -50,7 +50,7 @@
 	            	</tr>
 	            	<tr>
 	            		<td><b>Gross Pay.........</b></td>
-	            		<td colspan="2" align="right"><b><?=number_format(($item['no_of_days_work']*$des['salary'])+$totaladjustment,2);?></b></td>
+	            		<td colspan="2" align="right"><b><?=number_format(($item['no_of_days_work']*$item['salary'])+$totaladjustment,2);?></b></td>
 	            	</tr>
 	            	<tr>
 	            		<td colspan="3">&nbsp;</td>
@@ -92,7 +92,7 @@
 	            	</tr>
 	            	<tr>
 	            		<td><b>Net Pay.........</b></td>
-	            		<td colspan="2" align="right"><b><?=number_format((($item['no_of_days_work']*$des['salary'])+$item['adjustment'])-$totaldeduction,2);?></b></td>
+	            		<td colspan="2" align="right"><b><?=number_format((($item['no_of_days_work']*$item['salary'])+$item['adjustment'])-$totaldeduction,2);?></b></td>
 	            	</tr>
 	            </table>
 	            
@@ -125,8 +125,10 @@
 	            foreach($adjustment as $row){
 					$totaladjustment += $row['amount'];
 				}
-			$pdc=$item['no_of_heads_pdc']*60;
-            $tdc=$item['no_of_heads_tdc']*80;
+				$comp=$this->Payroll_model->getAllComputation();
+				$per_head=$comp['employee'];
+			$pdc=$item['no_of_heads_pdc']*$comp['pdc'];
+            $tdc=$item['no_of_heads_tdc']*$comp['tdc'];
             $gross=(($pdc+$tdc)/$per_head) + $totaladjustment;			
 			?>
 <div style="width: 45%; margin-right: 20px; float: left;">
